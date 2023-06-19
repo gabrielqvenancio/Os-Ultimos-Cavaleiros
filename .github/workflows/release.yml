@@ -23,6 +23,6 @@ jobs:
         with:
           node-version: "lts/*"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.SECRET_CODE }}
       - run: npm ci
       - run: npx semantic-release
