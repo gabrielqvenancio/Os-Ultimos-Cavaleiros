@@ -1,6 +1,6 @@
 {
   "branches": "main",
-  "repositoryUrl": "https://github.com/gabrielqvenancio/TCC",
+  "repositoryUrl": "https://github.com/gabrielqvenancio/Os-Ultimos-Cavaleiros",
   "debug": "false",
   "plugins": [
     "@semantic-release/commit-analyzer",

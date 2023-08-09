@@ -2,14 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainLoop : MonoBehaviour
+public class LightningHandler : MonoBehaviour
 {
     void Start()
-    {
-        
-    }
-
-    void Update()
     {
         
     }

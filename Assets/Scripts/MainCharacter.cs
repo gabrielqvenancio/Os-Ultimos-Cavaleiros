@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class MainCharacter : MonoBehaviour
 {
+    private Animator animator;
+
+    private void LoopMethod()
+    {
+
+    }
     void Start()
     {
-        
-    }
-
-    void Update()
-    {
-        
+        animator = GetComponent<Animator>();
     }
 }
