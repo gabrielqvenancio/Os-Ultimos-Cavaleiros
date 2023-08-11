@@ -6,6 +6,8 @@ using UnityEngine.U2D;
 
 public class EnvironmentHandler : MonoBehaviour
 {
+    private ScriptableLevel currentLevel;
+    internal static EnvironmentHandler instance;
     [SerializeField] private GameObject[] grounds;
     [SerializeField] private GameObject[] horizons;
     private Vector3 envMovingVelocity;
@@ -17,10 +19,13 @@ public class EnvironmentHandler : MonoBehaviour
 
     void Start()
     {
+        instance = this;
         envMovingVelocity = new Vector3(-5f, 0, 0);
 
-        PerformanceHandler.fixedLoopsAgregator += LoopMethod;
+        PerformanceHandler.fixedLoopsDelegate += LoopMethod;
+        InputHandler.instance.changeLevelDelegate += ChangeLevelSprites;
     }
+
     private void Move()
     {
         Vector3 resetPosition;
@@ -46,5 +51,10 @@ public class EnvironmentHandler : MonoBehaviour
                 horizon.transform.position = resetPosition;
             }
         }
+    }
+
+    private void ChangeLevelSprites(ScriptableLevel levelToLoad)
+    {
+
     }
 }
