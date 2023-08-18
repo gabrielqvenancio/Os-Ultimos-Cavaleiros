@@ -5,13 +5,21 @@ using UnityEngine;
 public class Greenie : MonoBehaviour
 {
     private Animator animator;
+    private int score;
 
-    private void LoopMethod()
-    {
-
-    }
     void Start()
     {
         animator = GetComponent<Animator>();
+        score = 0;
+    }
+
+    internal void ScoreFrameIncrementation()
+    {
+        score++;
+    }
+
+    internal void ScoreEnemyIncrementation(int scoreYield)
+    {
+        score += scoreYield;
     }
 }

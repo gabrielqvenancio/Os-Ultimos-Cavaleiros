@@ -1,53 +1,85 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public delegate void Loop();
-
 public class PerformanceHandler : MonoBehaviour
 {
     internal static PerformanceHandler instance;
-    [SerializeField] private ScriptableLevel[] allLevels;
-    internal static Loop loopsDelegate;
-    internal static Loop fixedLoopsDelegate;
     internal List<Queue<GameObject>> enemiesQueue;
+    [SerializeField] private int spawnIntervalFrames;
+    private int framesCount;
+    [SerializeField] private Vector3 spawnPoint;
 
-    
-
-    private void Start()
+    private void Awake()
     {
-        instance = this;
         enemiesQueue = new List<Queue<GameObject>>();
-        currentLevel = allLevels[0];
-
-        InputHandler.instance.changeLevelDelegate += ChangeLevelQueues;
     }
 
     private void Update()
     {
-        loopsDelegate?.Invoke();
+        SpawnTimer();
     }
 
-    private void FixedUpdate()
+    private void Start()
     {
-        fixedLoopsDelegate?.Invoke();
+        instance = this;
+        framesCount = 0;
     }
 
-    private void EnqueueEnemy(GameObject enemy)
+    internal void SpawnTimer()
+    {
+        framesCount++;
+
+        if(framesCount >= spawnIntervalFrames)
+        {
+            SpawnEnemy();
+        }
+    }
+
+    private void SpawnEnemy()
+    {
+        GameObject enemy = ChooseRandomEnemy();
+        Instantiate(enemy, spawnPoint, Quaternion.identity);
+    }
+
+    private GameObject ChooseRandomEnemy()
+    {
+        GameObject enemyChoosen = null;
+        framesCount = 0;
+        int spawnEnemyHelper = 100;
+        int randEnemySpawn = UnityEngine.Random.Range(1, 101);
+
+        foreach (GameObject enemy in EnvironmentHandler.instance.currentLevel.enemiesToSpawn)
+        {
+            ScriptableEnemy enemyAttributes = enemy.GetComponent<Enemy>().attributes;
+            spawnEnemyHelper -= enemyAttributes.rarity;
+            if (randEnemySpawn > spawnEnemyHelper)
+            {
+                enemyChoosen = (enemiesQueue[enemyAttributes.mapId].Count > 0 ? DequeueEnemy(enemyAttributes.mapId) : enemyAttributes.prefab);
+                break;
+            }
+        }
+        return enemyChoosen;
+    }
+
+    internal void EnqueueEnemy(GameObject enemy)
     {
         enemiesQueue[enemy.GetComponent<Enemy>().attributes.mapId].Enqueue(enemy);
+        enemy.SetActive(false);
     }
 
-    private GameObject DequeueEnemy(int enemyMapId)
+    internal GameObject DequeueEnemy(int enemyMapId)
     {
-        return enemiesQueue[enemyMapId].Dequeue();
+        GameObject enemy = enemiesQueue[enemyMapId].Dequeue();
+        enemy.SetActive(true);
+        return enemy;
     }
 
-    private void ChangeLevelQueues(ScriptableLevel levelToLoad)
+    internal void OnChangeLevel(ScriptableLevel levelToLoad)
     {
-        currentLevel = levelToLoad;
-        EnvironmentHandler.instance.
-        foreach(GameObject enemyPrefab in levelToLoad.enemiesToSpawn)
+        enemiesQueue.Clear();
+        foreach (GameObject enemyPrefab in levelToLoad.enemiesToSpawn)
         {
             enemiesQueue.Add(new Queue<GameObject>());
         }

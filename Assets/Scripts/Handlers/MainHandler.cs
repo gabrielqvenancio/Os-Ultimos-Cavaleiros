@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputHandler : MonoBehaviour
+public class MainHandler : MonoBehaviour
 {
-    internal static InputHandler instance;
+    internal static MainHandler instance;
 
     void Start()
     {

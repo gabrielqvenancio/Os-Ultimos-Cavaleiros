@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a05a0ba201d4ce04b93a6fb9a1689384, type: 3}
   m_Name: Skeleton
   m_EditorClassIdentifier: 
-  rarity: 0
-  damage: 0
-  health: 0
+  enemyName: Esqueleto
+  rarity: 80
+  damage: 2
+  health: 10
+  mapId: 0
+  armor: 0
+  scoreYield: 200
+  baseSpeed: 4
+  drop: {fileID: 11400000, guid: d1991cd88ad71f644904e877b0596a55, type: 2}
+  prefab: {fileID: 1692058159099708552, guid: dc8d41c490223b8449c51f2e01442057, type: 3}

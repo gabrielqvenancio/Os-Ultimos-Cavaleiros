@@ -1,29 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers;
 using UnityEngine;
-using UnityEngine.U2D;
 
 public class EnvironmentHandler : MonoBehaviour
 {
-    private ScriptableLevel currentLevel;
     internal static EnvironmentHandler instance;
-    [SerializeField] private GameObject[] grounds;
-    [SerializeField] private GameObject[] horizons;
-    private Vector3 envMovingVelocity;
 
-    private void LoopMethod()
-    {
-        Move();
-    }
+    internal ScriptableLevel currentLevel;
+    [SerializeField] private ScriptableLevel[] allLevels;
+    [SerializeField] private GameObject[] grounds, horizons;
+
+    [SerializeField] private Vector3 groundMovingVelocity, horizonMovingVelocity;
 
     void Start()
     {
         instance = this;
-        envMovingVelocity = new Vector3(-5f, 0, 0);
+        currentLevel = allLevels[Random.Range(0, allLevels.Length)];
 
-        PerformanceHandler.fixedLoopsDelegate += LoopMethod;
-        InputHandler.instance.changeLevelDelegate += ChangeLevelSprites;
+        ChangeLevelSprites(currentLevel);
+        PerformanceHandler.instance.OnChangeLevel(currentLevel);
+    }
+
+    private void FixedUpdate()
+    {
+        Move();
     }
 
     private void Move()
@@ -32,7 +32,7 @@ public class EnvironmentHandler : MonoBehaviour
 
         foreach (GameObject ground in grounds)
         {
-            ground.transform.Translate(envMovingVelocity * Time.fixedDeltaTime);
+            ground.transform.Translate(-groundMovingVelocity * Time.fixedDeltaTime);
             if (ground.transform.position.x <= -30)
             {
                 resetPosition = ground.transform.position;
@@ -43,7 +43,7 @@ public class EnvironmentHandler : MonoBehaviour
 
         foreach (GameObject horizon in horizons)
         {
-            horizon.transform.Translate(envMovingVelocity * Time.fixedDeltaTime);
+            horizon.transform.Translate(-horizonMovingVelocity * Time.fixedDeltaTime);
             if (horizon.transform.position.x <= -25)
             {
                 resetPosition = horizon.transform.position;
@@ -55,6 +55,11 @@ public class EnvironmentHandler : MonoBehaviour
 
     private void ChangeLevelSprites(ScriptableLevel levelToLoad)
     {
-
+        currentLevel = levelToLoad;
+        for(int i = 0; i < 2; i++)
+        {
+            grounds[i].GetComponent<SpriteRenderer>().sprite = currentLevel.ground;
+            horizons[i].GetComponent<SpriteRenderer>().sprite = currentLevel.horizon;
+        }
     }
 }

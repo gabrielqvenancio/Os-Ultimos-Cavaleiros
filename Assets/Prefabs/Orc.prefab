@@ -100,6 +100,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f415c8f8fc77bb94f8e478723ca8fdfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  standardVelocity: {x: 0, y: 0, z: 0}
+  totalAcceleration: {x: 0, y: 0, z: 0}
+  attributes: {fileID: 11400000, guid: ecccd197471acec4fbdbccd8946f5083, type: 2}
 --- !u!95 &8664920968154984865
 Animator:
   serializedVersion: 5

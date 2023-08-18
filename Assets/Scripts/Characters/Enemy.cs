@@ -4,28 +4,37 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private Vector3 standardVelocity, totalAcceleration;
+    private int currentHealth, currentArmor;
+    private Vector3 velocity, totalAcceleration;
+    private float velocityOffset;
     [SerializeField] internal ScriptableEnemy attributes;
 
-    private void FixedLoopMethod()
+    void Start()
+    {
+        currentHealth = attributes.health;
+        velocityOffset = attributes.baseSpeed / 5f;
+        velocity = new Vector3(-attributes.baseSpeed + Random.Range(-velocityOffset, velocityOffset), 0, 0);
+        totalAcceleration = Vector3.zero;
+    }
+
+    private void FixedUpdate()
     {
         Move();
     }
 
-    void Start()
-    {
-        standardVelocity = new Vector3(-0.75f + Random.Range(-0.25f, 0.25f), 0, 0);
-        totalAcceleration = Vector3.zero;
-
-        PerformanceHandler.loopsDelegate += FixedLoopMethod;
-    }
-
     private void Move()
     {
-        transform.Translate(standardVelocity * Time.fixedDeltaTime + (totalAcceleration * Mathf.Pow(Time.fixedDeltaTime, 2)) / 2);
+        transform.Translate(velocity * Time.fixedDeltaTime + totalAcceleration * Mathf.Pow(Time.fixedDeltaTime, 2) / 2);
         if(transform.position.x <= -15f)
         {
-            gameObject.SetActive(false);
+            PerformanceHandler.instance.EnqueueEnemy(gameObject);
         }
+    }
+
+    private void OnEnable()
+    {
+        velocity = new Vector3(-attributes.baseSpeed + Random.Range(-velocityOffset, velocityOffset), 0, 0);
+        currentHealth = attributes.health;
+        currentArmor = attributes.armor;
     }
 }

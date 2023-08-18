@@ -6,7 +6,8 @@ using UnityEngine;
 public class ScriptableEnemy : ScriptableObject
 {
     public string enemyName;
-    public int rarity, damage, health, mapId, armor;
+    public int rarity, damage, health, mapId, armor, scoreYield;
     public float baseSpeed;
     public ScriptableDrop drop;
+    public GameObject prefab;
 }
