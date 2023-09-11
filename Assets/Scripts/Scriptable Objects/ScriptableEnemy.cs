@@ -8,6 +8,7 @@ public class ScriptableEnemy : ScriptableObject
     public string enemyName;
     public int rarity, damage, health, mapId, armor, scoreYield;
     public float baseSpeed;
+    public Vector3 pushAcceleration, pushRecovery;
     public ScriptableDrop drop;
     public GameObject prefab;
 }

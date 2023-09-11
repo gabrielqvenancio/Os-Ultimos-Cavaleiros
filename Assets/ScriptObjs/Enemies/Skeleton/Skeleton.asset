@@ -19,6 +19,8 @@ MonoBehaviour:
   mapId: 0
   armor: 0
   scoreYield: 200
-  baseSpeed: 4
+  baseSpeed: 1
+  pushAcceleration: {x: 20, y: 0, z: 0}
+  pushRecovery: {x: 40, y: 0, z: 0}
   drop: {fileID: 11400000, guid: d1991cd88ad71f644904e877b0596a55, type: 2}
   prefab: {fileID: 1692058159099708552, guid: dc8d41c490223b8449c51f2e01442057, type: 3}

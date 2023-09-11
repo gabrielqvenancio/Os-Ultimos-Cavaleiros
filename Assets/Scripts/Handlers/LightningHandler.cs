@@ -31,12 +31,12 @@ public class LightningHandler : MonoBehaviour
             framesCount = 0;
         }
     }
-
+    /*
     private IEnumerator ChangeDayLight()
     {
         while()
         {
             yield return null;
         }
-    }
+    }*/
 }

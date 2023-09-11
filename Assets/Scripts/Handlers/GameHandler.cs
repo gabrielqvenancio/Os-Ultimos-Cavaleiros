@@ -3,28 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PerformanceHandler : MonoBehaviour
+public class GameHandler : MonoBehaviour
 {
-    internal static PerformanceHandler instance;
+    internal static GameHandler instance;
     internal List<Queue<GameObject>> enemiesQueue;
     [SerializeField] private int spawnIntervalFrames;
     private int framesCount;
     [SerializeField] private Vector3 spawnPoint;
+    [SerializeField] private GameObject enemiesParent;
+    [SerializeField] private Greenie greenie;
 
     private void Awake()
     {
         enemiesQueue = new List<Queue<GameObject>>();
     }
 
-    private void Update()
-    {
-        SpawnTimer();
-    }
-
     private void Start()
     {
         instance = this;
         framesCount = 0;
+    }
+
+    private void Update()
+    {
+        SpawnTimer();
     }
 
     internal void SpawnTimer()
@@ -39,13 +41,7 @@ public class PerformanceHandler : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        GameObject enemy = ChooseRandomEnemy();
-        Instantiate(enemy, spawnPoint, Quaternion.identity);
-    }
-
-    private GameObject ChooseRandomEnemy()
-    {
-        GameObject enemyChoosen = null;
+        GameObject enemyChoosen;
         framesCount = 0;
         int spawnEnemyHelper = 100;
         int randEnemySpawn = UnityEngine.Random.Range(1, 101);
@@ -56,11 +52,19 @@ public class PerformanceHandler : MonoBehaviour
             spawnEnemyHelper -= enemyAttributes.rarity;
             if (randEnemySpawn > spawnEnemyHelper)
             {
-                enemyChoosen = (enemiesQueue[enemyAttributes.mapId].Count > 0 ? DequeueEnemy(enemyAttributes.mapId) : enemyAttributes.prefab);
+                if(enemiesQueue[enemyAttributes.mapId].Count > 0)
+                {
+                    enemyChoosen = DequeueEnemy(enemyAttributes.mapId);
+                    enemyChoosen.transform.position = spawnPoint;
+                }
+                else
+                {
+                    enemyChoosen = enemyAttributes.prefab;
+                    Instantiate(enemy, spawnPoint, Quaternion.identity, enemiesParent.transform);
+                }
                 break;
             }
         }
-        return enemyChoosen;
     }
 
     internal void EnqueueEnemy(GameObject enemy)
@@ -83,5 +87,11 @@ public class PerformanceHandler : MonoBehaviour
         {
             enemiesQueue.Add(new Queue<GameObject>());
         }
+    }
+
+    internal void OnEnemyHit(Enemy enemyHit)
+    {
+        enemyHit.EnemyPush(greenie.pushAcceleration);
+        EnvironmentHandler.instance.globalHitVelocity = enemyHit.attributes.pushAcceleration;
     }
 }

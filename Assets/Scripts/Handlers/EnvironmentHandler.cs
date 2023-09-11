@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,15 +11,23 @@ public class EnvironmentHandler : MonoBehaviour
     [SerializeField] private ScriptableLevel[] allLevels;
     [SerializeField] private GameObject[] grounds, horizons;
 
-    [SerializeField] private Vector3 groundMovingVelocity, horizonMovingVelocity;
+    [SerializeField] internal Vector3 mapVelocity;
+    [SerializeField] private float parallaxProportion;
+    [SerializeField] private float groundReset, horizonReset, groundLimit, horizonLimit;
 
-    void Start()
+    private Vector3 pushRecovery;
+    internal Vector3 globalHitVelocity;
+
+    private void Awake()
     {
         instance = this;
-        currentLevel = allLevels[Random.Range(0, allLevels.Length)];
+        globalHitVelocity = Vector3.zero;
+    }
 
-        ChangeLevelSprites(currentLevel);
-        PerformanceHandler.instance.OnChangeLevel(currentLevel);
+    private void Start()
+    {
+        pushRecovery = GameObject.Find("Greenie").GetComponent<Greenie>().pushRecovery;
+        ChangeLevel();
     }
 
     private void FixedUpdate()
@@ -28,34 +37,58 @@ public class EnvironmentHandler : MonoBehaviour
 
     private void Move()
     {
-        Vector3 resetPosition;
-
+        CheckAcceleration();
+        
         foreach (GameObject ground in grounds)
         {
-            ground.transform.Translate(-groundMovingVelocity * Time.fixedDeltaTime);
-            if (ground.transform.position.x <= -30)
+            int directionCorrection;
+            ground.transform.Translate((-mapVelocity + globalHitVelocity) * Time.fixedDeltaTime);
+
+            if (Mathf.Abs(ground.transform.position.x) < Mathf.Abs(groundLimit))
             {
-                resetPosition = ground.transform.position;
-                resetPosition.x = 30f;
+                directionCorrection = ground.transform.position.x > 0 ? 1 : -1;
+
+                Vector3 resetPosition = ground.transform.position;
+                resetPosition.x = groundReset - Mathf.Abs(ground.transform.position.x - groundLimit);
                 ground.transform.position = resetPosition;
             }
         }
 
         foreach (GameObject horizon in horizons)
         {
-            horizon.transform.Translate(-horizonMovingVelocity * Time.fixedDeltaTime);
-            if (horizon.transform.position.x <= -25)
+            horizon.transform.Translate((-mapVelocity + globalHitVelocity) * (parallaxProportion * Time.fixedDeltaTime));
+            if (horizon.transform.position.x < -horizonLimit || horizon.transform.position.x > horizonLimit)
             {
-                resetPosition = horizon.transform.position;
-                resetPosition.x = 25f;
+                Vector3 resetPosition = horizon.transform.position;
+                resetPosition.x = horizonReset - Mathf.Abs(horizon.transform.position.x - horizonLimit);
                 horizon.transform.position = resetPosition;
             }
         }
     }
 
-    private void ChangeLevelSprites(ScriptableLevel levelToLoad)
+    private void ResetPosition(GameObject mapPart, int directionCorrection)
     {
-        currentLevel = levelToLoad;
+        
+    }
+
+    private void CheckAcceleration()
+    {
+        if (globalHitVelocity.x > 0)
+        {
+            globalHitVelocity -= pushRecovery * Time.fixedDeltaTime;
+            if(globalHitVelocity.x < 0)
+            {
+                globalHitVelocity = Vector3.zero;
+            }
+        }
+    }
+
+    private void ChangeLevel()
+    {
+        ScriptableLevel level = allLevels[UnityEngine.Random.Range(0, allLevels.Length)];
+        GameHandler.instance.OnChangeLevel(level);
+        currentLevel = level;
+
         for(int i = 0; i < 2; i++)
         {
             grounds[i].GetComponent<SpriteRenderer>().sprite = currentLevel.ground;

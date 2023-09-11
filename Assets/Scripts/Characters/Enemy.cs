@@ -5,16 +5,31 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private int currentHealth, currentArmor;
-    private Vector3 velocity, totalAcceleration;
-    private float velocityOffset;
+    internal Vector3 velocity;
+    private Vector3 localHitVelocity;
+    private BoxCollider2D greenieCollider, ownCollider;
+    private Animator animator;
     [SerializeField] internal ScriptableEnemy attributes;
+
+    private void Awake()
+    {
+        
+    }
 
     void Start()
     {
-        currentHealth = attributes.health;
-        velocityOffset = attributes.baseSpeed / 5f;
-        velocity = new Vector3(-attributes.baseSpeed + Random.Range(-velocityOffset, velocityOffset), 0, 0);
-        totalAcceleration = Vector3.zero;
+        ResetEnemy();
+
+        localHitVelocity = Vector3.zero;
+        
+        greenieCollider = GameObject.Find("Greenie").GetComponent<BoxCollider2D>();
+        ownCollider = GetComponent<BoxCollider2D>();
+        animator = GetComponent<Animator>();
+    }
+
+    private void OnEnable()
+    {
+        ResetEnemy();
     }
 
     private void FixedUpdate()
@@ -24,16 +39,38 @@ public class Enemy : MonoBehaviour
 
     private void Move()
     {
-        transform.Translate(velocity * Time.fixedDeltaTime + totalAcceleration * Mathf.Pow(Time.fixedDeltaTime, 2) / 2);
+        AccelerationCheck();
+
+        transform.Translate((velocity + localHitVelocity + EnvironmentHandler.instance.globalHitVelocity) * Time.fixedDeltaTime);
         if(transform.position.x <= -15f)
         {
-            PerformanceHandler.instance.EnqueueEnemy(gameObject);
+            GameHandler.instance.EnqueueEnemy(gameObject);
         }
     }
 
-    private void OnEnable()
+    private void AccelerationCheck()
     {
-        velocity = new Vector3(-attributes.baseSpeed + Random.Range(-velocityOffset, velocityOffset), 0, 0);
+        if(localHitVelocity.x > 0) 
+        {
+            localHitVelocity -= attributes.pushRecovery * Time.fixedDeltaTime;
+            if(localHitVelocity.x <= 0)
+            {
+                localHitVelocity = Vector3.zero;
+                animator.enabled = true;
+            }
+        }
+    }
+
+    internal void EnemyPush(Vector3 push)
+    {
+        localHitVelocity += push;
+        animator.enabled = false;
+    }
+
+    private void ResetEnemy()
+    {
+        float velocityOffset = attributes.baseSpeed * 0.66f;
+        velocity = new Vector3(-attributes.baseSpeed + Random.Range(-velocityOffset, velocityOffset), 0, 0) - EnvironmentHandler.instance.mapVelocity;
         currentHealth = attributes.health;
         currentArmor = attributes.armor;
     }
