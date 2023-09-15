@@ -2,27 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Greenie : MonoBehaviour
+public class Greenie : Character
 {
-    private Animator animator;
-    [SerializeField] private int scorePerFrame;
-    private int score;
-    [SerializeField] internal Vector3 pushAcceleration, pushRecovery;
-    
+    internal static Greenie instance;
+    [SerializeField] private ScriptableCharacter attributes;
 
-    void Start()
+    private void Awake()
     {
-        animator = GetComponent<Animator>();
-        score = 0;
+        BoxCollider = GetComponent<BoxCollider2D>();
+        Animator = GetComponent<Animator>();
+        instance = this;
     }
 
-    internal void ScoreIncrementation(int scoreYield)
+    private void Update()
     {
-        score += scoreYield;
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        GameHandler.instance.OnEnemyHit(collision.gameObject.GetComponent<Enemy>());
+        Enemy enemyHit = collision.gameObject.GetComponent<Enemy>();
+
+        enemyHit.TakeDamage(attributes.damage);
+        TakeDamage(enemyHit.GetAttributes().damage);
+        if(enemyHit.gameObject.activeSelf)
+        {
+            GameHandler.instance.ApplyAccelerationOnHit(enemyHit);
+            Animator.enabled = false;
+        }
+    }
+
+    protected override void OnElimination()
+    {
+
+    }
+
+    internal ScriptableCharacter GetAttributes()
+    {
+        return attributes;
     }
 }

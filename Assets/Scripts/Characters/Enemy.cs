@@ -2,33 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Character
 {
-    private int currentHealth, currentArmor;
-    internal Vector3 velocity;
+    [SerializeField] private ScriptableEnemy attributes;
     private Vector3 localHitVelocity;
-    private BoxCollider2D greenieCollider, ownCollider;
-    private Animator animator;
-    [SerializeField] internal ScriptableEnemy attributes;
 
     private void Awake()
     {
-        
+        localHitVelocity = Vector3.zero;
     }
 
     void Start()
     {
-        ResetEnemy();
-
-        localHitVelocity = Vector3.zero;
-        
-        greenieCollider = GameObject.Find("Greenie").GetComponent<BoxCollider2D>();
-        ownCollider = GetComponent<BoxCollider2D>();
-        animator = GetComponent<Animator>();
-    }
-
-    private void OnEnable()
-    {
+        BoxCollider = GetComponent<BoxCollider2D>();
+        Animator = GetComponent<Animator>();
         ResetEnemy();
     }
 
@@ -41,7 +28,7 @@ public class Enemy : MonoBehaviour
     {
         AccelerationCheck();
 
-        transform.Translate((velocity + localHitVelocity + EnvironmentHandler.instance.globalHitVelocity) * Time.fixedDeltaTime);
+        transform.Translate((Velocity + localHitVelocity + GameHandler.instance.globalHitVelocity) * Time.fixedDeltaTime);
         if(transform.position.x <= -15f)
         {
             GameHandler.instance.EnqueueEnemy(gameObject);
@@ -56,7 +43,7 @@ public class Enemy : MonoBehaviour
             if(localHitVelocity.x <= 0)
             {
                 localHitVelocity = Vector3.zero;
-                animator.enabled = true;
+                Animator.enabled = true;
             }
         }
     }
@@ -64,14 +51,26 @@ public class Enemy : MonoBehaviour
     internal void EnemyPush(Vector3 push)
     {
         localHitVelocity += push;
-        animator.enabled = false;
+        Animator.enabled = false;
     }
 
-    private void ResetEnemy()
+    internal void ResetEnemy()
     {
-        float velocityOffset = attributes.baseSpeed * 0.66f;
-        velocity = new Vector3(-attributes.baseSpeed + Random.Range(-velocityOffset, velocityOffset), 0, 0) - EnvironmentHandler.instance.mapVelocity;
-        currentHealth = attributes.health;
-        currentArmor = attributes.armor;
+        localHitVelocity = Vector3.zero;
+        float velocityOffset = attributes.baseVelocity.x * 0.66f;
+        Velocity = -attributes.baseVelocity + new Vector3(Random.Range(-velocityOffset, velocityOffset), 0, 0) - Greenie.instance.GetAttributes().baseVelocity;
+        CurrentHealth = attributes.health;
+        CurrentArmor = attributes.armor;
+        Animator.enabled = true;
+    }
+
+    protected override void OnElimination()
+    {
+        GameHandler.instance.EnqueueEnemy(gameObject);
+    }
+
+    internal ScriptableEnemy GetAttributes()
+    {
+        return attributes;
     }
 }

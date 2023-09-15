@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "enemy", menuName = "Scriptable Objects/Enemy")]
-public class ScriptableEnemy : ScriptableObject
+public class ScriptableEnemy : ScriptableCharacter
 {
-    public string enemyName;
-    public int rarity, damage, health, mapId, armor, scoreYield;
-    public float baseSpeed;
-    public Vector3 pushAcceleration, pushRecovery;
+    public int rarity, mapId, scoreYield;
     public ScriptableDrop drop;
-    public GameObject prefab;
 }

@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a05a0ba201d4ce04b93a6fb9a1689384, type: 3}
   m_Name: Orc
   m_EditorClassIdentifier: 
-  enemyName: Orc
-  rarity: 20
+  characterName: Orc
   damage: 5
   health: 15
-  mapId: 1
   armor: 5
-  scoreYield: 500
-  baseSpeed: 0.5
+  baseVelocity: {x: 0.5, y: 0, z: 0}
   pushAcceleration: {x: 30, y: 0, z: 0}
-  pushRecovery: {x: 50, y: 0, z: 0}
-  drop: {fileID: 11400000, guid: bae9d4f865791af45bb502705c3835ec, type: 2}
+  pushRecovery: {x: 60, y: 0, z: 0}
   prefab: {fileID: 7394913537493438376, guid: f7769daf3fead0848bd223acc99e83d2, type: 3}
+  rarity: 20
+  mapId: 0
+  scoreYield: 500
+  drop: {fileID: 11400000, guid: bae9d4f865791af45bb502705c3835ec, type: 2}

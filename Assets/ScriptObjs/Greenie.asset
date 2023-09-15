@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f45459c2111ca494199433b4d3f2b384, type: 3}
+  m_Name: Greenie
+  m_EditorClassIdentifier: 
+  characterName: Greenie
+  damage: 5
+  health: 50
+  armor: 0
+  baseVelocity: {x: 5, y: 0, z: 0}
+  pushAcceleration: {x: 20, y: 0, z: 0}
+  pushRecovery: {x: 30, y: 0, z: 0}
+  prefab: {fileID: 6637369363223385092, guid: 5547408b9dc4eb9429b0a5097df7167b, type: 3}
