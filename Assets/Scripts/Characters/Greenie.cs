@@ -19,10 +19,9 @@ public class Greenie : Character
     {
         totalHealth = attributes.health;
         totalArmor = attributes.armor;
-        CurrentHealth = totalHealth;
-        CurrentArmor = totalArmor;
-        healthBar = GetComponentInChildren<HealthBar>();
-        
+        currentHealth = totalHealth;
+        currentArmor = totalArmor;
+
         healthBar.ApplyHealthRange(0, totalHealth);
     }
 
@@ -42,13 +41,11 @@ public class Greenie : Character
             GameHandler.instance.ApplyAccelerationOnHit(enemyHit);
             Animator.enabled = false;
         }
-
-        healthBar.ReduceHealthUI(CurrentHealth);
     }
 
     protected override void OnElimination()
     {
-
+        Application.Quit();
     }
 
     internal ScriptableCharacter GetAttributes()

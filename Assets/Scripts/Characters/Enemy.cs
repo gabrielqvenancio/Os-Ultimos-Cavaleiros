@@ -28,7 +28,7 @@ public class Enemy : Character
     {
         AccelerationCheck();
 
-        transform.Translate((Velocity + localHitVelocity + GameHandler.instance.globalHitVelocity) * Time.fixedDeltaTime);
+        transform.Translate((velocity + localHitVelocity + GameHandler.instance.GlobalHitVelocity) * Time.fixedDeltaTime);
         if(transform.position.x <= -15f)
         {
             GameHandler.instance.EnqueueEnemy(gameObject);
@@ -58,10 +58,11 @@ public class Enemy : Character
     {
         localHitVelocity = Vector3.zero;
         float velocityOffset = attributes.baseVelocity.x * 0.66f;
-        Velocity = -attributes.baseVelocity + new Vector3(Random.Range(-velocityOffset, velocityOffset), 0, 0) - Greenie.instance.GetAttributes().baseVelocity;
-        CurrentHealth = attributes.health;
-        CurrentArmor = attributes.armor;
+        velocity = -attributes.baseVelocity + new Vector3(Random.Range(-velocityOffset, velocityOffset), 0, 0) - Greenie.instance.GetAttributes().baseVelocity;
+        currentHealth = attributes.health;
+        currentArmor = attributes.armor;
         Animator.enabled = true;
+        healthBar.ApplyHealthRange(0, attributes.health);
     }
 
     protected override void OnElimination()

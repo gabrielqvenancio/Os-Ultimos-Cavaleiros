@@ -19,7 +19,7 @@ public class GameHandler : MonoBehaviour
     private int spawnPopulationModifier;
     private float levelStartTime;
 
-    public Vector3 globalHitVelocity { get; private set; }
+    public Vector3 GlobalHitVelocity { get; private set; }
 
     private void Awake()
     {
@@ -27,18 +27,13 @@ public class GameHandler : MonoBehaviour
         enemiesQueue = new List<Queue<GameObject>>();
         instance = this;
         spawnPopulationModifier = 0;
-        globalHitVelocity = Vector3.zero;
+        GlobalHitVelocity = Vector3.zero;
     }
 
     private void Start()
     {
         levelStartTime = Time.time;
         StartCoroutine(SpawnEnemy());
-    }
-
-    private void Update()
-    {
-        
     }
 
     private void FixedUpdate()
@@ -110,7 +105,8 @@ public class GameHandler : MonoBehaviour
     internal void OnChangeLevel(ScriptableLevel levelToLoad)
     {
         enemiesQueue.Clear();
-        foreach (GameObject enemyPrefab in levelToLoad.enemiesToSpawn)
+
+        for (int i = 0; i < levelToLoad.enemiesToSpawn.Length; i++)
         {
             enemiesQueue.Add(new Queue<GameObject>());
         }
@@ -118,12 +114,12 @@ public class GameHandler : MonoBehaviour
 
     private void CheckGlobalVelocity()
     {
-        if (globalHitVelocity.x > 0)
+        if (GlobalHitVelocity.x > 0)
         {
-            globalHitVelocity -= Greenie.instance.GetAttributes().pushRecovery * Time.fixedDeltaTime;
-            if (globalHitVelocity.x < 0)
+            GlobalHitVelocity -= Greenie.instance.GetAttributes().pushRecovery * Time.fixedDeltaTime;
+            if (GlobalHitVelocity.x < 0)
             {
-                globalHitVelocity = Vector3.zero;
+                GlobalHitVelocity = Vector3.zero;
                 Greenie.instance.Animator.enabled = true;
             }
         }
@@ -132,6 +128,6 @@ public class GameHandler : MonoBehaviour
     internal void ApplyAccelerationOnHit(Enemy enemyHit)
     {
         enemyHit.EnemyPush(Greenie.instance.GetAttributes().pushAcceleration);
-        globalHitVelocity = enemyHit.GetAttributes().pushAcceleration;
+        GlobalHitVelocity = enemyHit.GetAttributes().pushAcceleration;
     }
 }

@@ -32,13 +32,13 @@ public class EnvironmentHandler : MonoBehaviour
     {
         foreach (GameObject ground in grounds)
         {
-            ground.transform.Translate((-Greenie.instance.GetAttributes().baseVelocity + GameHandler.instance.globalHitVelocity) * Time.fixedDeltaTime);
+            ground.transform.Translate((-Greenie.instance.GetAttributes().baseVelocity + GameHandler.instance.GlobalHitVelocity) * Time.fixedDeltaTime);
             CheckMapLimit(ground, groundLimit, groundReset);
         }
 
         foreach (GameObject horizon in horizons)
         {
-            horizon.transform.Translate((-Greenie.instance.GetAttributes().baseVelocity + GameHandler.instance.globalHitVelocity) * (parallaxProportion * Time.fixedDeltaTime));
+            horizon.transform.Translate((-Greenie.instance.GetAttributes().baseVelocity + GameHandler.instance.GlobalHitVelocity) * (parallaxProportion * Time.fixedDeltaTime));
             CheckMapLimit(horizon, horizonLimit, horizonReset);
         }
     }
