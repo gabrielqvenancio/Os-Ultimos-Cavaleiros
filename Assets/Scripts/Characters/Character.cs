@@ -25,6 +25,7 @@ public abstract class Character : MonoBehaviour
         currentHealth -= dealtDamage;
         if (currentHealth <= 0)
         {
+            currentHealth = 0;
             OnElimination();
         }
         else

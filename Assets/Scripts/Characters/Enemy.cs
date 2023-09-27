@@ -67,6 +67,7 @@ public class Enemy : Character
 
     protected override void OnElimination()
     {
+        GameHandler.instance.EliminationScoreIncrease(attributes.scoreYield);
         GameHandler.instance.EnqueueEnemy(gameObject);
     }
 

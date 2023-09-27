@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UI;
 
 public class GameHandler : MonoBehaviour
 {
@@ -12,7 +12,8 @@ public class GameHandler : MonoBehaviour
     [SerializeField] private GameObject enemiesParent;
     private List<Queue<GameObject>> enemiesQueue;
 
-    [SerializeField] private int scorePerFrame;
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private int scoreIncreaseTimeGap;
     private int score;
 
     [SerializeField] private int spawnWaitTime, spawnMaxWaitTime, spawnMinWaitTime;
@@ -20,6 +21,7 @@ public class GameHandler : MonoBehaviour
     private float levelStartTime;
 
     public Vector3 GlobalHitVelocity { get; private set; }
+
 
     private void Awake()
     {
@@ -34,6 +36,7 @@ public class GameHandler : MonoBehaviour
     {
         levelStartTime = Time.time;
         StartCoroutine(SpawnEnemy());
+        InvokeRepeating("PassiveScoreIncrease", scoreIncreaseTimeGap, scoreIncreaseTimeGap);
     }
 
     private void FixedUpdate()
@@ -41,7 +44,17 @@ public class GameHandler : MonoBehaviour
         CheckGlobalVelocity();
     }
 
-    internal void ScoreIncrementation(int scoreYield)
+    private void Update()
+    {
+        //Mudar textmeshpro
+    }
+
+    private void PassiveScoreIncrease()
+    {
+        score += 1;
+    }
+
+    private void EliminationScoreIncrease(int scoreYield)
     {
         score += scoreYield;
     }

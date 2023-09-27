@@ -7,9 +7,9 @@ public class HealthBar : MonoBehaviour
 {
     private Slider slider;
 
-    private void Start()
+    private void Awake()
     {
-        GetComponent<RectTransform>().Find("Slider").GetComponent<Slider>();
+        slider = GetComponentInChildren<Slider>();
     }
 
     internal void ReduceHealthUI(float newSliderValue)
@@ -20,8 +20,8 @@ public class HealthBar : MonoBehaviour
 
     private IEnumerator ApplyHealthLostDecay()
     {
-        //Aqui vai ter uma barra de vida "extra" que vai substituir a diferença entre a vida antes e depois do dano, e vai decair ao longo do tempo
-        //só para ficar bonitinho mesmo
+        //Aqui vai ter uma barra de vida "extra" que vai substituir a diferenï¿½a entre a vida antes e depois do dano, e vai decair ao longo do tempo
+        //sï¿½ para ficar bonitinho mesmo
         /*
         Vector3 newHealthLostScale = healthLost.rectTransform.localScale;
         newHealthLostScale.x = CurrentHealth - damage;
@@ -30,10 +30,18 @@ public class HealthBar : MonoBehaviour
         yield return null;
     }
 
-    internal void ApplyHealthRange(int min, int max)
+    internal void ApplyHealthRange(float min, float max)
     {
+        if(!slider)
+        {
+            Debug.Log("fewsopdimjifrro");
+        }
+        else
+        {
+
         slider.minValue = min;
         slider.maxValue = max;
         slider.value = max;
+        }
     }
 }
