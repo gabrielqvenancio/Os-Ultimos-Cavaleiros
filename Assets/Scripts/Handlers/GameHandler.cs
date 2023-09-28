@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class GameHandler : MonoBehaviour
 {
@@ -13,7 +13,7 @@ public class GameHandler : MonoBehaviour
     private List<Queue<GameObject>> enemiesQueue;
 
     [SerializeField] private TextMeshProUGUI scoreText;
-    [SerializeField] private int scoreIncreaseTimeGap;
+    [SerializeField] private float scoreIncreaseTimeGap;
     private int score;
 
     [SerializeField] private int spawnWaitTime, spawnMaxWaitTime, spawnMinWaitTime;
@@ -36,7 +36,7 @@ public class GameHandler : MonoBehaviour
     {
         levelStartTime = Time.time;
         StartCoroutine(SpawnEnemy());
-        InvokeRepeating("PassiveScoreIncrease", scoreIncreaseTimeGap, scoreIncreaseTimeGap);
+        InvokeRepeating(nameof(PassiveScoreIncrease), scoreIncreaseTimeGap, scoreIncreaseTimeGap);
     }
 
     private void FixedUpdate()
@@ -46,7 +46,29 @@ public class GameHandler : MonoBehaviour
 
     private void Update()
     {
-        //Mudar textmeshpro
+        UpdateScoreText();
+    }
+
+    private void UpdateScoreText()
+    {
+        const int amountOfDigits = 7;
+        scoreText.text = "";
+
+        int significantDigits = 0;
+        int scoreAux = score;
+
+        do
+        {
+            scoreAux /= 10;
+            significantDigits++;
+        }while (scoreAux > 0);
+
+        for(int j = 0; j < (amountOfDigits - significantDigits); j++)
+        {
+            scoreText.text += '0';
+        }
+
+        scoreText.text += score.ToString();
     }
 
     private void PassiveScoreIncrease()
@@ -54,7 +76,7 @@ public class GameHandler : MonoBehaviour
         score += 1;
     }
 
-    private void EliminationScoreIncrease(int scoreYield)
+    internal void EliminationScoreIncrease(int scoreYield)
     {
         score += scoreYield;
     }
@@ -133,7 +155,7 @@ public class GameHandler : MonoBehaviour
             if (GlobalHitVelocity.x < 0)
             {
                 GlobalHitVelocity = Vector3.zero;
-                Greenie.instance.Animator.enabled = true;
+                Greenie.instance.Animator.SetBool("isPushed", false);
             }
         }
     }

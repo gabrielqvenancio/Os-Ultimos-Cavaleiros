@@ -5,43 +5,34 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    private Slider slider;
+    [SerializeField] private Slider baseSlider, healthLostSlider;
 
     private void Awake()
     {
-        slider = GetComponentInChildren<Slider>();
+        
     }
 
-    internal void ReduceHealthUI(float newSliderValue)
+    internal void ReduceHealthUI(int newHealth, int oldHealth)
     {
-        slider.value = newSliderValue;
-        StartCoroutine(ApplyHealthLostDecay());
+        baseSlider.value = newHealth;
+        StartCoroutine(ApplyHealthLostDecay(newHealth, oldHealth));
     }
 
-    private IEnumerator ApplyHealthLostDecay()
+    private IEnumerator ApplyHealthLostDecay(int newHealth, int oldHealth)
     {
-        //Aqui vai ter uma barra de vida "extra" que vai substituir a diferen�a entre a vida antes e depois do dano, e vai decair ao longo do tempo
-        //s� para ficar bonitinho mesmo
         /*
-        Vector3 newHealthLostScale = healthLost.rectTransform.localScale;
-        newHealthLostScale.x = CurrentHealth - damage;
-        healthLost.rectTransform.localScale = newHealthLostScale;
-         */
+        Vector3 healthLostSliderPosition = healthLostSlider.GetComponent<RectTransform>().localPosition;
+        healthLostSliderPosition.x = newHealth / baseSlider.GetComponent<RectTransform>().
+        healthLostSlider.GetComponent<RectTransform>().localPosition
+        */
+
         yield return null;
     }
 
     internal void ApplyHealthRange(float min, float max)
     {
-        if(!slider)
-        {
-            Debug.Log("fewsopdimjifrro");
-        }
-        else
-        {
-
-        slider.minValue = min;
-        slider.maxValue = max;
-        slider.value = max;
-        }
+        baseSlider.minValue = min;
+        baseSlider.maxValue = max;
+        baseSlider.value = max;
     }
 }

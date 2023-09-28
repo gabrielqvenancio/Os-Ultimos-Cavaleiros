@@ -41,9 +41,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Background
-    uniqueID: 2841979645
-    locked: 0
   - name: Scenario
     uniqueID: 1957282013
     locked: 0

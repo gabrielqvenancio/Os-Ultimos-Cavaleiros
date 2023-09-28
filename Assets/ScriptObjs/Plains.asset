@@ -18,3 +18,4 @@ MonoBehaviour:
   - {fileID: 7394913537493438376, guid: f7769daf3fead0848bd223acc99e83d2, type: 3}
   ground: {fileID: 21300000, guid: 3d15470d2f9a5304aa4ac57319b58e19, type: 3}
   horizon: {fileID: 21300000, guid: d32e3973694e7754d9484a8926ddc138, type: 3}
+  amountOfLayers: 5

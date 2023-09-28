@@ -39,7 +39,8 @@ public class Greenie : Character
         if(enemyHit.gameObject.activeSelf)
         {
             GameHandler.instance.ApplyAccelerationOnHit(enemyHit);
-            Animator.enabled = false;
+            Animator.SetBool("isPushed", true);
+            Animator.SetTrigger("gotHit");
         }
     }
 

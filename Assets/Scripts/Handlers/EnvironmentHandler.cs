@@ -8,9 +8,8 @@ public class EnvironmentHandler : MonoBehaviour
     internal static EnvironmentHandler instance;
 
     [SerializeField] private ScriptableLevel[] allLevels;
-    [SerializeField] private GameObject[] grounds, horizons;
-    [SerializeField] private float parallaxProportion;
     [SerializeField] private float groundReset, horizonReset, groundLimit, horizonLimit;
+    [SerializeField] private GameObject environmentObjectsParent;
     internal ScriptableLevel currentLevel;
 
     private void Awake()
@@ -25,31 +24,41 @@ public class EnvironmentHandler : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        Move(environmentObjectsParent.transform);
     }
 
-    private void Move()
+    private void Move(Transform environmentObjectsParent)
     {
-        foreach (GameObject ground in grounds)
+        foreach (Transform environmentObject in environmentObjectsParent.transform)
         {
-            ground.transform.Translate((-Greenie.instance.GetAttributes().baseVelocity + GameHandler.instance.GlobalHitVelocity) * Time.fixedDeltaTime);
-            CheckMapLimit(ground, groundLimit, groundReset);
-        }
+            if(environmentObject.childCount > 0)
+            {
+                Move(environmentObject.transform);
+            }
+            else
+            {
+                int sortingOrderPosition = environmentObject.GetComponent<SpriteRenderer>().sortingOrder;
+                if(sortingOrderPosition >= 0)
+                {
+                    float parallaxProportion = 1f / Mathf.Pow((currentLevel.amountOfLayers - sortingOrderPosition), 2f);
+                    environmentObject.Translate((-Greenie.instance.GetAttributes().baseVelocity + GameHandler.instance.GlobalHitVelocity) * (parallaxProportion * Time.fixedDeltaTime));
 
-        foreach (GameObject horizon in horizons)
-        {
-            horizon.transform.Translate((-Greenie.instance.GetAttributes().baseVelocity + GameHandler.instance.GlobalHitVelocity) * (parallaxProportion * Time.fixedDeltaTime));
-            CheckMapLimit(horizon, horizonLimit, horizonReset);
+                    if (sortingOrderPosition == currentLevel.amountOfLayers - 1)
+                        CheckMapLimit(environmentObject, groundLimit, groundReset);
+                    else
+                        CheckMapLimit(environmentObject, horizonLimit, horizonReset);
+                }
+            }
         }
     }
 
-    private void CheckMapLimit(GameObject mapPart, float limit, float reset)
+    private void CheckMapLimit(Transform environmentObject, float limit, float reset)
     {
-        if (Mathf.Abs(mapPart.transform.position.x) > Mathf.Abs(limit))
+        if (Mathf.Abs(environmentObject.position.x) > Mathf.Abs(limit))
         {
-            Vector3 resetPosition = mapPart.transform.position;
-            resetPosition.x = reset + mapPart.transform.position.x - (mapPart.transform.position.x > 0 ? 1 : -1) * limit;
-            mapPart.transform.position = resetPosition;
+            Vector3 resetPosition = environmentObject.position;
+            resetPosition.x = reset + environmentObject.position.x - (environmentObject.position.x > 0 ? 1 : -1) * limit;
+            environmentObject.position = resetPosition;
         }
     }
 
@@ -61,8 +70,13 @@ public class EnvironmentHandler : MonoBehaviour
 
         for(int i = 0; i < 2; i++)
         {
+            /*
+             * Vai ter que mudar bastante, porque agora vai ter quantidade de layers variada no horizonte do cenario, provavelmente
+             * botar uns prefab de horizonte arruma
+             * 
             grounds[i].GetComponent<SpriteRenderer>().sprite = currentLevel.ground;
             horizons[i].GetComponent<SpriteRenderer>().sprite = currentLevel.horizon;
+            */
         }
     }
 }

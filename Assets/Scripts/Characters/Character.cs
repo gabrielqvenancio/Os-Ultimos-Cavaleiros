@@ -8,10 +8,11 @@ public abstract class Character : MonoBehaviour
     protected Vector3 velocity;
     [SerializeField] protected HealthBar healthBar;
     public BoxCollider2D BoxCollider { get; protected set; }
-    public Animator Animator { get; protected set; }
+    public Animator Animator { get; internal set; }
 
     internal void TakeDamage(int dealtDamage)
     {
+        int healthBeforeDamage = currentHealth;
         if (currentArmor > 0)
         {
             currentArmor -= dealtDamage;
@@ -30,7 +31,7 @@ public abstract class Character : MonoBehaviour
         }
         else
         {
-            healthBar.ReduceHealthUI(currentHealth);
+            healthBar.ReduceHealthUI(currentHealth, healthBeforeDamage);
         }
     }
 
