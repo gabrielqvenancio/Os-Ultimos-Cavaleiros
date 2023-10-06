@@ -10,7 +10,8 @@ public class EnvironmentHandler : MonoBehaviour
     [SerializeField] private ScriptableLevel[] allLevels;
     [SerializeField] private float groundReset, horizonReset, groundLimit, horizonLimit;
     [SerializeField] private GameObject environmentObjectsParent;
-    internal ScriptableLevel currentLevel;
+
+    internal ScriptableLevel CurrentLevel { get; private set; }
 
     private void Awake()
     {
@@ -40,10 +41,10 @@ public class EnvironmentHandler : MonoBehaviour
                 int sortingOrderPosition = environmentObject.GetComponent<SpriteRenderer>().sortingOrder;
                 if(sortingOrderPosition >= 0)
                 {
-                    float parallaxProportion = 1f / Mathf.Pow((currentLevel.amountOfLayers - sortingOrderPosition), 2f);
-                    environmentObject.Translate((-Greenie.instance.GetAttributes().baseVelocity + GameHandler.instance.GlobalHitVelocity) * (parallaxProportion * Time.fixedDeltaTime));
+                    float parallaxProportion = 1f / Mathf.Pow((CurrentLevel.amountOfLayers - sortingOrderPosition), 2f);
+                    environmentObject.Translate((-Greenie.instance.attributes.baseVelocity + GameHandler.instance.GlobalVelocity) * (parallaxProportion * Time.fixedDeltaTime));
 
-                    if (sortingOrderPosition == currentLevel.amountOfLayers - 1)
+                    if (sortingOrderPosition == CurrentLevel.amountOfLayers - 1)
                         CheckMapLimit(environmentObject, groundLimit, groundReset);
                     else
                         CheckMapLimit(environmentObject, horizonLimit, horizonReset);
@@ -66,7 +67,7 @@ public class EnvironmentHandler : MonoBehaviour
     {
         ScriptableLevel level = allLevels[UnityEngine.Random.Range(0, allLevels.Length)];
         GameHandler.instance.OnChangeLevel(level);
-        currentLevel = level;
+        CurrentLevel = level;
 
         for(int i = 0; i < 2; i++)
         {

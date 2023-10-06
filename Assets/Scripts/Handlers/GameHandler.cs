@@ -8,19 +8,18 @@ public class GameHandler : MonoBehaviour
 {
     internal static GameHandler instance;
 
-    [SerializeField] private Vector3 enemiesSpawnPoint;
-    [SerializeField] private GameObject enemiesParent;
-    private List<Queue<GameObject>> enemiesQueue;
-
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private float scoreIncreaseTimeGap;
-    private int score;
-
+    [SerializeField] private Vector3 enemiesSpawnPoint;
+    [SerializeField] private GameObject enemiesParent;
     [SerializeField] private int spawnWaitTime, spawnMaxWaitTime, spawnMinWaitTime;
+    private List<Queue<GameObject>> enemiesQueue;
+    private int score;
     private int spawnPopulationModifier;
     private float levelStartTime;
+    private List<Vector3> allGlobalVelocities, allGlobalRecoveries;
 
-    public Vector3 GlobalHitVelocity { get; private set; }
+    internal Vector3 GlobalVelocity { get; private set; }
 
 
     private void Awake()
@@ -29,7 +28,9 @@ public class GameHandler : MonoBehaviour
         enemiesQueue = new List<Queue<GameObject>>();
         instance = this;
         spawnPopulationModifier = 0;
-        GlobalHitVelocity = Vector3.zero;
+        GlobalVelocity = Vector3.zero;
+        allGlobalVelocities = new List<Vector3>();
+        allGlobalRecoveries = new List<Vector3>();
     }
 
     private void Start()
@@ -88,7 +89,7 @@ public class GameHandler : MonoBehaviour
             int spawnEnemyHelper = 100;
             int drawnNumber = UnityEngine.Random.Range(1, 101);
 
-            foreach (GameObject enemy in EnvironmentHandler.instance.currentLevel.enemiesToSpawn)
+            foreach (GameObject enemy in EnvironmentHandler.instance.CurrentLevel.enemiesToSpawn)
             {
                 if (ChooseEnemy(enemy, ref spawnEnemyHelper, drawnNumber)) break;
             }
@@ -104,7 +105,7 @@ public class GameHandler : MonoBehaviour
 
     private bool ChooseEnemy(GameObject enemy, ref int spawnEnemyHelper, int drawnNumber)
     {
-        ScriptableEnemy enemyAttributes = enemy.GetComponent<Enemy>().GetAttributes();
+        ScriptableEnemy enemyAttributes = enemy.GetComponent<Enemy>().attributes;
         spawnEnemyHelper -= enemyAttributes.rarity;
         if (drawnNumber > spawnEnemyHelper)
         {
@@ -124,7 +125,7 @@ public class GameHandler : MonoBehaviour
 
     internal void EnqueueEnemy(GameObject enemy)
     {
-        enemiesQueue[enemy.GetComponent<Enemy>().GetAttributes().mapId].Enqueue(enemy);
+        enemiesQueue[enemy.GetComponent<Enemy>().attributes.mapId].Enqueue(enemy);
         enemy.SetActive(false);
         spawnPopulationModifier -= 2;
     }
@@ -149,20 +150,36 @@ public class GameHandler : MonoBehaviour
 
     private void CheckGlobalVelocity()
     {
-        if (GlobalHitVelocity.x > 0)
+        GlobalVelocity = Vector3.zero;
+
+        for(int i = 0; i < allGlobalVelocities.Count; i++)
         {
-            GlobalHitVelocity -= Greenie.instance.GetAttributes().pushRecovery * Time.fixedDeltaTime;
-            if (GlobalHitVelocity.x < 0)
+            GlobalVelocity += allGlobalVelocities[i];
+            allGlobalVelocities[i] -= allGlobalRecoveries[i] * Time.fixedDeltaTime;
+            if (allGlobalVelocities[i].x < 0)
             {
-                GlobalHitVelocity = Vector3.zero;
-                Greenie.instance.Animator.SetBool("isPushed", false);
+                allGlobalVelocities.RemoveAt(i);
+                allGlobalRecoveries.RemoveAt(i);
+                i--;
             }
         }
     }
 
     internal void ApplyAccelerationOnHit(Enemy enemyHit)
     {
-        enemyHit.EnemyPush(Greenie.instance.GetAttributes().pushAcceleration);
-        GlobalHitVelocity = enemyHit.GetAttributes().pushAcceleration;
+        enemyHit.EnemyPush(Greenie.instance.attributes.pushAcceleration);
+        Greenie.instance.localHitvelocity = enemyHit.attributes.pushAcceleration;
+        AddGlobalVelocity(ref Greenie.instance.localHitvelocity, Greenie.instance.attributes.pushRecovery);
+    }
+
+    internal void ResetGlobalHitVelocity()
+    {
+        GlobalVelocity = Vector3.zero;
+    }
+
+    internal void AddGlobalVelocity(ref Vector3 velocity, Vector3 recovery)
+    {
+        allGlobalVelocities.Add(velocity);
+        allGlobalRecoveries.Add(recovery);
     }
 }

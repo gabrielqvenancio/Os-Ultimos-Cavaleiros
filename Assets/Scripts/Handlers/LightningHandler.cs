@@ -6,10 +6,11 @@ using UnityEngine.Rendering.Universal;
 public class LightningHandler : MonoBehaviour
 {
     internal static LightningHandler instance;
-    private int framesCount;
+
     [SerializeField] private int dayDuration;
     [SerializeField] private Light2D sunLight;
     [SerializeField] private GameObject[] timeOfDayObjects;
+    private int framesCount;
 
     void Start()
     {

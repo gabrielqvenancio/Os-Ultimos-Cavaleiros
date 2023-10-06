@@ -4,11 +4,12 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
+    [SerializeField] protected HealthBar healthBar;
     protected int currentHealth, currentArmor;
     protected Vector3 velocity;
-    [SerializeField] protected HealthBar healthBar;
-    public BoxCollider2D BoxCollider { get; protected set; }
-    public Animator Animator { get; internal set; }
+
+    internal BoxCollider2D BoxCollider { get; private protected set; }
+    internal Animator Animator { get; private protected set; }
 
     internal void TakeDamage(int dealtDamage)
     {
