@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee9c96595bfad294f9b975ebc70043bd, type: 3}
   m_Name: Attack
   m_EditorClassIdentifier: 
+  additionalParameters:
+  - name: Additional Damage
+    value: 5
+  - name: Additional Speed
+    value: 20
   id: 0
   cooldown: 7
-  duration: 1
+  duration: 1.5
   skillName: Attack
   icon: {fileID: 0}

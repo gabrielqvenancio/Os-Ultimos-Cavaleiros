@@ -48,6 +48,7 @@ public class GameHandler : MonoBehaviour
     private void Update()
     {
         UpdateScoreText();
+        
     }
 
     private void UpdateScoreText()
@@ -151,12 +152,14 @@ public class GameHandler : MonoBehaviour
     private void CheckGlobalVelocity()
     {
         GlobalVelocity = Vector3.zero;
-
         for(int i = 0; i < allGlobalVelocities.Count; i++)
         {
+            int adjustSignal = (allGlobalVelocities[i].x > 0 ? 1 : -1);
+
             GlobalVelocity += allGlobalVelocities[i];
             allGlobalVelocities[i] -= allGlobalRecoveries[i] * Time.fixedDeltaTime;
-            if (allGlobalVelocities[i].x < 0)
+
+            if (adjustSignal * allGlobalVelocities[i].x < 0)
             {
                 allGlobalVelocities.RemoveAt(i);
                 allGlobalRecoveries.RemoveAt(i);
@@ -165,19 +168,28 @@ public class GameHandler : MonoBehaviour
         }
     }
 
-    internal void ApplyAccelerationOnHit(Enemy enemyHit)
+    internal void ApplyAccelerationOnHit(Enemy enemyHit, bool pushGreenie)
     {
         enemyHit.EnemyPush(Greenie.instance.attributes.pushAcceleration);
         Greenie.instance.localHitvelocity = enemyHit.attributes.pushAcceleration;
-        AddGlobalVelocity(ref Greenie.instance.localHitvelocity, Greenie.instance.attributes.pushRecovery);
+        if(pushGreenie)
+            AddGlobalVelocity(ref Greenie.instance.localHitvelocity, Greenie.instance.attributes.pushRecovery);
     }
 
-    internal void ResetGlobalHitVelocity()
+    internal void ResetGlobalVelocity()
     {
+        allGlobalVelocities.Clear();
+        allGlobalRecoveries.Clear();
         GlobalVelocity = Vector3.zero;
     }
 
     internal void AddGlobalVelocity(ref Vector3 velocity, Vector3 recovery)
+    {
+        allGlobalVelocities.Add(velocity);
+        allGlobalRecoveries.Add(recovery);
+    }
+
+    internal void AddGlobalVelocity(Vector3 velocity, Vector3 recovery)
     {
         allGlobalVelocities.Add(velocity);
         allGlobalRecoveries.Add(recovery);

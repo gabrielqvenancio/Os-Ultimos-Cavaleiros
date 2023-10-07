@@ -10,8 +10,9 @@ public class Greenie : Character
     [SerializeField] private ScriptableSkill[] skillsSelected;
     const int baseSkillAmount = 3;
     private int totalHealth, totalArmor;
-    private bool isPushable;
+    internal bool isPushable { private get; set; }
 
+    internal int AdditionalDamage { get; set; }
     internal Skill[] Skills { get; private set; }
     internal Vector3 localHitvelocity;
 
@@ -19,11 +20,6 @@ public class Greenie : Character
     private void Awake()
     {
         instance = this;
-        Skills = new Skill[baseSkillAmount];
-        for(int i = 0; i < Skills.Length; i++) 
-        {
-            Skills[i] = new Skill(skillsSelected[i]);
-        }
 
         BoxCollider = GetComponent<BoxCollider2D>();
         Animator = GetComponent<Animator>();
@@ -33,12 +29,19 @@ public class Greenie : Character
         currentHealth = totalHealth;
         currentArmor = totalArmor;
         isPushable = true;
+        AdditionalDamage = 0;
         localHitvelocity = Vector3.zero;
     }
 
     private void Start()
     {
         healthBar.ApplyHealthRange(0, totalHealth);
+
+        Skills = new Skill[baseSkillAmount];
+        for(int i = 0; i < Skills.Length; i++) 
+        {
+            Skills[i] = new Skill(skillsSelected[i]);
+        }
     }
 
     private void Update()
@@ -53,11 +56,11 @@ public class Greenie : Character
     {
         Enemy enemyHit = collision.gameObject.GetComponent<Enemy>();
 
-        enemyHit.TakeDamage(attributes.damage);
+        enemyHit.TakeDamage(attributes.damage + AdditionalDamage);
         TakeDamage(enemyHit.attributes.damage);
         if(enemyHit.gameObject.activeSelf)
         {
-            GameHandler.instance.ApplyAccelerationOnHit(enemyHit);
+            GameHandler.instance.ApplyAccelerationOnHit(enemyHit, isPushable);
             Animator.SetBool("isPushed", true);
             Animator.SetTrigger("gotHit");
         }
@@ -66,5 +69,10 @@ public class Greenie : Character
     protected override void OnElimination()
     {
         Application.Quit();
+    }
+
+    public void Teste()
+    {
+        Skills[0].SkillEffect(Skills[0]);
     }
 }

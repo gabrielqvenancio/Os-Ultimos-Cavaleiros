@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-internal delegate void SkillEffect();
+internal delegate void SkillEffect(Skill skill);
 
 public class Skill
 {
-    [SerializeField] internal ScriptableSkill attributes;
+    internal ScriptableSkill attributes;
 
     internal SkillEffect SkillEffect { get; }
 
     public Skill(ScriptableSkill attributes)
     {
         this.attributes = attributes;
-        SkillEffect = SkillEffects.AssignSkillEffect(attributes.id);
+        SkillEffect = SkillEffects.instance.AssignSkillEffect(attributes.id);
     }
 }

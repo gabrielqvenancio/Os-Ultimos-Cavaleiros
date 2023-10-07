@@ -9,7 +9,7 @@ public abstract class Character : MonoBehaviour
     protected Vector3 velocity;
 
     internal BoxCollider2D BoxCollider { get; private protected set; }
-    internal Animator Animator { get; private protected set; }
+    internal Animator Animator { get; set; }
 
     internal void TakeDamage(int dealtDamage)
     {
