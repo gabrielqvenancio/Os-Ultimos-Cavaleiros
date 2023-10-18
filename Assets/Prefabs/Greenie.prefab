@@ -122,10 +122,10 @@ RectTransform:
   m_Father: {fileID: 4879514293258376136}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -520.86, y: 444.98505}
-  m_SizeDelta: {x: 463.46, y: 19.979}
+  m_SizeDelta: {x: 363.46, y: -80.020996}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &544234803651108398
 GameObject:
@@ -720,6 +720,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 7182020448473942514}
   attributes: {fileID: 11400000, guid: f37c5cf47de9f4b44abf0b79b739d710, type: 2}
+  skillsSelected:
+  - {fileID: 11400000, guid: a01707ba2d3ec5e429c04bf44df175c1, type: 2}
+  - {fileID: 11400000, guid: eef760cb81ae39d4f86ae726ba8cb4fb, type: 2}
+  - {fileID: 11400000, guid: 2e6c98e2ab3bc5544974576198eaf0c2, type: 2}
 --- !u!61 &1404901861713897124
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -752,10 +756,10 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.05}
+  m_Offset: {x: 0, y: 0.2}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.333}
     oldSize: {x: 1.2, y: 1.5}
     newSize: {x: 1.2, y: 1.5}
     adaptiveTilingThreshold: 0.5

@@ -6,16 +6,15 @@ public class Greenie : Character
 {
     internal static Greenie instance;
 
-    [SerializeField] internal ScriptableCharacter attributes;
     [SerializeField] private ScriptableSkill[] skillsSelected;
-    const int baseSkillAmount = 3;
+
+    private const int baseSkillAmount = 3;
     private int totalHealth, totalArmor;
+
     internal bool isPushable { private get; set; }
-
     internal int AdditionalDamage { get; set; }
+    internal Vector3 AdditionalForce { get; set; }
     internal Skill[] Skills { get; private set; }
-    internal Vector3 localHitvelocity;
-
 
     private void Awake()
     {
@@ -23,14 +22,15 @@ public class Greenie : Character
 
         BoxCollider = GetComponent<BoxCollider2D>();
         Animator = GetComponent<Animator>();
+        Velocity = Attributes.baseVelocity;
 
         totalHealth = attributes.health;
         totalArmor = attributes.armor;
-        currentHealth = totalHealth;
-        currentArmor = totalArmor;
+        CurrentHealth = totalHealth;
+        CurrentArmor = totalArmor;
         isPushable = true;
         AdditionalDamage = 0;
-        localHitvelocity = Vector3.zero;
+        AdditionalForce = Vector3.zero;
     }
 
     private void Start()
@@ -44,31 +44,44 @@ public class Greenie : Character
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        if(localHitvelocity != Vector3.zero) 
-        {
-            Animator.SetBool("isPushed", false);
-        }
+        Move();
+        Deceleration();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Enemy enemyHit = collision.gameObject.GetComponent<Enemy>();
 
-        enemyHit.TakeDamage(attributes.damage + AdditionalDamage);
-        TakeDamage(enemyHit.attributes.damage);
+        enemyHit.TakeDamage(Attributes.damage + AdditionalDamage);
+        TakeDamage(enemyHit.Attributes.damage);
         if(enemyHit.gameObject.activeSelf)
         {
-            GameHandler.instance.ApplyAccelerationOnHit(enemyHit, isPushable);
-            Animator.SetBool("isPushed", true);
-            Animator.SetTrigger("gotHit");
+            GameHandler.instance.PushCharacter(Attributes.pushForce + AdditionalForce, enemyHit);
+            if(isPushable) GameHandler.instance.PushCharacter(new Vector3(enemyHit.Attributes.resistance, 0, 0), this);
         }
+    }
+
+    protected override void Move()
+    {
+        EnvironmentHandler.instance.Move(EnvironmentHandler.instance.EnvironmentObjectsParent);
     }
 
     protected override void OnElimination()
     {
         Application.Quit();
+    }
+
+    internal override void OnPush()
+    {
+        Animator.SetBool("isPushed", true);
+        Animator.SetTrigger("gotHit");
+    }
+
+    internal override void OnRecover()
+    {
+        Animator.SetBool("isPushed", false);
     }
 
     public void Teste()

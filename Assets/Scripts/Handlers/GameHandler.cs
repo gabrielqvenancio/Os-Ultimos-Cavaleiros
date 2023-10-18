@@ -106,7 +106,7 @@ public class GameHandler : MonoBehaviour
 
     private bool ChooseEnemy(GameObject enemy, ref int spawnEnemyHelper, int drawnNumber)
     {
-        ScriptableEnemy enemyAttributes = enemy.GetComponent<Enemy>().attributes;
+        ScriptableEnemy enemyAttributes = enemy.GetComponent<Enemy>().EnemyAttributes;
         spawnEnemyHelper -= enemyAttributes.rarity;
         if (drawnNumber > spawnEnemyHelper)
         {
@@ -126,7 +126,7 @@ public class GameHandler : MonoBehaviour
 
     internal void EnqueueEnemy(GameObject enemy)
     {
-        enemiesQueue[enemy.GetComponent<Enemy>().attributes.mapId].Enqueue(enemy);
+        enemiesQueue[enemy.GetComponent<Enemy>().EnemyAttributes.mapId].Enqueue(enemy);
         enemy.SetActive(false);
         spawnPopulationModifier -= 2;
     }
@@ -151,7 +151,7 @@ public class GameHandler : MonoBehaviour
 
     private void CheckGlobalVelocity()
     {
-        GlobalVelocity = Vector3.zero;
+        GlobalVelocity = Greenie.instance.LocalHitVelocity;
         for(int i = 0; i < allGlobalVelocities.Count; i++)
         {
             int adjustSignal = (allGlobalVelocities[i].x > 0 ? 1 : -1);
@@ -161,19 +161,12 @@ public class GameHandler : MonoBehaviour
 
             if (adjustSignal * allGlobalVelocities[i].x < 0)
             {
+                allGlobalVelocities[i] = Vector3.zero;
                 allGlobalVelocities.RemoveAt(i);
                 allGlobalRecoveries.RemoveAt(i);
                 i--;
             }
         }
-    }
-
-    internal void ApplyAccelerationOnHit(Enemy enemyHit, bool pushGreenie)
-    {
-        enemyHit.EnemyPush(Greenie.instance.attributes.pushAcceleration);
-        Greenie.instance.localHitvelocity = enemyHit.attributes.pushAcceleration;
-        if(pushGreenie)
-            AddGlobalVelocity(ref Greenie.instance.localHitvelocity, Greenie.instance.attributes.pushRecovery);
     }
 
     internal void ResetGlobalVelocity()
@@ -183,15 +176,15 @@ public class GameHandler : MonoBehaviour
         GlobalVelocity = Vector3.zero;
     }
 
-    internal void AddGlobalVelocity(ref Vector3 velocity, Vector3 recovery)
+    internal void AddGlobalVelocity(Vector3 velocity, Vector3 recovery)
     {
         allGlobalVelocities.Add(velocity);
         allGlobalRecoveries.Add(recovery);
     }
 
-    internal void AddGlobalVelocity(Vector3 velocity, Vector3 recovery)
+    internal void PushCharacter(Vector3 acceleration, Character character)
     {
-        allGlobalVelocities.Add(velocity);
-        allGlobalRecoveries.Add(recovery);
+        character.LocalHitVelocity += acceleration / character.Attributes.resistance;
+        character.OnPush();
     }
 }

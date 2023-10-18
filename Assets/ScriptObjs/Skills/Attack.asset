@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   additionalParameters:
   - name: Additional Damage
-    value: 5
+    value: 1
   - name: Additional Speed
     value: 20
   id: 0

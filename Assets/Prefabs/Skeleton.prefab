@@ -154,7 +154,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 4394058420435688746}
-  attributes: {fileID: 11400000, guid: c543566fe67b1cd4d88f56ffa61be6d0, type: 2}
+  attributes: {fileID: 11400000, guid: 573e20953c9593043b85053b8fe664da, type: 2}
+  enemyAttributes: {fileID: 11400000, guid: c543566fe67b1cd4d88f56ffa61be6d0, type: 2}
 --- !u!95 &3142948236450895246
 Animator:
   serializedVersion: 5

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class EnvironmentHandler : MonoBehaviour
@@ -10,6 +11,7 @@ public class EnvironmentHandler : MonoBehaviour
     [SerializeField] private ScriptableLevel[] allLevels;
     [SerializeField] private float groundReset, horizonReset, groundLimit, horizonLimit;
     [SerializeField] private GameObject environmentObjectsParent;
+    internal Transform EnvironmentObjectsParent { get { return environmentObjectsParent.transform; }}
 
     internal ScriptableLevel CurrentLevel { get; private set; }
 
@@ -23,18 +25,13 @@ public class EnvironmentHandler : MonoBehaviour
         ChangeLevel();
     }
 
-    private void FixedUpdate()
+    internal void Move(Transform environmentObjectsParent)
     {
-        Move(environmentObjectsParent.transform);
-    }
-
-    private void Move(Transform environmentObjectsParent)
-    {
-        foreach (Transform environmentObject in environmentObjectsParent.transform)
+        foreach (Transform environmentObject in environmentObjectsParent)
         {
             if(environmentObject.childCount > 0)
             {
-                Move(environmentObject.transform);
+                Move(environmentObject);
             }
             else
             {
@@ -42,7 +39,7 @@ public class EnvironmentHandler : MonoBehaviour
                 if(sortingOrderPosition >= 0)
                 {
                     float parallaxProportion = 1f / Mathf.Pow((CurrentLevel.amountOfLayers - sortingOrderPosition), 2f);
-                    environmentObject.Translate((-Greenie.instance.attributes.baseVelocity + GameHandler.instance.GlobalVelocity) * (parallaxProportion * Time.fixedDeltaTime));
+                    environmentObject.Translate((-Greenie.instance.Velocity + GameHandler.instance.GlobalVelocity) * (parallaxProportion * Time.fixedDeltaTime));
 
                     if (sortingOrderPosition == CurrentLevel.amountOfLayers - 1)
                         CheckMapLimit(environmentObject, groundLimit, groundReset);

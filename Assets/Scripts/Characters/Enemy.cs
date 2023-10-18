@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Enemy : Character
 {
-    [SerializeField] internal ScriptableEnemy attributes;
-    private Vector3 localHitVelocity;
+    [SerializeField] private ScriptableEnemy enemyAttributes;
+    internal ScriptableEnemy EnemyAttributes { get { return enemyAttributes; } }
 
     private void Awake()
     {
-        localHitVelocity = Vector3.zero;
+        LocalHitVelocity = Vector3.zero;
         BoxCollider = GetComponent<BoxCollider2D>();
         Animator = GetComponent<Animator>();
     }
@@ -22,53 +22,42 @@ public class Enemy : Character
     private void FixedUpdate()
     {
         Move();
+        Deceleration();
     }
 
-    private void Move()
+    internal void ResetEnemy()
     {
-        AccelerationCheck();
-
-        transform.Translate((velocity + localHitVelocity + GameHandler.instance.GlobalVelocity) * Time.fixedDeltaTime);
+        LocalHitVelocity = Vector3.zero;
+        float velocityOffset = attributes.baseVelocity.x * 0.66f;
+        Velocity = -attributes.baseVelocity + new Vector3(Random.Range(-velocityOffset, velocityOffset), 0, 0)
+                   - Greenie.instance.Attributes.baseVelocity;
+        CurrentHealth = attributes.health;
+        CurrentArmor = attributes.armor;
+        Animator.enabled = true;
+        healthBar.ApplyHealthRange(0, attributes.health);
+    }
+    protected override void Move()
+    {
+        transform.Translate((Velocity + LocalHitVelocity + GameHandler.instance.GlobalVelocity) * Time.fixedDeltaTime);
         if(transform.position.x <= -15f)
         {
             GameHandler.instance.EnqueueEnemy(gameObject);
         }
     }
 
-    private void AccelerationCheck()
+    protected override void OnElimination()
     {
-        if(localHitVelocity.x > 0) 
-        {
-            localHitVelocity -= attributes.pushRecovery * Time.fixedDeltaTime;
-            if(localHitVelocity.x <= 0)
-            {
-                localHitVelocity = Vector3.zero;
-                Animator.enabled = true;
-            }
-        }
+        GameHandler.instance.EliminationScoreIncrease(enemyAttributes.scoreYield);
+        GameHandler.instance.EnqueueEnemy(gameObject);
     }
 
-    internal void EnemyPush(Vector3 push)
+    internal override void OnPush()
     {
-        localHitVelocity += push;
         Animator.enabled = false;
     }
 
-    internal void ResetEnemy()
+    internal override void OnRecover()
     {
-        localHitVelocity = Vector3.zero;
-        float velocityOffset = attributes.baseVelocity.x * 0.66f;
-        velocity = -attributes.baseVelocity + new Vector3(Random.Range(-velocityOffset, velocityOffset), 0, 0)
-                   - Greenie.instance.attributes.baseVelocity;
-        currentHealth = attributes.health;
-        currentArmor = attributes.armor;
         Animator.enabled = true;
-        healthBar.ApplyHealthRange(0, attributes.health);
-    }
-
-    protected override void OnElimination()
-    {
-        GameHandler.instance.EliminationScoreIncrease(attributes.scoreYield);
-        GameHandler.instance.EnqueueEnemy(gameObject);
     }
 }

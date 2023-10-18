@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f45459c2111ca494199433b4d3f2b384, type: 3}
-  m_Name: Greenie
+  m_Name: OrcCharacter
   m_EditorClassIdentifier: 
-  characterName: Greenie
+  characterName: Orc
   damage: 5
-  health: 50
-  armor: 0
-  resistance: 1
-  baseVelocity: {x: 5, y: 0, z: 0}
-  pushForce: {x: 30, y: 0, z: 0}
-  prefab: {fileID: 6637369363223385092, guid: 5547408b9dc4eb9429b0a5097df7167b, type: 3}
+  health: 15
+  armor: 5
+  resistance: 5
+  baseVelocity: {x: 0.5, y: 0, z: 0}
+  pushForce: {x: 50, y: 0, z: 0}
+  prefab: {fileID: 7394913537493438376, guid: f7769daf3fead0848bd223acc99e83d2, type: 3}

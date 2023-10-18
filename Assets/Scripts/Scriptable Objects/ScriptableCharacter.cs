@@ -6,8 +6,8 @@ using UnityEngine;
 public class ScriptableCharacter : ScriptableObject
 {
     public string characterName;
-    public int damage, health, armor;
+    public int damage, health, armor, resistance;
     public Vector3 baseVelocity;
-    public Vector3 pushAcceleration, pushRecovery;
+    public Vector3 pushForce;
     public GameObject prefab;
 }
