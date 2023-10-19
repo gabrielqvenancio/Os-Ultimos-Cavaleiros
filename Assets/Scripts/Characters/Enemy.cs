@@ -9,9 +9,7 @@ public class Enemy : Character
 
     private void Awake()
     {
-        LocalHitVelocity = Vector3.zero;
-        BoxCollider = GetComponent<BoxCollider2D>();
-        Animator = GetComponent<Animator>();
+        Initialize();
     }
 
     void Start()
@@ -53,6 +51,7 @@ public class Enemy : Character
 
     internal override void OnPush()
     {
+        recovery = new Vector3(baseResistance + Attributes.resistance, 0, 0);
         Animator.enabled = false;
     }
 

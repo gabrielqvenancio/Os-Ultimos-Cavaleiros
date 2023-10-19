@@ -16,6 +16,20 @@ public abstract class Character : MonoBehaviour
     internal Animator Animator { get; set; }
     internal Vector3 LocalHitVelocity { get; set; }
 
+    protected Vector3 recovery;
+
+    public const float basePushForceFactor = 10f, baseRecoveryFactor = 20f, baseResistance = 1.4f;
+
+    protected virtual void Initialize()
+    {
+        BoxCollider = GetComponent<BoxCollider2D>();
+        Animator = GetComponent<Animator>();
+        Velocity = Attributes.baseVelocity;
+        CurrentHealth = attributes.health;
+        CurrentArmor = attributes.armor;
+        recovery = Vector3.zero;
+    }
+
     internal void TakeDamage(int dealtDamage)
     {
         int healthBeforeDamage = CurrentHealth;
@@ -45,12 +59,15 @@ public abstract class Character : MonoBehaviour
     {
         if (LocalHitVelocity.x > 0)
         {
-            LocalHitVelocity -= 2 * new Vector3(attributes.resistance, 0, 0) * Time.fixedDeltaTime;
+            LocalHitVelocity -= recovery * Time.fixedDeltaTime;
             if (LocalHitVelocity.x <= 0)
             {
                 LocalHitVelocity = Vector3.zero;
+                recovery = Vector3.zero;
                 OnRecover();
             }
+
+            recovery.x += (baseResistance + Attributes.resistance) * baseRecoveryFactor * Time.fixedDeltaTime;
         }
     }
 

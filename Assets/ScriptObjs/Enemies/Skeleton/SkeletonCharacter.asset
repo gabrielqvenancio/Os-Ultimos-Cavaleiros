@@ -16,7 +16,7 @@ MonoBehaviour:
   damage: 2
   health: 10
   armor: 0
-  resistance: 0
+  resistance: 1.5
   baseVelocity: {x: 1, y: 0, z: 0}
-  pushForce: {x: 20, y: 0, z: 0}
+  pushForce: {x: 1, y: 0, z: 0}
   prefab: {fileID: 1692058159099708552, guid: dc8d41c490223b8449c51f2e01442057, type: 3}

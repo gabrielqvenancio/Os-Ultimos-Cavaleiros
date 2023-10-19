@@ -20,17 +20,15 @@ public class Greenie : Character
     {
         instance = this;
 
-        BoxCollider = GetComponent<BoxCollider2D>();
-        Animator = GetComponent<Animator>();
-        Velocity = Attributes.baseVelocity;
-
         totalHealth = attributes.health;
         totalArmor = attributes.armor;
-        CurrentHealth = totalHealth;
-        CurrentArmor = totalArmor;
+        //CurrentHealth = totalHealth;
+        //CurrentArmor = totalArmor;
         isPushable = true;
         AdditionalDamage = 0;
         AdditionalForce = Vector3.zero;
+
+        Initialize();
     }
 
     private void Start()
@@ -75,6 +73,7 @@ public class Greenie : Character
 
     internal override void OnPush()
     {
+        recovery = new Vector3(baseResistance + Attributes.resistance, 0, 0);
         Animator.SetBool("isPushed", true);
         Animator.SetTrigger("gotHit");
     }

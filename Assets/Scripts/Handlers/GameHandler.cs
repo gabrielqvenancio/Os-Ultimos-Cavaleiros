@@ -184,7 +184,7 @@ public class GameHandler : MonoBehaviour
 
     internal void PushCharacter(Vector3 acceleration, Character character)
     {
-        character.LocalHitVelocity += acceleration / character.Attributes.resistance;
+        character.LocalHitVelocity += acceleration * Character.basePushForceFactor;
         character.OnPush();
     }
 }
