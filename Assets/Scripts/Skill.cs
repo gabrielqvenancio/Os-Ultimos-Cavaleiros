@@ -15,6 +15,6 @@ public class Skill
     {
         this.attributes = attributes;
         OnCooldown = false;
-        SkillEffect = SkillEffects.instance.AssignSkillEffect(attributes.id);
+        SkillEffect = SkillHandler.instance.AssignSkillEffect(attributes.id);
     }
 }

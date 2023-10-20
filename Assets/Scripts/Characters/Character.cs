@@ -57,10 +57,11 @@ public abstract class Character : MonoBehaviour
 
     protected void Deceleration()
     {
-        if (LocalHitVelocity.x > 0)
+        if (LocalHitVelocity.x != 0)
         {
-            LocalHitVelocity -= recovery * Time.fixedDeltaTime;
-            if (LocalHitVelocity.x <= 0)
+            int signalFactor = LocalHitVelocity.x > 0 ? 1 : -1;
+            LocalHitVelocity -= recovery * (Time.fixedDeltaTime * signalFactor);
+            if ((signalFactor > 0 && LocalHitVelocity.x <= 0) || (signalFactor < 0 && LocalHitVelocity.x >= 0))
             {
                 LocalHitVelocity = Vector3.zero;
                 recovery = Vector3.zero;

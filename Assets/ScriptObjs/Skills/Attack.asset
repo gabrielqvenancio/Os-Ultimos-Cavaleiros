@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   additionalParameters:
   - name: Additional Damage
-    value: 1
+    value: 2
   - name: Additional Speed
-    value: 20
+    value: 3
+  - name: Additional Force
+    value: 4
   id: 0
   cooldown: 7
   duration: 1.5

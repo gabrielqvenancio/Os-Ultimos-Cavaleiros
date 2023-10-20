@@ -4,9 +4,9 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class SkillEffects : MonoBehaviour
+public class SkillHandler : MonoBehaviour
 {
-    internal static SkillEffects instance;
+    internal static SkillHandler instance;
 
     private void Awake()
     {
@@ -56,15 +56,16 @@ public class SkillEffects : MonoBehaviour
         if (!IsSkillUsable(skill)) return;
         skill.OnCooldown = true;
 
-        Vector3 additionalVelocity = new Vector3(-skill.attributes.additionalParameters[1].value, 0, 0);
-        int additionalDamage = (int)skill.attributes.additionalParameters[0].value;
+        Vector3 additionalVelocity = new Vector3(-Character.basePushForceFactor * skill.attributes.additionalParameters[1].value, 0, 0);
+        int additionalDamage = (int) skill.attributes.additionalParameters[0].value;
+        float additionalForce = skill.attributes.additionalParameters[2].value;
         Vector3 recover = additionalVelocity / skill.attributes.duration;
 
-        GameHandler.instance.ResetGlobalVelocity();
-        GameHandler.instance.AddGlobalVelocity(additionalVelocity, recover);
+        PhysicsHandler.instance.ResetGlobalVelocity();
+        PhysicsHandler.instance.AddGlobalVelocity(additionalVelocity, recover);
         Greenie.instance.LocalHitVelocity = Vector3.zero;
 
-        IEnumerator coroutine = HandleTimedAttackEffects(skill.attributes.duration, additionalDamage);
+        IEnumerator coroutine = HandleTimedAttackEffects(skill.attributes.duration, additionalDamage, new Vector3(additionalForce, 0, 0));
         StartCoroutine(coroutine);
         StartCoroutine(WaitForSkillCompletion(skill));
     }
@@ -79,18 +80,18 @@ public class SkillEffects : MonoBehaviour
 
     }
 
-    private IEnumerator HandleTimedAttackEffects(float damageIncrementDuration, int additionalDamage)
+    private IEnumerator HandleTimedAttackEffects(float damageIncrementDuration, int additionalDamage, Vector3 additionalForce)
     {
         Greenie.instance.Animator.SetTrigger("startAttack");
         Greenie.instance.isPushable = false;
         Greenie.instance.AdditionalDamage += additionalDamage;
-        Greenie.instance.AdditionalForce += Greenie.instance.Attributes.pushForce;
+        Greenie.instance.AdditionalForce += additionalForce;
 
         yield return new WaitForSeconds(damageIncrementDuration);
 
         Greenie.instance.Animator.SetTrigger("endAttack");
         Greenie.instance.isPushable = true;
         Greenie.instance.AdditionalDamage -= additionalDamage;
-        Greenie.instance.AdditionalForce -= Greenie.instance.Attributes.pushForce;
+        Greenie.instance.AdditionalForce -= additionalForce;
     }
 }

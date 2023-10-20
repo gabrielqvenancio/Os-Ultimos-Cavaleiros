@@ -2984,9 +2984,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1985880409}
   - component: {fileID: 1985880408}
-  - component: {fileID: 1985880406}
-  - component: {fileID: 1985880410}
+  - component: {fileID: 1985880414}
   - component: {fileID: 1985880411}
+  - component: {fileID: 1985880406}
+  - component: {fileID: 1985880413}
+  - component: {fileID: 1985880410}
   - component: {fileID: 1985880412}
   m_Layer: 0
   m_Name: Handlers
@@ -3007,13 +3009,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60cc623b65b9eaf4082325e98c6790dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allLevels:
-  - {fileID: 11400000, guid: 5548350034bd8844da89dda91f1b2972, type: 2}
-  groundReset: 50.5443
-  horizonReset: 40.1
-  groundLimit: 60.15
-  horizonLimit: 45.0171
-  environmentObjectsParent: {fileID: 1409706762}
 --- !u!114 &1985880408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3055,11 +3050,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1794458771}
   scoreIncreaseTimeGap: 0.2
-  enemiesSpawnPoint: {x: 10.5, y: -2.9, z: 0}
-  enemiesParent: {fileID: 10636976}
-  spawnWaitTime: 5
-  spawnMaxWaitTime: 20
-  spawnMinWaitTime: 2
 --- !u!114 &1985880411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3088,6 +3078,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 821d02e0af8a2cf4ca130f8e5765a3d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1985880413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1985880405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f46cf05d0790e14badf2e996c0acf83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemiesSpawnPoint: {x: 12, y: -3, z: 0}
+  enemiesParent: {fileID: 10636976}
+  spawnWaitTime: 8
+  spawnMaxWaitTime: 15
+  spawnMinWaitTime: 1
+--- !u!114 &1985880414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1985880405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e83dcb6f8412a6b44a9426b9081e6fe8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allLevels:
+  - {fileID: 11400000, guid: 5548350034bd8844da89dda91f1b2972, type: 2}
+  groundReset: 30
+  horizonReset: 30
+  groundLimit: 45
+  horizonLimit: 45
+  environmentObjectsParent: {fileID: 1409706762}
 --- !u!1 &2004715324
 GameObject:
   m_ObjectHideFlags: 0

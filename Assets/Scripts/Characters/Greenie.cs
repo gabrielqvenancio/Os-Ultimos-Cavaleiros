@@ -56,14 +56,14 @@ public class Greenie : Character
         TakeDamage(enemyHit.Attributes.damage);
         if(enemyHit.gameObject.activeSelf)
         {
-            GameHandler.instance.PushCharacter(Attributes.pushForce + AdditionalForce, enemyHit);
-            if(isPushable) GameHandler.instance.PushCharacter(new Vector3(enemyHit.Attributes.resistance, 0, 0), this);
+            PhysicsHandler.instance.PushCharacter(Attributes.pushForce + AdditionalForce, enemyHit);
+            if(isPushable) PhysicsHandler.instance.PushCharacter(new Vector3(enemyHit.Attributes.resistance, 0, 0), this);
         }
     }
 
     protected override void Move()
     {
-        EnvironmentHandler.instance.Move(EnvironmentHandler.instance.EnvironmentObjectsParent);
+        LevelHandler.instance.Move(LevelHandler.instance.EnvironmentObjectsParent);
     }
 
     protected override void OnElimination()

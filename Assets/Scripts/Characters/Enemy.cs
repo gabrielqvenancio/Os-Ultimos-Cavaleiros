@@ -36,17 +36,17 @@ public class Enemy : Character
     }
     protected override void Move()
     {
-        transform.Translate((Velocity + LocalHitVelocity + GameHandler.instance.GlobalVelocity) * Time.fixedDeltaTime);
+        transform.Translate((Velocity + LocalHitVelocity + PhysicsHandler.instance.GlobalVelocity) * Time.fixedDeltaTime);
         if(transform.position.x <= -15f)
         {
-            GameHandler.instance.EnqueueEnemy(gameObject);
+            SpawnHandler.instance.EnqueueEnemy(gameObject);
         }
     }
 
     protected override void OnElimination()
     {
-        GameHandler.instance.EliminationScoreIncrease(enemyAttributes.scoreYield);
-        GameHandler.instance.EnqueueEnemy(gameObject);
+        UIHandler.instance.EliminationScoreIncrease(enemyAttributes.scoreYield);
+        SpawnHandler.instance.EnqueueEnemy(gameObject);
     }
 
     internal override void OnPush()
