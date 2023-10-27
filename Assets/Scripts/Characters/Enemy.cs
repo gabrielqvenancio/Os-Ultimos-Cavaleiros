@@ -12,9 +12,14 @@ public class Enemy : Character
         Initialize();
     }
 
-    void Start()
+    private void Start()
     {
         ResetEnemy();
+    }
+
+    private void Update()
+    {
+        HealthBar.UpdateHealth(CurrentHealth);
     }
 
     private void FixedUpdate()

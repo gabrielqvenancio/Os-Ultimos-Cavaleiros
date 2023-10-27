@@ -5,11 +5,20 @@ using UnityEngine;
 public abstract class Character : MonoBehaviour
 {
     [SerializeField] protected HealthBar healthBar;
-
+    internal HealthBar HealthBar
+    {
+        get { return healthBar; } 
+        set { healthBar = value; } 
+    }
     [SerializeField] protected ScriptableCharacter attributes;
     internal ScriptableCharacter Attributes { get { return attributes; } }
 
-    internal int CurrentHealth { get; private protected set; }
+    protected int currentHealth;
+    internal int CurrentHealth 
+    {
+        get { return currentHealth; }
+        set { currentHealth = Mathf.Clamp(value, 0, Attributes.health); }
+    }
     internal int CurrentArmor { get; private protected set; }
     internal Vector3 Velocity { get; private protected set; }
     internal BoxCollider2D BoxCollider { get; private protected set; }
@@ -48,10 +57,6 @@ public abstract class Character : MonoBehaviour
         {
             CurrentHealth = 0;
             OnElimination();
-        }
-        else
-        {
-            healthBar.ReduceHealthUI(CurrentHealth, healthBeforeDamage);
         }
     }
 

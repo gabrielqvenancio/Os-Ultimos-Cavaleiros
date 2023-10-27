@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class UIHandler : MonoBehaviour
 {
@@ -10,11 +11,12 @@ public class UIHandler : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private float scoreIncreaseTimeGap;
-    private int score;
+    [SerializeField] private GameObject skillSlidersParent;
+    internal int Score { get; private set; }
 
     private void Awake()
     {
-        score = 0;
+        Score = 0;
         instance = this;
     }
 
@@ -28,13 +30,19 @@ public class UIHandler : MonoBehaviour
         UpdateScoreText();
     }
 
+    internal void ReduceSkillCooldownUI(int buttonNumber, float value)
+    {
+        Slider slider = skillSlidersParent.transform.Find("Slider " + buttonNumber).GetComponent<Slider>();
+        slider.value = value;
+    }
+
     private void UpdateScoreText()
     {
         const int amountOfDigits = 7;
         scoreText.text = "";
 
         int significantDigits = 0;
-        int scoreAux = score;
+        int scoreAux = Score;
 
         do
         {
@@ -47,16 +55,16 @@ public class UIHandler : MonoBehaviour
             scoreText.text += '0';
         }
 
-        scoreText.text += score.ToString();
+        scoreText.text += Score.ToString();
     }
 
     private void PassiveScoreIncrease()
     {
-        score += 1;
+        Score += 1;
     }
 
     internal void EliminationScoreIncrease(int scoreYield)
     {
-        score += scoreYield;
+        Score += scoreYield;
     }
 }

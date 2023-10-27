@@ -5,16 +5,21 @@ using UnityEngine;
 public class Greenie : Character
 {
     internal static Greenie instance;
-
-    [SerializeField] private ScriptableSkill[] skillsSelected;
-
-    private const int baseSkillAmount = 3;
-    private int totalHealth, totalArmor;
+    
+    [SerializeField] private Skill[] skills;
 
     internal bool isPushable { private get; set; }
     internal int AdditionalDamage { get; set; }
     internal Vector3 AdditionalForce { get; set; }
-    internal Skill[] Skills { get; private set; }
+    private float reducedDamagePercentage;
+    internal float ReducedDamagePercentage
+    {
+        get { return Mathf.Clamp(reducedDamagePercentage, 0, 100); }
+        set { reducedDamagePercentage = value; }
+    }
+    private const int baseSkillAmount = 3;
+    private int totalHealth, totalArmor;
+
 
     private void Awake()
     {
@@ -27,6 +32,7 @@ public class Greenie : Character
         isPushable = true;
         AdditionalDamage = 0;
         AdditionalForce = Vector3.zero;
+        reducedDamagePercentage = 0;
 
         Initialize();
     }
@@ -35,10 +41,9 @@ public class Greenie : Character
     {
         healthBar.ApplyHealthRange(0, totalHealth);
 
-        Skills = new Skill[baseSkillAmount];
-        for(int i = 0; i < Skills.Length; i++) 
+        for(int i = 0; i < skills.Length; i++)
         {
-            Skills[i] = new Skill(skillsSelected[i]);
+            skills[i].Id = i;
         }
     }
 
@@ -48,12 +53,23 @@ public class Greenie : Character
         Deceleration();
     }
 
+    private void LateUpdate()
+    {
+        HealthBar.UpdateHealth(CurrentHealth);
+
+        foreach(Skill skill in skills)
+        {
+            if (skill.Timer > 0) skill.Timer -= Time.deltaTime;
+            skill.CheckState();
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Enemy enemyHit = collision.gameObject.GetComponent<Enemy>();
 
         enemyHit.TakeDamage(Attributes.damage + AdditionalDamage);
-        TakeDamage(enemyHit.Attributes.damage);
+        TakeDamage((int)((100f - reducedDamagePercentage) / 100f) * enemyHit.Attributes.damage);
         if(enemyHit.gameObject.activeSelf)
         {
             PhysicsHandler.instance.PushCharacter(Attributes.pushForce + AdditionalForce, enemyHit);
@@ -68,7 +84,7 @@ public class Greenie : Character
 
     protected override void OnElimination()
     {
-        Application.Quit();
+        MenuHandler.instance.GameOver();
     }
 
     internal override void OnPush()
@@ -83,8 +99,14 @@ public class Greenie : Character
         Animator.SetBool("isPushed", false);
     }
 
-    public void Teste()
+    public void ClickOnSkill(int id)
     {
-        Skills[0].SkillEffect(Skills[0]);
+        foreach(Skill skill in skills)
+        {
+            if(skill.Id == id && skill.State == SkillState.ready)
+            {
+                skill.Use();
+            }
+        }
     }
 }

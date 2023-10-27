@@ -16,10 +16,6 @@ public class LevelHandler : MonoBehaviour
     private void Awake()
     {
         instance = this;
-    }
-
-    private void Start()
-    {
         ChangeLevel();
     }
 
@@ -61,7 +57,6 @@ public class LevelHandler : MonoBehaviour
     private void ChangeLevel()
     {
         ScriptableLevel level = allLevels[Random.Range(0, allLevels.Length)];
-        SpawnHandler.instance.OnChangeLevel(level);
         CurrentLevel = level;
 
         for (int i = 0; i < 2; i++)

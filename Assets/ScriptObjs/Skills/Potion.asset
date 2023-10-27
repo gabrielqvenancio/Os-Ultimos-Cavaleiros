@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee9c96595bfad294f9b975ebc70043bd, type: 3}
+  m_Script: {fileID: 11500000, guid: d58dfae61f508e94980078996f9046e0, type: 3}
   m_Name: Potion
   m_EditorClassIdentifier: 
-  id: 1
-  cooldown: 5
+  cooldown: 7
   duration: 0
   skillName: Potion
   icon: {fileID: 0}
+  healthRegained: 5

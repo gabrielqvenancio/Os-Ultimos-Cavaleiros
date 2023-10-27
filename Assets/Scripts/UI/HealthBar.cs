@@ -7,15 +7,9 @@ public class HealthBar : MonoBehaviour
 {
     [SerializeField] private Slider baseSlider, healthLostSlider;
 
-    private void Awake()
-    {
-        
-    }
-
-    internal void ReduceHealthUI(int newHealth, int oldHealth)
+    internal void UpdateHealth(int newHealth)
     {
         baseSlider.value = newHealth;
-        StartCoroutine(ApplyHealthLostDecay(newHealth, oldHealth));
     }
 
     private IEnumerator ApplyHealthLostDecay(int newHealth, int oldHealth)

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class SpawnHandler : MonoBehaviour
 {
@@ -26,6 +25,7 @@ public class SpawnHandler : MonoBehaviour
 
     private void Start()
     {
+        OnChangeLevel(LevelHandler.instance.CurrentLevel);
         StartCoroutine(SpawnEnemy());
     }
 

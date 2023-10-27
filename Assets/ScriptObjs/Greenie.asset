@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Greenie
   damage: 5
-  health: 50
+  health: 30
   armor: 0
   resistance: 2
   baseVelocity: {x: 5, y: 0, z: 0}

@@ -2,19 +2,57 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-internal delegate void SkillEffect(Skill skill);
-
+[System.Serializable]
 public class Skill
 {
-    internal ScriptableSkill attributes;
-    internal bool OnCooldown { get; set; }
+    [SerializeField] private ScriptableSkill attributes;
+    internal ScriptableSkill Attributes { get { return attributes; } }
+    internal SkillState State { get; set; }
+    internal float Timer { get; set; }
+    internal int Id { get; set; }
 
-    internal SkillEffect SkillEffect { get; }
-
-    public Skill(ScriptableSkill attributes)
+    public Skill()
     {
-        this.attributes = attributes;
-        OnCooldown = false;
-        SkillEffect = SkillHandler.instance.AssignSkillEffect(attributes.id);
+        State = SkillState.ready;
+        Timer = 0;
+    }
+
+    internal void CheckState()
+    {
+        switch (State)
+        {
+            case SkillState.ready:
+            {
+                break;
+            }
+            case SkillState.active:
+            {
+                if(Timer <= 0)
+                {
+                    State = SkillState.cooldown;
+                    Timer = Attributes.cooldown;
+                    Attributes.EndEffect();
+                }
+                break;
+            }
+            case SkillState.cooldown:
+            {
+                UIHandler.instance.ReduceSkillCooldownUI(Id + 1, Timer / Attributes.cooldown);
+
+                if (Timer <= 0)
+                {
+                    State = SkillState.ready;
+                    Timer = 0;
+                }
+                break;
+            }
+        }
+    }
+
+    public void Use()
+    {
+        Attributes.Effect();
+        State = SkillState.active;
+        Timer = Attributes.duration;
     }
 }
