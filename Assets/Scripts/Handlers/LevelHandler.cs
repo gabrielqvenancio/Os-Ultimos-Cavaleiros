@@ -46,10 +46,12 @@ public class LevelHandler : MonoBehaviour
 
     private void CheckMapLimit(Transform environmentObject, float limit, float reset)
     {
-        if (Mathf.Abs(environmentObject.position.x) > Mathf.Abs(limit))
+        int positionSignal = environmentObject.position.x >= 0 ? 1 : -1;
+        if ((positionSignal == -1 && environmentObject.position.x < - limit) || (positionSignal == 1 && environmentObject.position.x > limit))
         {
             Vector3 resetPosition = environmentObject.position;
-            resetPosition.x = reset + environmentObject.position.x - (environmentObject.position.x > 0 ? 1 : -1) * limit;
+            resetPosition.x = - positionSignal * (reset - (Mathf.Abs(environmentObject.position.x) - limit));
+            Debug.Log("posicao que resetou: " + resetPosition.x + "   (numero " + environmentObject.name + ")");
             environmentObject.position = resetPosition;
         }
     }
