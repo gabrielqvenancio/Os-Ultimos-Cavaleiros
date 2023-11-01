@@ -15,7 +15,13 @@ MonoBehaviour:
   cooldown: 6
   duration: 1.5
   skillName: Attack
+  sound: {fileID: 8300000, guid: 54e84d76225f0c44197c7ce08ad59606, type: 3}
   icon: {fileID: 0}
-  additionalDamage: 2
-  additionalVelocity: {x: 2, y: 0, z: 0}
-  additionalForce: {x: 2, y: 0, z: 0}
+  additionalDamage: 4
+  additionalVelocity: {x: 3, y: 0, z: 0}
+  additionalForce: {x: 3, y: 0, z: 0}
+  greenieVoices:
+  - {fileID: 8300000, guid: f45ec1d87f98f644c8eb0f45d5784cd5, type: 3}
+  - {fileID: 8300000, guid: cbac2e83afbb95445bcb28ac31c151e7, type: 3}
+  - {fileID: 8300000, guid: 7bfe8d7703e142b479e09558520cc752, type: 3}
+  - {fileID: 8300000, guid: bcb77768e8f43fa49aa7a187a7b884b4, type: 3}

@@ -15,5 +15,6 @@ MonoBehaviour:
   cooldown: 7
   duration: 0
   skillName: Potion
+  sound: {fileID: 8300000, guid: 2cf434af3cd939648828044ab69cf34d, type: 3}
   icon: {fileID: 0}
   healthRegained: 5

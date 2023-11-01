@@ -15,5 +15,6 @@ MonoBehaviour:
   cooldown: 5
   duration: 5
   skillName: Block
+  sound: {fileID: 8300000, guid: 91d0ef4272f8405449a16b0b10edeb12, type: 3}
   icon: {fileID: 0}
-  additionalForce: {x: 3, y: 0, z: 0}
+  additionalForce: {x: 4, y: 0, z: 0}

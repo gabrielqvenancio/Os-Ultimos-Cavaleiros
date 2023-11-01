@@ -16,7 +16,12 @@ public class LevelHandler : MonoBehaviour
     private void Awake()
     {
         instance = this;
+    }
+
+    private void Start()
+    {
         ChangeLevel();
+        SpawnHandler.instance.OnChangeLevel(CurrentLevel);
     }
 
     internal void Move(Transform environmentObjectsParent)
@@ -36,9 +41,13 @@ public class LevelHandler : MonoBehaviour
                     environmentObject.Translate((-Greenie.instance.Velocity + PhysicsHandler.instance.GlobalVelocity) * (parallaxProportion * Time.fixedDeltaTime));
 
                     if (sortingOrderPosition == CurrentLevel.amountOfLayers - 1)
+                    {
                         CheckMapLimit(environmentObject, groundLimit, groundReset);
+                    }
                     else
+                    {
                         CheckMapLimit(environmentObject, horizonLimit, horizonReset);
+                    }
                 }
             }
         }
@@ -46,30 +55,26 @@ public class LevelHandler : MonoBehaviour
 
     private void CheckMapLimit(Transform environmentObject, float limit, float reset)
     {
-        int positionSignal = environmentObject.position.x >= 0 ? 1 : -1;
-        if ((positionSignal == -1 && environmentObject.position.x < - limit) || (positionSignal == 1 && environmentObject.position.x > limit))
+        int signalFactor = environmentObject.position.x >= 0 ? 1 : -1;
+        if ((signalFactor == -1 && environmentObject.position.x < - limit) || (signalFactor == 1 && environmentObject.position.x > limit))
         {
             Vector3 resetPosition = environmentObject.position;
-            resetPosition.x = - positionSignal * (reset - (Mathf.Abs(environmentObject.position.x) - limit));
-            Debug.Log("posicao que resetou: " + resetPosition.x + "   (numero " + environmentObject.name + ")");
+            resetPosition.x = - signalFactor * (reset - (Mathf.Abs(environmentObject.position.x) - limit));
             environmentObject.position = resetPosition;
         }
     }
 
     private void ChangeLevel()
     {
+        for(int i = 0; i < environmentObjectsParent.transform.childCount; i++)
+        {
+            Destroy(environmentObjectsParent.transform.GetChild(i).gameObject);
+        }
+
         ScriptableLevel level = allLevels[Random.Range(0, allLevels.Length)];
+        Instantiate(level.mapPrefab, environmentObjectsParent.transform);
         CurrentLevel = level;
 
-        for (int i = 0; i < 2; i++)
-        {
-            /*
-             * Vai ter que mudar bastante, porque agora vai ter quantidade de layers variada no horizonte do cenario, provavelmente
-             * botar uns prefab de horizonte arruma
-             * 
-            grounds[i].GetComponent<SpriteRenderer>().sprite = currentLevel.ground;
-            horizons[i].GetComponent<SpriteRenderer>().sprite = currentLevel.horizon;
-            */
-        }
+        SoundHandler.instance.ChangeMusic(level.music);
     }
 }

@@ -5,10 +5,10 @@ using UnityEngine;
 public class Greenie : Character
 {
     internal static Greenie instance;
-    
+
     [SerializeField] private Skill[] skills;
 
-    internal bool isPushable { private get; set; }
+    internal bool Pushable { private get; set; }
     internal int AdditionalDamage { get; set; }
     internal Vector3 AdditionalForce { get; set; }
     private float reducedDamagePercentage;
@@ -17,19 +17,13 @@ public class Greenie : Character
         get { return Mathf.Clamp(reducedDamagePercentage, 0, 100); }
         set { reducedDamagePercentage = value; }
     }
-    private const int baseSkillAmount = 3;
-    private int totalHealth, totalArmor;
-
+    [SerializeField] private AudioClip[] hurtSounds;
 
     private void Awake()
     {
         instance = this;
 
-        totalHealth = attributes.health;
-        totalArmor = attributes.armor;
-        //CurrentHealth = totalHealth;
-        //CurrentArmor = totalArmor;
-        isPushable = true;
+        Pushable = true;
         AdditionalDamage = 0;
         AdditionalForce = Vector3.zero;
         reducedDamagePercentage = 0;
@@ -39,11 +33,13 @@ public class Greenie : Character
 
     private void Start()
     {
-        healthBar.ApplyHealthRange(0, totalHealth);
+        healthBar.ApplyHealthRange(0, Attributes.health);
 
         for(int i = 0; i < skills.Length; i++)
         {
             skills[i].Id = i;
+            skills[i].Source = SoundHandler.instance.skillSources[i];
+            skills[i].Source.clip = skills[i].Attributes.sound;
         }
     }
 
@@ -55,11 +51,14 @@ public class Greenie : Character
 
     private void LateUpdate()
     {
-        HealthBar.UpdateHealth(CurrentHealth);
+        healthBar.UpdateHealth(CurrentHealth);
 
         foreach(Skill skill in skills)
         {
-            if (skill.Timer > 0) skill.Timer -= Time.deltaTime;
+            if (skill.Timer > 0)
+            {
+                skill.Timer -= Time.deltaTime;
+            }
             skill.CheckState();
         }
     }
@@ -70,11 +69,19 @@ public class Greenie : Character
 
         enemyHit.TakeDamage(Attributes.damage + AdditionalDamage);
         TakeDamage((int)((100f - reducedDamagePercentage) / 100f) * enemyHit.Attributes.damage);
+
         if(enemyHit.gameObject.activeSelf)
         {
             PhysicsHandler.instance.PushCharacter(Attributes.pushForce + AdditionalForce, enemyHit);
-            if(isPushable) PhysicsHandler.instance.PushCharacter(new Vector3(enemyHit.Attributes.resistance, 0, 0), this);
+            if(Pushable)
+            {
+                GetComponent<AudioSource>().clip = hurtSounds[Random.Range(0, hurtSounds.Length)];
+                GetComponent<AudioSource>().Play();
+                PhysicsHandler.instance.PushCharacter(enemyHit.Attributes.pushForce, this);
+            }
         }
+
+        SoundHandler.instance.PlayHitSound();
     }
 
     protected override void Move()

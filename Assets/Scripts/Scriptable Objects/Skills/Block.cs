@@ -12,7 +12,7 @@ public class Block : ScriptableSkill
         Greenie.instance.transform.Find("Shield").gameObject.SetActive(true);
         Greenie.instance.AdditionalForce += additionalForce;
         Greenie.instance.ReducedDamagePercentage += 100;
-        Greenie.instance.isPushable = false;
+        Greenie.instance.Pushable = false;
     }
 
     public override void EndEffect()
@@ -20,6 +20,6 @@ public class Block : ScriptableSkill
         Greenie.instance.transform.Find("Shield").gameObject.SetActive(false);
         Greenie.instance.AdditionalForce -= additionalForce;
         Greenie.instance.ReducedDamagePercentage -= 100;
-        Greenie.instance.isPushable = true;
+        Greenie.instance.Pushable = true;
     }
 }

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f32db7583af70e64492955822e2c04f1, type: 3}
+  m_Name: Plains
+  m_EditorClassIdentifier: 
+  levelName: "Plan\xEDcies"
+  enemiesToSpawn:
+  - {fileID: 1692058159099708552, guid: dc8d41c490223b8449c51f2e01442057, type: 3}
+  - {fileID: 7394913537493438376, guid: f7769daf3fead0848bd223acc99e83d2, type: 3}
+  amountOfLayers: 5
+  music: {fileID: 8300000, guid: 0e9b0b46754370c439d7fe34f89031d7, type: 3}
+  mapPrefab: {fileID: 5742407308644400446, guid: d9fadd7019768814fbec5fc6b3de7e93, type: 3}

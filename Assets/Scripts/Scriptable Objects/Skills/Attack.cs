@@ -7,23 +7,29 @@ public class Attack : ScriptableSkill
 {
     public int additionalDamage;
     public Vector3 additionalVelocity, additionalForce;
+    public AudioClip[] greenieVoices;
 
     public override void Effect()
     {
+        AudioSource audioSource = Greenie.instance.gameObject.GetComponent<AudioSource>();
+        audioSource.clip = greenieVoices[Random.Range(0, greenieVoices.Length)];
+        audioSource.Play();
+
         PhysicsHandler.instance.ResetGlobalVelocity();
-        PhysicsHandler.instance.AddGlobalVelocity(-additionalVelocity * Character.basePushForceFactor, (-additionalVelocity * Character.basePushForceFactor) / duration);
+        PhysicsHandler.instance.AddGlobalVelocity(-additionalVelocity * Character.basePushForceFactor, - additionalVelocity * (Character.basePushForceFactor / duration));
         Greenie.instance.LocalHitVelocity = Vector3.zero;
 
         Greenie.instance.Animator.SetTrigger("startAttack");
-        Greenie.instance.isPushable = false;
+        Greenie.instance.Pushable = false;
         Greenie.instance.AdditionalDamage += additionalDamage;
         Greenie.instance.AdditionalForce += additionalForce;
+        
     }
 
     public override void EndEffect()
     {
         Greenie.instance.Animator.SetTrigger("endAttack");
-        Greenie.instance.isPushable = true;
+        Greenie.instance.Pushable = true;
         Greenie.instance.AdditionalDamage -= additionalDamage;
         Greenie.instance.AdditionalForce -= additionalForce;
     }

@@ -23,12 +23,6 @@ public class SpawnHandler : MonoBehaviour
         spawnPopulationModifier = 0;
     }
 
-    private void Start()
-    {
-        OnChangeLevel(LevelHandler.instance.CurrentLevel);
-        StartCoroutine(SpawnEnemy());
-    }
-
     private IEnumerator SpawnEnemy()
     {
         while (true)
@@ -38,15 +32,17 @@ public class SpawnHandler : MonoBehaviour
 
             foreach (GameObject enemy in LevelHandler.instance.CurrentLevel.enemiesToSpawn)
             {
-                if (ChooseEnemy(enemy, ref spawnEnemyHelper, drawnNumber)) break;
+                if (ChooseEnemy(enemy, ref spawnEnemyHelper, drawnNumber))
+                {
+                    break;
+                }
             }
 
             spawnPopulationModifier += 2;
 
-            float modifiers = spawnPopulationModifier - (Time.time - levelStartTime) / 10f;
+            float modifiers = spawnPopulationModifier - ((Time.time - levelStartTime) / 10f);
 
-            yield return new WaitForSeconds(Mathf.Clamp(spawnWaitTime + modifiers,
-                                                        spawnMinWaitTime, spawnMaxWaitTime));
+            yield return new WaitForSeconds(Mathf.Clamp(spawnWaitTime + modifiers, spawnMinWaitTime, spawnMaxWaitTime));
         }
     }
 
@@ -93,5 +89,7 @@ public class SpawnHandler : MonoBehaviour
         {
             enemiesQueue.Add(new Queue<GameObject>());
         }
+
+        StartCoroutine(SpawnEnemy());
     }
 }

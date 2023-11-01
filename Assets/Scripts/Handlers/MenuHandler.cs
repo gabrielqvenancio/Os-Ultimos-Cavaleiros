@@ -15,21 +15,22 @@ public class MenuHandler : MonoBehaviour
 
     public void GameOver()
     {
+        int highScore = 0;
         string path = Application.persistentDataPath + "/highscore.save";
+
         if (File.Exists(path))
         {
             BinaryReader br = new BinaryReader(new FileStream(path, FileMode.OpenOrCreate));
-            if (UIHandler.instance.Score <= br.ReadInt32())
-            {
-                br.Close();
-                return;
-            }
+            highScore = br.ReadInt32();
             br.Close();
         }
 
-        BinaryWriter bw = new BinaryWriter(new FileStream(path, FileMode.OpenOrCreate));
-        bw.Write(UIHandler.instance.Score);
-        bw.Close();
+        if(UIHandler.instance.Score > highScore)
+        {
+            BinaryWriter bw = new BinaryWriter(new FileStream(path, FileMode.OpenOrCreate));
+            bw.Write(UIHandler.instance.Score);
+            bw.Close();
+        }
 
         SceneManager.LoadScene(0, LoadSceneMode.Single);
     }

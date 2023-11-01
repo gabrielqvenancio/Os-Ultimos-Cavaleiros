@@ -7,6 +7,7 @@ public class ScriptableLevel : ScriptableObject
 {
     public string levelName;
     public GameObject[] enemiesToSpawn;
-    public Sprite ground, horizon;
     public int amountOfLayers;
+    public AudioClip music;
+    public GameObject mapPrefab;
 }

@@ -5,11 +5,6 @@ using UnityEngine;
 public abstract class Character : MonoBehaviour
 {
     [SerializeField] protected HealthBar healthBar;
-    internal HealthBar HealthBar
-    {
-        get { return healthBar; } 
-        set { healthBar = value; } 
-    }
     [SerializeField] protected ScriptableCharacter attributes;
     internal ScriptableCharacter Attributes { get { return attributes; } }
 
@@ -41,7 +36,6 @@ public abstract class Character : MonoBehaviour
 
     internal void TakeDamage(int dealtDamage)
     {
-        int healthBeforeDamage = CurrentHealth;
         if (CurrentArmor > 0)
         {
             CurrentArmor -= dealtDamage;
@@ -66,7 +60,7 @@ public abstract class Character : MonoBehaviour
         {
             int signalFactor = LocalHitVelocity.x > 0 ? 1 : -1;
             LocalHitVelocity -= recovery * (Time.fixedDeltaTime * signalFactor);
-            if ((signalFactor > 0 && LocalHitVelocity.x <= 0) || (signalFactor < 0 && LocalHitVelocity.x >= 0))
+            if ((signalFactor == 1 && LocalHitVelocity.x <= 0) || (signalFactor == -1 && LocalHitVelocity.x >= 0))
             {
                 LocalHitVelocity = Vector3.zero;
                 recovery = Vector3.zero;

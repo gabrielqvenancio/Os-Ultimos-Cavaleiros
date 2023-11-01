@@ -19,7 +19,7 @@ public class Enemy : Character
 
     private void Update()
     {
-        HealthBar.UpdateHealth(CurrentHealth);
+        healthBar.UpdateHealth(CurrentHealth);
     }
 
     private void FixedUpdate()
@@ -32,8 +32,7 @@ public class Enemy : Character
     {
         LocalHitVelocity = Vector3.zero;
         float velocityOffset = attributes.baseVelocity.x * 0.66f;
-        Velocity = -attributes.baseVelocity + new Vector3(Random.Range(-velocityOffset, velocityOffset), 0, 0)
-                   - Greenie.instance.Attributes.baseVelocity;
+        Velocity = - (attributes.baseVelocity + Greenie.instance.Attributes.baseVelocity + new Vector3(Random.Range(-velocityOffset, velocityOffset), 0, 0));
         CurrentHealth = attributes.health;
         CurrentArmor = attributes.armor;
         Animator.enabled = true;
@@ -50,6 +49,7 @@ public class Enemy : Character
 
     protected override void OnElimination()
     {
+
         UIHandler.instance.EliminationScoreIncrease(enemyAttributes.scoreYield);
         SpawnHandler.instance.EnqueueEnemy(gameObject);
     }

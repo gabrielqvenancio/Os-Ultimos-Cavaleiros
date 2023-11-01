@@ -15,6 +15,7 @@ public abstract class ScriptableSkill : ScriptableObject
     public float cooldown;
     public float duration;
     public string skillName;
+    public AudioClip sound;
     public Sprite icon;
 
     public abstract void Effect();

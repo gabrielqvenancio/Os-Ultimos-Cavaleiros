@@ -6,6 +6,7 @@ using UnityEngine;
 public class Skill
 {
     [SerializeField] private ScriptableSkill attributes;
+    internal AudioSource Source { get; set; }
     internal ScriptableSkill Attributes { get { return attributes; } }
     internal SkillState State { get; set; }
     internal float Timer { get; set; }
@@ -52,6 +53,7 @@ public class Skill
     public void Use()
     {
         Attributes.Effect();
+        Source.Play();
         State = SkillState.active;
         Timer = Attributes.duration;
     }
