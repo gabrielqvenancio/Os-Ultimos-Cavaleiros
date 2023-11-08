@@ -13,9 +13,15 @@ MonoBehaviour:
   m_Name: Cave
   m_EditorClassIdentifier: 
   levelName: Caverna
-  enemiesToSpawn: []
+  enemiesToSpawn:
+  - {fileID: 4872385889897079100, guid: bf8fcfdb9fd419a4dbde31f8055002dd, type: 3}
+  - {fileID: 4872385889897079100, guid: 15d4676580f609944b7b5808268a1767, type: 3}
   amountOfLayers: 4
   music: {fileID: 8300000, guid: 0f6d9b5b06a79cb4c9d62bcfc92096e9, type: 3}
   mapPrefab: {fileID: 5742407308644400446, guid: 7074fb782a0a7fe409a9433dd6ed6570, type: 3}
   randomLayers:
   - {fileID: 2037419843499671721, guid: 21532d9ff5a8d2b45bf80b9017fa8c8b, type: 3}
+  groundReturnPoint: 89.6
+  groundLimitPoint: 179.2
+  othersReturnPoint: 38.4
+  othersLimitPoint: 76.8

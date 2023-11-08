@@ -11,4 +11,5 @@ public class ScriptableLevel : ScriptableObject
     public AudioClip music;
     public GameObject mapPrefab;
     public GameObject[] randomLayers;
+    public float groundReturnPoint, groundLimitPoint, othersReturnPoint, othersLimitPoint;
 }

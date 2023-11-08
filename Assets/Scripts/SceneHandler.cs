@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 
 public enum Scenes
@@ -12,11 +13,12 @@ public enum Scenes
 
 public enum GameState
 {
+    init,
     gameplay,
     paused,
     options,
     menu,
-    loading
+    loading,
 }
 
 public class SceneHandler : MonoBehaviour
@@ -30,33 +32,10 @@ public class SceneHandler : MonoBehaviour
         instance = this;
     }
 
-    private void Start()
-    {
-        ChangeScene(Scenes.menu, GameState.menu, false, FadeScreenOptions.FadeIn, 2f); //********lEMBRA DE DFESCOMENTAR
-    }
-
     public void GameOver()
     {
         IOHandler.instance.SaveHighScore();
-        ChangeScene(Scenes.menu, Scenes.gameplay, GameState.menu, true, FadeScreenOptions.FadeIn, 1.5f);
-    }
-
-    internal void ChangeActionMap(string map)
-    {
-        InputHandler.instance.playerInput.SwitchCurrentActionMap(map);
-        switch (map)
-        {
-            case "Player":
-            {
-                InputHandler.instance.playerInput.uiInputModule.leftClick.Set(InputHandler.instance.playerInput.currentActionMap.FindAction("Click"));
-                break;
-            }
-            case "UI":
-            {
-                InputHandler.instance.playerInput.uiInputModule.leftClick.Set(InputHandler.instance.playerInput.currentActionMap.FindAction("Click"));
-                break;
-            }
-        }
+        ChangeScene(Scenes.menu, Scenes.gameplay, GameState.menu, true, FadeScreenOptions.FadeIn, 1f);
     }
 
     internal AsyncOperation LoadScene(Scenes sceneToLoad)
@@ -99,6 +78,8 @@ public class SceneHandler : MonoBehaviour
             AsyncOperation unloadingSceneOperation = UnloadScene(sceneToUnload);
             loadingSceneOperation.allowSceneActivation = true;
             Scene = sceneToLoad;
+            State = stateAfterLoad;
+
             switch (fadeScreenOptions)
             {
                 case FadeScreenOptions.FadeIn:
@@ -126,6 +107,8 @@ public class SceneHandler : MonoBehaviour
             AsyncOperation loadingSceneOperation = LoadScene(sceneToLoad);
             loadingSceneOperation.allowSceneActivation = true;
             Scene = sceneToLoad;
+            State = stateAfterLoad;
+
             switch (fadeScreenOptions)
             {
                 case FadeScreenOptions.FadeIn:

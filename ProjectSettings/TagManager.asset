@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Canvas
   - Ground
+  - Random Layer
   layers:
   - Default
   - TransparentFX
@@ -48,6 +49,9 @@ TagManager:
     locked: 0
   - name: Character
     uniqueID: 2456494479
+    locked: 0
+  - name: Scenario Front
+    uniqueID: 833595375
     locked: 0
   - name: UI
     uniqueID: 3499367807

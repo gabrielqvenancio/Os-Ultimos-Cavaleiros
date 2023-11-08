@@ -6,6 +6,5 @@ using UnityEngine;
 public class ScriptableEnemy : ScriptableObject
 {
     public int rarity, mapId, scoreYield;
-    public ScriptableDrop drop;
     public AudioClip[] deathSounds;
 }

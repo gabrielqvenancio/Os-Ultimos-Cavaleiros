@@ -7,7 +7,6 @@ public class LevelHandler : MonoBehaviour
     internal static LevelHandler instance;
 
     [SerializeField] private ScriptableLevel[] allLevels;
-    [SerializeField] private float groundReset, horizonReset, groundLimit, horizonLimit;
     [SerializeField] private GameObject environmentObjectsParent;
 
     internal Transform EnvironmentObjectsParent { get { return environmentObjectsParent.transform; } }
@@ -35,32 +34,50 @@ public class LevelHandler : MonoBehaviour
             }
             else
             {
+                if(!environmentObject.GetComponent<SpriteRenderer>())
+                {
+                    return;
+                }
+
                 int sortingOrderPosition = environmentObject.GetComponent<SpriteRenderer>().sortingOrder;
                 if (sortingOrderPosition >= 0)
                 {
-                    float parallaxProportion = 1f / Mathf.Pow((CurrentLevel.amountOfLayers - sortingOrderPosition), 2f);
+                    float parallaxProportion;
+                    if (sortingOrderPosition >= CurrentLevel.amountOfLayers)
+                    {
+                        parallaxProportion = 1f / Mathf.Pow((float)CurrentLevel.amountOfLayers / (sortingOrderPosition + 2), 2f);
+                    }
+                    else
+                    {
+                        parallaxProportion = 1f / Mathf.Pow(CurrentLevel.amountOfLayers - sortingOrderPosition, 2f);
+                    }
                     environmentObject.Translate((-Greenie.instance.Velocity + PhysicsHandler.instance.GlobalVelocity) * (parallaxProportion * Time.fixedDeltaTime));
 
                     if (environmentObject.CompareTag("Ground"))
                     {
-                        CheckMapLimit(environmentObject, groundLimit, groundReset);
+                        CheckMapLimit(environmentObject, CurrentLevel.groundLimitPoint, CurrentLevel.groundReturnPoint);
                     }
                     else
                     {
-                        CheckMapLimit(environmentObject, horizonLimit, horizonReset);
+                        CheckMapLimit(environmentObject, CurrentLevel.othersLimitPoint, CurrentLevel.othersReturnPoint);
                     }
                 }
             }
         }
     }
 
-    private void CheckMapLimit(Transform environmentObject, float limit, float reset)
+    private void CheckMapLimit(Transform environmentObject, float limitPoint, float returnPoint)
     {
         int signalFactor = environmentObject.position.x >= 0 ? 1 : -1;
-        if ((signalFactor == -1 && environmentObject.position.x < - limit) || (signalFactor == 1 && environmentObject.position.x > limit))
+        if ((signalFactor == -1 && environmentObject.position.x < -limitPoint) || (signalFactor == 1 && environmentObject.position.x > limitPoint))
         {
+            if(environmentObject.CompareTag("Random Layer"))
+            {
+                Destroy(environmentObject.gameObject);
+                return;
+            }
             Vector3 resetPosition = environmentObject.position;
-            resetPosition.x = - signalFactor * (reset - (Mathf.Abs(environmentObject.position.x) - limit));
+            resetPosition.x = - signalFactor * (returnPoint - (Mathf.Abs(environmentObject.position.x) - limitPoint));
             environmentObject.position = resetPosition;
         }
     }
@@ -75,7 +92,7 @@ public class LevelHandler : MonoBehaviour
         int rng = Random.Range(1, 101);
         if(rng >= 80)
         {
-            Instantiate(CurrentLevel.randomLayers[Random.Range(0, CurrentLevel.randomLayers.Length)], EnvironmentObjectsParent.transform.GetChild(0).Find("Random"), true);
+            Instantiate(CurrentLevel.randomLayers[Random.Range(0, CurrentLevel.randomLayers.Length)], new Vector3(CurrentLevel.othersReturnPoint, 0, 0), Quaternion.identity, EnvironmentObjectsParent.transform.GetChild(0).Find("Random"));
         }
     }
 

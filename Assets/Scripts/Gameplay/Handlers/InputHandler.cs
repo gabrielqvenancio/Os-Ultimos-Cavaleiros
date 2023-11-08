@@ -24,7 +24,7 @@ public class InputHandler : MonoBehaviour
 
     private void Start()
     {
-        SceneHandler.instance.State = GameState.menu;
+        SceneHandler.instance.State = GameState.init;
         SceneHandler.instance.Scene = Scenes.menu;
     }
 
@@ -47,7 +47,6 @@ public class InputHandler : MonoBehaviour
         Time.timeScale = 0;
 
         pause.SetActive(true);
-        SceneHandler.instance.ChangeActionMap("UI");
         SoundHandler.instance.PauseMusic();
 
         pauseBase.transform.Find("Continue").gameObject.GetComponent<Button>().Select();
@@ -59,7 +58,6 @@ public class InputHandler : MonoBehaviour
         Time.timeScale = 1;
 
         pause.SetActive(false);
-        SceneHandler.instance.ChangeActionMap("Player");
         SoundHandler.instance.PlayMusic();
     }
 
@@ -67,7 +65,7 @@ public class InputHandler : MonoBehaviour
     {
         Time.timeScale = 1;
         pause.SetActive(false);
-        SceneHandler.instance.ChangeScene(Scenes.menu, Scenes.gameplay, GameState.menu, true, FadeScreenOptions.FadeIn, 1.5f);
+        SceneHandler.instance.ChangeScene(Scenes.menu, Scenes.gameplay, GameState.menu, true, FadeScreenOptions.FadeIn, 1f);
     }
 
     public void Options()
@@ -89,7 +87,6 @@ public class InputHandler : MonoBehaviour
         {
             return;
         }
-
         switch (SceneHandler.instance.State)
         {
             case GameState.gameplay:
@@ -156,6 +153,12 @@ public class InputHandler : MonoBehaviour
                 {
                     LoadingScreen.instance.closeLoadingScreen = true;
                 }
+                break;
+            }
+            case GameState.init:
+            {
+                Destroy(GameObject.Find("Pre Menu"));
+                SceneHandler.instance.ChangeScene(Scenes.menu, GameState.menu, false, FadeScreenOptions.FadeIn, 2f);
                 break;
             }
         }

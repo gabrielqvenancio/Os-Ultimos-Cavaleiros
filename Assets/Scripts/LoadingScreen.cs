@@ -26,7 +26,6 @@ public class LoadingScreen : MonoBehaviour
     internal IEnumerator CallLoadingScreen(Scenes sceneToLoad, Scenes sceneToUnload, GameState stateAfterLoad)
     {
         SceneHandler.instance.State = GameState.loading;
-        SceneHandler.instance.ChangeActionMap("UI");
         Time.timeScale = 0;
         SoundHandler.instance.PauseMusic();
 
@@ -70,14 +69,12 @@ public class LoadingScreen : MonoBehaviour
         transform.Find("Loading Screen").gameObject.SetActive(false);
         SceneHandler.instance.State = stateAfterLoad;
         SceneHandler.instance.Scene = sceneToLoad;
-        SceneHandler.instance.ChangeActionMap("UI");
         SoundHandler.instance.PlayMusic();
     }
 
     internal IEnumerator CallLoadingScreen(Scenes sceneToLoad, GameState stateAfterLoad)
     {
         SceneHandler.instance.State = GameState.loading;
-        SceneHandler.instance.ChangeActionMap("UI");
         Time.timeScale = 0;
 
         transform.Find("Loading Screen").gameObject.SetActive(true);
@@ -112,7 +109,6 @@ public class LoadingScreen : MonoBehaviour
         transform.Find("Loading Screen").gameObject.SetActive(false);
         SceneHandler.instance.State = stateAfterLoad;
         SceneHandler.instance.Scene = sceneToLoad;
-        SceneHandler.instance.ChangeActionMap("UI");
         SoundHandler.instance.PlayMusic();
     }
 
