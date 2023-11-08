@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f32db7583af70e64492955822e2c04f1, type: 3}
+  m_Name: Cave
+  m_EditorClassIdentifier: 
+  levelName: Caverna
+  enemiesToSpawn: []
+  amountOfLayers: 4
+  music: {fileID: 8300000, guid: 0f6d9b5b06a79cb4c9d62bcfc92096e9, type: 3}
+  mapPrefab: {fileID: 5742407308644400446, guid: 7074fb782a0a7fe409a9433dd6ed6570, type: 3}
+  randomLayers:
+  - {fileID: 2037419843499671721, guid: 21532d9ff5a8d2b45bf80b9017fa8c8b, type: 3}

@@ -11,10 +11,9 @@ GameObject:
   - component: {fileID: 8180874538975701393}
   - component: {fileID: 3189437557364564486}
   - component: {fileID: 6037911086728982637}
-  - component: {fileID: 1183869499080045072}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: Canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60,7 +59,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: -795599489
+  m_SortingLayerID: -1838472817
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &6037911086728982637
@@ -86,23 +85,6 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 1
---- !u!114 &1183869499080045072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1168261018355372432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!1 &3299028297856418068
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,7 +337,7 @@ Transform:
   m_Children:
   - {fileID: 8180874538975701393}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1407773958973893472
 SpriteRenderer:
@@ -480,7 +462,7 @@ BoxCollider2D:
   m_Offset: {x: -0.03, y: 0.03}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.572, y: 0.4}
+    pivot: {x: 0.572, y: 0.45}
     oldSize: {x: 0.28, y: 0.3}
     newSize: {x: 1.4, y: 1.5}
     adaptiveTilingThreshold: 0.5
