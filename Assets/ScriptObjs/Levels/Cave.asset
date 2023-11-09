@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: Caverna
   enemiesToSpawn:
+  - {fileID: 4872385889897079100, guid: 5107fb67ae184994bbdc8ee159815be5, type: 3}
   - {fileID: 4872385889897079100, guid: bf8fcfdb9fd419a4dbde31f8055002dd, type: 3}
-  - {fileID: 4872385889897079100, guid: 15d4676580f609944b7b5808268a1767, type: 3}
   amountOfLayers: 4
   music: {fileID: 8300000, guid: 0f6d9b5b06a79cb4c9d62bcfc92096e9, type: 3}
   mapPrefab: {fileID: 5742407308644400446, guid: 7074fb782a0a7fe409a9433dd6ed6570, type: 3}

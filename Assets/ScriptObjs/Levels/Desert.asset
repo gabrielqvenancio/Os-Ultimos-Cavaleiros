@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Desert
   m_EditorClassIdentifier: 
   levelName: Desert
-  enemiesToSpawn: []
+  enemiesToSpawn:
+  - {fileID: 4872385889897079100, guid: 0287ffbe472e9b6408ee20cbc0baf563, type: 3}
+  - {fileID: 4872385889897079100, guid: 7326e221dafdf9e4e8c5349acdc9a39a, type: 3}
   amountOfLayers: 4
   music: {fileID: 8300000, guid: 57d15b00be2a38f45b77e57c7061f206, type: 3}
   mapPrefab: {fileID: 5742407308644400446, guid: 532cc9ee181f7604ca3a4920f5f97dca, type: 3}

@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: Forest
   enemiesToSpawn:
-  - {fileID: 4872385889897079100, guid: e7ba1553939fdd445ad4a436e28e8613, type: 3}
   - {fileID: 4872385889897079100, guid: 5013eb6a66a7d814f91330242de1ede6, type: 3}
-  amountOfLayers: 5
+  - {fileID: 4872385889897079100, guid: e7ba1553939fdd445ad4a436e28e8613, type: 3}
+  amountOfLayers: 4
   music: {fileID: 8300000, guid: 96de23ef43379ac49950d734abde5eaa, type: 3}
   mapPrefab: {fileID: 5742407308644400446, guid: b2c0a7f08bf77b746936e601debc1150, type: 3}
   randomLayers: []

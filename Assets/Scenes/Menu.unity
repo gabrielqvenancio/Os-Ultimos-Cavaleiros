@@ -820,6 +820,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuButtonsParent: {fileID: 765570317}
+  menuMusic: {fileID: 8300000, guid: 95c2fd29ed4cb0141bb630af7829ee31, type: 3}
 --- !u!4 &1282647166
 Transform:
   m_ObjectHideFlags: 0

@@ -111,7 +111,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.83, y: 21.6}
+  m_AnchoredPosition: {x: -0.95, y: 16}
   m_SizeDelta: {x: 35.9, y: 4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2991834947961928052
@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: -6154979295081942496}
   - component: {fileID: 4739687711134170806}
   m_Layer: 0
-  m_Name: EnemyPrefab 5
+  m_Name: Worm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -291,7 +291,7 @@ SpriteRenderer:
   m_SortingLayerID: -1838472817
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d198c196fdd739f4784350f7a08ada7e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 828a46eb034a1b246b9b88115289e553, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -315,8 +315,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 2991834947961928052}
-  attributes: {fileID: 0}
-  enemyAttributes: {fileID: 0}
+  attributes: {fileID: 11400000, guid: b9c9da64ab3d4ba45bcbb9861922e007, type: 2}
+  enemyAttributes: {fileID: 11400000, guid: 4ab4a4db685b7304282cb4d2a1f625ea, type: 2}
 --- !u!95 &7060666180731924745
 Animator:
   serializedVersion: 5
@@ -327,7 +327,7 @@ Animator:
   m_GameObject: {fileID: 4872385889897079100}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 257d867fc3d0163408e9c389e4a86a75, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -370,18 +370,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.048000038, y: -0.324}
+  m_Offset: {x: 0.00945, y: -0.0385}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.54, y: 0.8}
-    oldSize: {x: 1.2, y: 1.08}
+    pivot: {x: 0.525, y: 0.566}
+    oldSize: {x: 1.2, y: 0.6}
     newSize: {x: 1.2, y: 1.08}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2, y: 1.08}
+  m_Size: {x: 0.8, y: 0.282}
   m_EdgeRadius: 0
 --- !u!82 &4739687711134170806
 AudioSource:

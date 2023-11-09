@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Chilly Mountains
   m_EditorClassIdentifier: 
   levelName: Chilly Mountains
-  enemiesToSpawn: []
-  amountOfLayers: 5
+  enemiesToSpawn:
+  - {fileID: 4872385889897079100, guid: 15d4676580f609944b7b5808268a1767, type: 3}
+  - {fileID: 4872385889897079100, guid: bf3de35296fbfe54a9797aac1a1d3e92, type: 3}
+  amountOfLayers: 4
   music: {fileID: 8300000, guid: fe068d97d3e299448b211bc4cbfa74e5, type: 3}
   mapPrefab: {fileID: 5742407308644400446, guid: a97da6772e9fea648a039fdb51cb4803, type: 3}
   randomLayers: []

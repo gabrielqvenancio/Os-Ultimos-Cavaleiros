@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a05a0ba201d4ce04b93a6fb9a1689384, type: 3}
   m_Name: StoneGolemEnemy
   m_EditorClassIdentifier: 
-  rarity: 50
+  rarity: 20
   mapId: 1
-  scoreYield: 40000
+  scoreYield: 300
   deathSounds: []

@@ -9,6 +9,7 @@ public class Menu : MonoBehaviour
 {
     internal static Menu instance;
     [SerializeField] internal GameObject menuButtonsParent;
+    [SerializeField] private AudioClip menuMusic;
 
     private void Awake()
     {
@@ -19,6 +20,7 @@ public class Menu : MonoBehaviour
     {
         InputHandler.instance.firstSelected = true;
         menuButtonsParent.transform.Find("Play").GetComponent<Button>().Select();
+        SoundHandler.instance.ChangeMusic(menuMusic);
         SoundHandler.instance.PlayMusic();
     }
 

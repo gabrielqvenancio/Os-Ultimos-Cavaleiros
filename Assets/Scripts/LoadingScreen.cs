@@ -108,12 +108,14 @@ public class LoadingScreen : MonoBehaviour
         transform.Find("Loading Screen").gameObject.SetActive(false);
         SceneHandler.instance.State = stateAfterLoad;
         SceneHandler.instance.Scene = sceneToLoad;
-        SoundHandler.instance.PlayMusic();
     }
 
     internal IEnumerator CallLoadingScreen(Scenes sceneToLoad, GameState stateAfterLoad)
     {
+        Coroutine backGroundAnimation = StartCoroutine(ChangeBackgroundSprite(2f));
+
         SceneHandler.instance.State = GameState.loading;
+        SoundHandler.instance.PauseMusic();
         Time.timeScale = 0;
 
         transform.Find("Loading Screen").gameObject.SetActive(true);
@@ -144,11 +146,11 @@ public class LoadingScreen : MonoBehaviour
             yield return null;
         }
 
+        StopCoroutine(backGroundAnimation);
         Time.timeScale = 1;
         transform.Find("Loading Screen").gameObject.SetActive(false);
         SceneHandler.instance.State = stateAfterLoad;
         SceneHandler.instance.Scene = sceneToLoad;
-        SoundHandler.instance.PlayMusic();
     }
 
     internal IEnumerator CallLoadingScreen(Scenes sceneToLoad, Scenes sceneToUnload, GameState stateAfterLoad, FadeScreenOptions fadeScreenOptions, float duration, OnFinishFade onFinishFade = null)
