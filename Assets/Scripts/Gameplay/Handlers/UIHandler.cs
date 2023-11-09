@@ -9,25 +9,45 @@ public class UIHandler : MonoBehaviour
 {
     internal static UIHandler instance;
 
-    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI scoreText, highScoreText;
     [SerializeField] private float scoreIncreaseTimeGap;
     [SerializeField] private GameObject skillSlidersParent;
+    private bool highScoreReached;
     internal int Score { get; private set; }
+    internal int HighScore { get; private set; }
 
     private void Awake()
     {
-        Score = 0;
         instance = this;
+
+        Score = 0;
+        HighScore = IOHandler.LoadHighScore();
+        highScoreReached = false;
     }
 
     private void Start()
     {
         InvokeRepeating(nameof(PassiveScoreIncrease), scoreIncreaseTimeGap, scoreIncreaseTimeGap);
+        if(HighScore == 0)
+        {
+            Color color = highScoreText.color;
+            color.a = 0;
+            highScoreText.color = color;
+        }
+        else
+        {
+            UpdateScoreText(highScoreText, HighScore);
+        }
     }
 
     private void Update()
     {
-        UpdateScoreText();
+        UpdateScoreText(scoreText, Score);
+        if (Score > HighScore && !highScoreReached)
+        {
+            highScoreReached = true;
+            StartCoroutine(ReduceHighScoreOpacity(0.5f));
+        }
     }
 
     internal void ReduceSkillCooldownUI(int buttonNumber, float value)
@@ -36,13 +56,13 @@ public class UIHandler : MonoBehaviour
         slider.value = value;
     }
 
-    private void UpdateScoreText()
+    private void UpdateScoreText(TextMeshProUGUI text, int score)
     {
         const int amountOfDigits = 7;
-        scoreText.text = "";
+        text.text = "";
 
         int significantDigits = 0;
-        int scoreAux = Score;
+        int scoreAux = score;
 
         do
         {
@@ -52,10 +72,10 @@ public class UIHandler : MonoBehaviour
 
         for(int j = 0; j < (amountOfDigits - significantDigits); j++)
         {
-            scoreText.text += '0';
+            text.text += '0';
         }
 
-        scoreText.text += Score.ToString();
+        text.text += score.ToString();
     }
 
     private void PassiveScoreIncrease()
@@ -66,5 +86,16 @@ public class UIHandler : MonoBehaviour
     internal void EliminationScoreIncrease(int scoreYield)
     {
         Score += scoreYield;
+    }
+
+    private IEnumerator ReduceHighScoreOpacity(float duration)
+    {
+        while(highScoreText.color.a > 0)
+        {
+            Color32 color = highScoreText.color;
+            color.a -= 1;
+            highScoreText.color = color;
+            yield return new WaitForSeconds(FadeScreen.baseWaitTime * duration);
+        }
     }
 }

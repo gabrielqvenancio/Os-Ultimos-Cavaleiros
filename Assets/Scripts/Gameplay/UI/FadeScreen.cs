@@ -16,7 +16,7 @@ public class FadeScreen : MonoBehaviour
     internal static FadeScreen instance;
     [SerializeField] private Image sprite;
     internal Image Sprite { get; set; }
-    private const float baseWaitTime = 0.00392f;
+    internal const float baseWaitTime = 0.00392f;
 
     private void Awake()
     {

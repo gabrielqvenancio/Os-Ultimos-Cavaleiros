@@ -9,6 +9,9 @@ public class LoadingScreen : MonoBehaviour
 {
     internal static LoadingScreen instance;
     [SerializeField] private TextMeshProUGUI progressText;
+    [SerializeField] private Image backGroundImage;
+    [SerializeField] private Sprite[] sprites;
+    [SerializeField] private GameObject pressAnyButtonImage;
     internal bool ready { get; private set; }
     internal bool closeLoadingScreen;
 
@@ -23,10 +26,44 @@ public class LoadingScreen : MonoBehaviour
         ready = false;
     }
 
+    private IEnumerator ChangeBackgroundSprite(float fadeDuration)
+    {
+        int spriteNumber = Random.Range(0, sprites.Length);
+        backGroundImage.sprite = sprites[spriteNumber];
+        while (true)
+        {
+            yield return new WaitForSeconds(6f);
+            while (backGroundImage.color.a > 0)
+            {
+                Color32 color = backGroundImage.color;
+                color.a -= 1;
+                backGroundImage.color = color;
+                yield return new WaitForSeconds(FadeScreen.baseWaitTime * fadeDuration);
+            }
+
+            spriteNumber++;
+            if (spriteNumber >= sprites.Length)
+            {
+                spriteNumber = 0;
+            }
+            backGroundImage.sprite = sprites[spriteNumber];
+            yield return new WaitForSeconds(1f);
+
+            while (backGroundImage.color.a < 1)
+            {
+                Color32 color = backGroundImage.color;
+                color.a += 1;
+                backGroundImage.color = color;
+                yield return new WaitForSeconds(FadeScreen.baseWaitTime * fadeDuration);
+            }
+        }
+    }
+
     internal IEnumerator CallLoadingScreen(Scenes sceneToLoad, Scenes sceneToUnload, GameState stateAfterLoad)
     {
+        Coroutine backGroundAnimation = StartCoroutine(ChangeBackgroundSprite(2f));
+
         SceneHandler.instance.State = GameState.loading;
-        Time.timeScale = 0;
         SoundHandler.instance.PauseMusic();
 
         transform.Find("Loading Screen").gameObject.SetActive(true);
@@ -50,6 +87,7 @@ public class LoadingScreen : MonoBehaviour
 
         progressText.text = "100%";
 
+        pressAnyButtonImage.SetActive(true);
         ready = true;
         while (!closeLoadingScreen)
         {
@@ -65,7 +103,8 @@ public class LoadingScreen : MonoBehaviour
             yield return null;
         }
 
-        Time.timeScale = 1;
+        StopCoroutine(backGroundAnimation);
+        pressAnyButtonImage.SetActive(false);
         transform.Find("Loading Screen").gameObject.SetActive(false);
         SceneHandler.instance.State = stateAfterLoad;
         SceneHandler.instance.Scene = sceneToLoad;

@@ -4,19 +4,15 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using TMPro;
-using System.IO;
 
 public class Menu : MonoBehaviour
 {
     internal static Menu instance;
-    [SerializeField] private TextMeshProUGUI highScore;
     [SerializeField] internal GameObject menuButtonsParent;
 
     private void Awake()
     {
         instance = this;
-        highScore.text = "High Score: " + IOHandler.LoadHighScore();
     }
 
     private void Start()

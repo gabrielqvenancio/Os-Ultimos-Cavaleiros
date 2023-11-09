@@ -5,15 +5,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class IOHandler : MonoBehaviour
+public static class IOHandler
 {
-    internal static IOHandler instance;
-
-    private void Awake()
-    {
-        instance = this;
-    }
-
     internal static int LoadHighScore()
     {
         string path = Application.persistentDataPath + "/highscore.save";
@@ -27,7 +20,7 @@ public class IOHandler : MonoBehaviour
         return 0;
     }
 
-    internal void SaveHighScore()
+    internal static void SaveHighScore()
     {
         int highScore = 0;
         string path = Application.persistentDataPath + "/highscore.save";

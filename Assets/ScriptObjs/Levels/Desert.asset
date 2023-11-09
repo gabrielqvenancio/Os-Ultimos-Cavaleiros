@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f32db7583af70e64492955822e2c04f1, type: 3}
+  m_Name: Desert
+  m_EditorClassIdentifier: 
+  levelName: Desert
+  enemiesToSpawn: []
+  amountOfLayers: 4
+  music: {fileID: 8300000, guid: 57d15b00be2a38f45b77e57c7061f206, type: 3}
+  mapPrefab: {fileID: 5742407308644400446, guid: 532cc9ee181f7604ca3a4920f5f97dca, type: 3}
+  randomLayers: []
+  groundReturnPoint: 89.6
+  groundLimitPoint: 179.2
+  othersReturnPoint: 38.4
+  othersLimitPoint: 76.8

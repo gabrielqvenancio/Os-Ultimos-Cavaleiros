@@ -34,7 +34,7 @@ public class SceneHandler : MonoBehaviour
 
     public void GameOver()
     {
-        IOHandler.instance.SaveHighScore();
+        IOHandler.SaveHighScore();
         ChangeScene(Scenes.menu, Scenes.gameplay, GameState.menu, true, FadeScreenOptions.FadeIn, 1f);
     }
 

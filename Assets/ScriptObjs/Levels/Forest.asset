@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f32db7583af70e64492955822e2c04f1, type: 3}
+  m_Name: Forest
+  m_EditorClassIdentifier: 
+  levelName: Forest
+  enemiesToSpawn:
+  - {fileID: 4872385889897079100, guid: e7ba1553939fdd445ad4a436e28e8613, type: 3}
+  - {fileID: 4872385889897079100, guid: 5013eb6a66a7d814f91330242de1ede6, type: 3}
+  amountOfLayers: 5
+  music: {fileID: 8300000, guid: 96de23ef43379ac49950d734abde5eaa, type: 3}
+  mapPrefab: {fileID: 5742407308644400446, guid: b2c0a7f08bf77b746936e601debc1150, type: 3}
+  randomLayers: []
+  groundReturnPoint: 38.4
+  groundLimitPoint: 76.8
+  othersReturnPoint: 38.4
+  othersLimitPoint: 76.8

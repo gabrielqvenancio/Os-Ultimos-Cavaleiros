@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CyclopsEnemy
   m_EditorClassIdentifier: 
   rarity: 50
-  mapId: 1
-  scoreYield: 1000
+  mapId: 0
+  scoreYield: 40000
   deathSounds: []

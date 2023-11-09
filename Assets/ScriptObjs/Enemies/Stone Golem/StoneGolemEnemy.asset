@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rarity: 50
   mapId: 1
-  scoreYield: 300
+  scoreYield: 40000
   deathSounds: []
