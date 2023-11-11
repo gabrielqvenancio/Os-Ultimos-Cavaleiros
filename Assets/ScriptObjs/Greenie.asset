@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Greenie
   damage: 3
-  health: 30
+  health: 40
   armor: 0
   resistance: 2
-  baseVelocity: {x: 10, y: 0, z: 0}
+  baseVelocity: {x: 3, y: 0, z: 0}
   pushForce: {x: 3.5, y: 0, z: 0}
   prefab: {fileID: 6637369363223385092, guid: 5547408b9dc4eb9429b0a5097df7167b, type: 3}

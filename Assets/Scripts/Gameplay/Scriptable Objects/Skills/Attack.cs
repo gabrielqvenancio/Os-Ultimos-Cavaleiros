@@ -14,7 +14,7 @@ public class Attack : ScriptableSkill
         SoundHandler.instance.PlaySoundEffect(Greenie.instance.gameObject.GetComponent<AudioSource>(), greenieVoices[Random.Range(0, greenieVoices.Length)]);
 
         PhysicsHandler.instance.ResetGlobalVelocity();
-        PhysicsHandler.instance.AddGlobalVelocity(-additionalVelocity * Character.basePushForceFactor, - additionalVelocity * (Character.basePushForceFactor / duration));
+        PhysicsHandler.instance.AddGlobalVelocity(- additionalVelocity, - additionalVelocity / duration);
         Greenie.instance.LocalHitVelocity = Vector3.zero;
 
         Greenie.instance.Animator.SetTrigger("startAttack");

@@ -29,7 +29,7 @@ public class PhysicsHandler : MonoBehaviour
         for (int i = 0; i < allGlobalVelocities.Count; i++)
         {
             int signalFactor = allGlobalVelocities[i].x > 0 ? 1 : -1;
-
+            
             GlobalVelocity += allGlobalVelocities[i];
             allGlobalVelocities[i] -= allGlobalRecoveries[i] * Time.fixedDeltaTime;
 

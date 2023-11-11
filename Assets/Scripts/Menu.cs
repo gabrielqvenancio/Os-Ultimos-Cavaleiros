@@ -30,6 +30,11 @@ public class Menu : MonoBehaviour
         SceneHandler.instance.ChangeScene(Scenes.gameplay, Scenes.menu, GameState.gameplay, true);
     }
 
+    public void Tutorial()
+    {
+        TutorialScript.instance.OpenTutorial();
+    }
+
     public void Options()
     {
         InputHandler.instance.Options();

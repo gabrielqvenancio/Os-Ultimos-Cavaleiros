@@ -70,7 +70,11 @@ public class InputHandler : MonoBehaviour
 
     public void Options()
     {
-        if (SceneHandler.instance.State == GameState.menu) Menu.instance.menuButtonsParent.SetActive(false);
+        if (SceneHandler.instance.State == GameState.menu)
+        {
+            Menu.instance.menuButtonsParent.SetActive(false);
+        }
+
         SceneHandler.instance.State = GameState.options;
         firstSelected = true;
         
@@ -102,6 +106,11 @@ public class InputHandler : MonoBehaviour
             case GameState.options:
             {
                 CloseOptions();
+                break;
+            }
+            case GameState.tutorial:
+            {
+                TutorialScript.instance.CloseTutorial();
                 break;
             }
         }
@@ -149,7 +158,7 @@ public class InputHandler : MonoBehaviour
         {
             case GameState.loading:
             {
-                if(LoadingScreen.instance.ready)
+                if(LoadingScreen.instance.Ready)
                 {
                     LoadingScreen.instance.closeLoadingScreen = true;
                 }
@@ -162,5 +171,35 @@ public class InputHandler : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public void Skill(InputAction.CallbackContext context)
+    {
+        if (!context.performed || SceneHandler.instance.State != GameState.gameplay)
+        {
+            return;
+        }
+
+        int id = 0;
+        switch(context.action.name)
+        {
+            case "Skill 1":
+            {
+                id = 0;
+                break;
+            }
+            case "Skill 2":
+            {
+                id = 1;
+                break;
+            }
+            case "Skill 3":
+            {
+                id = 2;
+                break;
+            }
+        }
+
+        Greenie.instance.ClickOnSkill(id);
     }
 }

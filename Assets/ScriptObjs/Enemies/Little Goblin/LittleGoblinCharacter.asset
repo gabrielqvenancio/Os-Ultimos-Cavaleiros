@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: LittleGoblinCharacter
   m_EditorClassIdentifier: 
   characterName: Little Goblin
-  damage: 1
-  health: 1
+  damage: 8
+  health: 6
   armor: 0
-  resistance: 1
-  baseVelocity: {x: 1, y: 0, z: 0}
+  resistance: 0.8
+  baseVelocity: {x: 3, y: 0, z: 0}
   pushForce: {x: 1, y: 0, z: 0}
   prefab: {fileID: 4872385889897079100, guid: 5013eb6a66a7d814f91330242de1ede6, type: 3}

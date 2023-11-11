@@ -95,7 +95,7 @@ public class Greenie : Character
 
     internal override void OnPush()
     {
-        recovery = new Vector3(baseResistance + Attributes.resistance, 0, 0);
+        recovery = new Vector3(Attributes.resistance, 0, 0);
         Animator.SetBool("isPushed", true);
         Animator.SetTrigger("gotHit");
     }

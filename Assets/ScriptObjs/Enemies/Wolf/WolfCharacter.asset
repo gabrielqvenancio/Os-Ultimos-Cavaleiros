@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: WolfCharacter
   m_EditorClassIdentifier: 
   characterName: Wolf
-  damage: 1
-  health: 1
+  damage: 6
+  health: 8
   armor: 0
-  resistance: 1
-  baseVelocity: {x: 1, y: 0, z: 0}
-  pushForce: {x: 1, y: 0, z: 0}
+  resistance: 0.9
+  baseVelocity: {x: 3.5, y: 0, z: 0}
+  pushForce: {x: 1.5, y: 0, z: 0}
   prefab: {fileID: 4872385889897079100, guid: 5107fb67ae184994bbdc8ee159815be5, type: 3}

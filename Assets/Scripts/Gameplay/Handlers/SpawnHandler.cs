@@ -6,7 +6,6 @@ public class SpawnHandler : MonoBehaviour
 {
     internal static SpawnHandler instance;
 
-    [SerializeField] private Vector3 enemiesSpawnPoint;
     [SerializeField] private GameObject enemiesParent;
     [SerializeField] private int spawnWaitTime, spawnMaxWaitTime, spawnMinWaitTime;
 
@@ -55,11 +54,11 @@ public class SpawnHandler : MonoBehaviour
             if (enemiesQueue[enemyAttributes.mapId].Count > 0)
             {
                 GameObject enemyChoosen = DequeueEnemy(enemyAttributes.mapId);
-                enemyChoosen.transform.position = enemiesSpawnPoint;
+                enemyChoosen.transform.position = enemyAttributes.spawnPoint;
             }
             else
             {
-                Instantiate(enemy, enemiesSpawnPoint, Quaternion.identity, enemiesParent.transform);
+                Instantiate(enemy, enemyAttributes.spawnPoint, enemy.transform.rotation, enemiesParent.transform);
             }
             return true;
         }

@@ -40,7 +40,7 @@ public class Enemy : Character
     }
     protected override void Move()
     {
-        transform.Translate((Velocity + LocalHitVelocity + PhysicsHandler.instance.GlobalVelocity) * Time.fixedDeltaTime);
+        transform.Translate((Velocity + LocalHitVelocity + PhysicsHandler.instance.GlobalVelocity) * (baseVelocityFactor * Time.fixedDeltaTime));
         if(transform.position.x <= -15f)
         {
             SpawnHandler.instance.EnqueueEnemy(gameObject);
@@ -49,14 +49,13 @@ public class Enemy : Character
 
     protected override void OnElimination()
     {
-
         UIHandler.instance.EliminationScoreIncrease(enemyAttributes.scoreYield);
         SpawnHandler.instance.EnqueueEnemy(gameObject);
     }
 
     internal override void OnPush()
     {
-        recovery = new Vector3(baseResistance + Attributes.resistance, 0, 0);
+        recovery = new Vector3(Attributes.resistance, 0, 0);
         Animator.enabled = false;
     }
 

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: StoneGolemCharacter
   m_EditorClassIdentifier: 
   characterName: Stone Golem
-  damage: 1
-  health: 1
+  damage: 2
+  health: 25
   armor: 0
-  resistance: 1
-  baseVelocity: {x: 1, y: 0, z: 0}
-  pushForce: {x: 1, y: 0, z: 0}
+  resistance: 4
+  baseVelocity: {x: 0.5, y: 0, z: 0}
+  pushForce: {x: 6, y: 0, z: 0}
   prefab: {fileID: 4872385889897079100, guid: bf8fcfdb9fd419a4dbde31f8055002dd, type: 3}

@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Attack
   m_EditorClassIdentifier: 
   cooldown: 6
-  duration: 1.5
+  duration: 2
   skillName: Attack
   sound: {fileID: 8300000, guid: 54e84d76225f0c44197c7ce08ad59606, type: 3}
   icon: {fileID: 0}
   additionalDamage: 4
-  additionalVelocity: {x: 3, y: 0, z: 0}
-  additionalForce: {x: 3, y: 0, z: 0}
+  additionalVelocity: {x: 15, y: 0, z: 0}
+  additionalForce: {x: 2, y: 0, z: 0}
   greenieVoices:
   - {fileID: 8300000, guid: f45ec1d87f98f644c8eb0f45d5784cd5, type: 3}
   - {fileID: 8300000, guid: cbac2e83afbb95445bcb28ac31c151e7, type: 3}

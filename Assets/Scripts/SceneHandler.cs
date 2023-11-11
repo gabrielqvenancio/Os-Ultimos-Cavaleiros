@@ -18,6 +18,7 @@ public enum GameState
     paused,
     options,
     menu,
+    tutorial,
     loading,
 }
 

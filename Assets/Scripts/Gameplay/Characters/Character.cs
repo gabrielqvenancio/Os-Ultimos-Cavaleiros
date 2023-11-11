@@ -22,7 +22,7 @@ public abstract class Character : MonoBehaviour
 
     protected Vector3 recovery;
 
-    public const float basePushForceFactor = 10f, baseRecoveryFactor = 20f, baseResistance = 1.4f;
+    internal const float basePushForceFactor = 4f, baseRecoveryFactor = 9f, baseVelocityFactor = 0.3f;
 
     protected virtual void Initialize()
     {
@@ -67,7 +67,7 @@ public abstract class Character : MonoBehaviour
                 OnRecover();
             }
 
-            recovery.x += (baseResistance + Attributes.resistance) * baseRecoveryFactor * Time.fixedDeltaTime;
+            recovery.x += Attributes.resistance * baseRecoveryFactor * Time.fixedDeltaTime;
         }
     }
 

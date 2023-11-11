@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: WormCharacter
   m_EditorClassIdentifier: 
   characterName: Worm
-  damage: 1
-  health: 1
+  damage: 4
+  health: 20
   armor: 0
-  resistance: 1
-  baseVelocity: {x: 1, y: 0, z: 0}
-  pushForce: {x: 1, y: 0, z: 0}
+  resistance: 0.5
+  baseVelocity: {x: 2.4, y: 0, z: 0}
+  pushForce: {x: 2, y: 0, z: 0}
   prefab: {fileID: 4872385889897079100, guid: 0287ffbe472e9b6408ee20cbc0baf563, type: 3}

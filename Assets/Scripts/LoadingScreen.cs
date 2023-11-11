@@ -12,7 +12,7 @@ public class LoadingScreen : MonoBehaviour
     [SerializeField] private Image backGroundImage;
     [SerializeField] private Sprite[] sprites;
     [SerializeField] private GameObject pressAnyButtonImage;
-    internal bool ready { get; private set; }
+    internal bool Ready { get; private set; }
     internal bool closeLoadingScreen;
 
     private void Awake()
@@ -23,7 +23,7 @@ public class LoadingScreen : MonoBehaviour
     private void Start()
     {
         closeLoadingScreen = false;
-        ready = false;
+        Ready = false;
     }
 
     private IEnumerator ChangeBackgroundSprite(float fadeDuration)
@@ -88,14 +88,14 @@ public class LoadingScreen : MonoBehaviour
         progressText.text = "100%";
 
         pressAnyButtonImage.SetActive(true);
-        ready = true;
+        Ready = true;
         while (!closeLoadingScreen)
         {
             yield return null;
         }
 
         closeLoadingScreen = false;
-        ready = false;
+        Ready = false;
 
         operation.allowSceneActivation = true;
         while(!operation.isDone)
@@ -131,14 +131,14 @@ public class LoadingScreen : MonoBehaviour
 
         progressText.text = "100%";
 
-        ready = true;
+        Ready = true;
         while (!closeLoadingScreen)
         {
             yield return null;
         }
 
         closeLoadingScreen = false;
-        ready = false;
+        Ready = false;
 
         operation.allowSceneActivation = true;
         while (!operation.isDone)

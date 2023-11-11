@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: GoblinCharacter
   m_EditorClassIdentifier: 
   characterName: Goblin
-  damage: 1
-  health: 1
+  damage: 2
+  health: 25
   armor: 0
-  resistance: 1
-  baseVelocity: {x: 1, y: 0, z: 0}
-  pushForce: {x: 1, y: 0, z: 0}
+  resistance: 2.2
+  baseVelocity: {x: 1.5, y: 0, z: 0}
+  pushForce: {x: 3, y: 0, z: 0}
   prefab: {fileID: 4872385889897079100, guid: e7ba1553939fdd445ad4a436e28e8613, type: 3}

@@ -51,7 +51,7 @@ public class LevelHandler : MonoBehaviour
                     {
                         parallaxProportion = 1f / Mathf.Pow(CurrentLevel.amountOfLayers - sortingOrderPosition, 2f);
                     }
-                    environmentObject.Translate((-Greenie.instance.Velocity + PhysicsHandler.instance.GlobalVelocity) * (parallaxProportion * Time.fixedDeltaTime));
+                    environmentObject.Translate((- Greenie.instance.Velocity + PhysicsHandler.instance.GlobalVelocity) * (Character.baseVelocityFactor * parallaxProportion * Time.fixedDeltaTime));
 
                     if (environmentObject.CompareTag("Ground"))
                     {

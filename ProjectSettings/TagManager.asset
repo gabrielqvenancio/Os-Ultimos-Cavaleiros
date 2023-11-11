@@ -47,10 +47,13 @@ TagManager:
   - name: Scenario
     uniqueID: 1957282013
     locked: 0
+  - name: Before Character
+    uniqueID: 195073703
+    locked: 0
   - name: Character
     uniqueID: 2456494479
     locked: 0
-  - name: Scenario Front
+  - name: After Character
     uniqueID: 833595375
     locked: 0
   - name: UI

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: CyclopsCharacter
   m_EditorClassIdentifier: 
   characterName: Cyclops
-  damage: 1
-  health: 1
+  damage: 3
+  health: 12
   armor: 0
   resistance: 1
-  baseVelocity: {x: 1, y: 0, z: 0}
-  pushForce: {x: 1, y: 0, z: 0}
+  baseVelocity: {x: 2.5, y: 0, z: 0}
+  pushForce: {x: 1.5, y: 0, z: 0}
   prefab: {fileID: 0}
