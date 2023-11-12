@@ -18,6 +18,7 @@ public class Attack : ScriptableSkill
         Greenie.instance.LocalHitVelocity = Vector3.zero;
 
         Greenie.instance.Animator.SetTrigger("startAttack");
+        Greenie.instance.Animator.SetBool("isAttacking", true);
         Greenie.instance.Pushable = false;
         Greenie.instance.AdditionalDamage += additionalDamage;
         Greenie.instance.AdditionalForce += additionalForce;
@@ -27,6 +28,7 @@ public class Attack : ScriptableSkill
     public override void EndEffect()
     {
         Greenie.instance.Animator.SetTrigger("endAttack");
+        Greenie.instance.Animator.SetBool("isAttacking", false);
         Greenie.instance.Pushable = true;
         Greenie.instance.AdditionalDamage -= additionalDamage;
         Greenie.instance.AdditionalForce -= additionalForce;

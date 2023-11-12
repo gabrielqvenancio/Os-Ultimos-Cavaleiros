@@ -70,7 +70,7 @@ public class Greenie : Character
         enemyHit.TakeDamage(Attributes.damage + AdditionalDamage);
         TakeDamage((int)((100f - reducedDamagePercentage) / 100f) * enemyHit.Attributes.damage);
 
-        if(enemyHit.gameObject.activeSelf)
+        if(enemyHit.CurrentHealth > 0)
         {
             PhysicsHandler.instance.PushCharacter(Attributes.pushForce + AdditionalForce, enemyHit);
             if(Pushable)

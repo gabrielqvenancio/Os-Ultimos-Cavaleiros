@@ -9,7 +9,8 @@ public class Block : ScriptableSkill
 
     public override void Effect()
     {
-        Greenie.instance.transform.Find("Shield").gameObject.SetActive(true);
+        Greenie.instance.Animator.SetTrigger("startBlock");
+        Greenie.instance.Animator.SetBool("isBlocking", true);
         Greenie.instance.AdditionalForce += additionalForce;
         Greenie.instance.ReducedDamagePercentage += 100;
         Greenie.instance.Pushable = false;
@@ -17,7 +18,8 @@ public class Block : ScriptableSkill
 
     public override void EndEffect()
     {
-        Greenie.instance.transform.Find("Shield").gameObject.SetActive(false);
+        Greenie.instance.Animator.SetTrigger("endBlock");
+        Greenie.instance.Animator.SetBool("isBlocking", false);
         Greenie.instance.AdditionalForce -= additionalForce;
         Greenie.instance.ReducedDamagePercentage -= 100;
         Greenie.instance.Pushable = true;

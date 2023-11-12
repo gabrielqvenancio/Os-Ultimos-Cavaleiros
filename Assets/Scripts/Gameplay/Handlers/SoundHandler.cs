@@ -22,7 +22,7 @@ public class SoundHandler : MonoBehaviour
     internal void ChangeMusic(AudioClip music)
     {
         musicSource.clip = music;
-        musicSource.volume = soundEffectsVolume;
+        musicSource.volume = musicVolume;
         musicSource.Play();
     }
 

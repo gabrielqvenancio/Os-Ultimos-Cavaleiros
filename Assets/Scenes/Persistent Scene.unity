@@ -441,8 +441,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 823ff5d7c97061c4baf180d708aa9b37, type: 2}
+  m_sharedMaterial: {fileID: 4566435546886424496, guid: 823ff5d7c97061c4baf180d708aa9b37, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2618,7 +2618,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 80, y: -36.5}
+  m_AnchoredPosition: {x: 81, y: -34.5}
   m_SizeDelta: {x: 12, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1468403344

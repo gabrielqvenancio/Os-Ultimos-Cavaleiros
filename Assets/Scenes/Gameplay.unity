@@ -1525,70 +1525,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Greenie
       objectReference: {fileID: 0}
-    - target: {fileID: 6658082647255405961, guid: 5547408b9dc4eb9429b0a5097df7167b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7415897011461772313, guid: 5547408b9dc4eb9429b0a5097df7167b, type: 3}
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1460157449}
-    - target: {fileID: 7415897011461772313, guid: 5547408b9dc4eb9429b0a5097df7167b, type: 3}
-      propertyPath: hurtSounds.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7415897011461772313, guid: 5547408b9dc4eb9429b0a5097df7167b, type: 3}
-      propertyPath: damageSounds.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7415897011461772313, guid: 5547408b9dc4eb9429b0a5097df7167b, type: 3}
-      propertyPath: hurtSounds.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: fe71b657a0bf73f4e9896c1445a10dee, type: 3}
-    - target: {fileID: 7415897011461772313, guid: 5547408b9dc4eb9429b0a5097df7167b, type: 3}
-      propertyPath: hurtSounds.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: c3f6cc0495aab9a4f9e0c5673033eaf5, type: 3}
-    - target: {fileID: 7415897011461772313, guid: 5547408b9dc4eb9429b0a5097df7167b, type: 3}
-      propertyPath: hurtSounds.Array.data[2]
-      value: 
-      objectReference: {fileID: 8300000, guid: 9df6d82866f7ba54d8558e422dc087e7, type: 3}
-    - target: {fileID: 7415897011461772313, guid: 5547408b9dc4eb9429b0a5097df7167b, type: 3}
-      propertyPath: hurtSounds.Array.data[3]
-      value: 
-      objectReference: {fileID: 8300000, guid: 2110a68b5c32924459ba00ef8470dae0, type: 3}
-    - target: {fileID: 7415897011461772313, guid: 5547408b9dc4eb9429b0a5097df7167b, type: 3}
-      propertyPath: hurtSounds.Array.data[4]
-      value: 
-      objectReference: {fileID: 8300000, guid: 50afc77d47758df488d7a93be3610cb1, type: 3}
-    - target: {fileID: 7415897011461772313, guid: 5547408b9dc4eb9429b0a5097df7167b, type: 3}
-      propertyPath: hurtSounds.Array.data[5]
-      value: 
-      objectReference: {fileID: 8300000, guid: 2006ad96b30107542873f0653559b783, type: 3}
-    - target: {fileID: 7415897011461772313, guid: 5547408b9dc4eb9429b0a5097df7167b, type: 3}
-      propertyPath: damageSounds.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: fe71b657a0bf73f4e9896c1445a10dee, type: 3}
-    - target: {fileID: 7415897011461772313, guid: 5547408b9dc4eb9429b0a5097df7167b, type: 3}
-      propertyPath: damageSounds.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: c3f6cc0495aab9a4f9e0c5673033eaf5, type: 3}
-    - target: {fileID: 7415897011461772313, guid: 5547408b9dc4eb9429b0a5097df7167b, type: 3}
-      propertyPath: damageSounds.Array.data[2]
-      value: 
-      objectReference: {fileID: 8300000, guid: 9df6d82866f7ba54d8558e422dc087e7, type: 3}
-    - target: {fileID: 7415897011461772313, guid: 5547408b9dc4eb9429b0a5097df7167b, type: 3}
-      propertyPath: damageSounds.Array.data[3]
-      value: 
-      objectReference: {fileID: 8300000, guid: 2110a68b5c32924459ba00ef8470dae0, type: 3}
-    - target: {fileID: 7415897011461772313, guid: 5547408b9dc4eb9429b0a5097df7167b, type: 3}
-      propertyPath: damageSounds.Array.data[4]
-      value: 
-      objectReference: {fileID: 8300000, guid: 50afc77d47758df488d7a93be3610cb1, type: 3}
-    - target: {fileID: 7415897011461772313, guid: 5547408b9dc4eb9429b0a5097df7167b, type: 3}
-      propertyPath: damageSounds.Array.data[5]
-      value: 
-      objectReference: {fileID: 8300000, guid: 2006ad96b30107542873f0653559b783, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2137,10 +2077,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 000000000
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 823ff5d7c97061c4baf180d708aa9b37, type: 2}
+  m_sharedMaterial: {fileID: 4566435546886424496, guid: 823ff5d7c97061c4baf180d708aa9b37, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2164,8 +2104,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 8
-  m_fontSizeBase: 8
+  m_fontSize: 6
+  m_fontSizeBase: 6
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2405,10 +2345,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 000000000
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 823ff5d7c97061c4baf180d708aa9b37, type: 2}
+  m_sharedMaterial: {fileID: 4566435546886424496, guid: 823ff5d7c97061c4baf180d708aa9b37, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2432,8 +2372,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 8
-  m_fontSizeBase: 8
+  m_fontSize: 6
+  m_fontSizeBase: 6
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

@@ -37,11 +37,12 @@ public class Enemy : Character
         CurrentArmor = attributes.armor;
         Animator.enabled = true;
         healthBar.ApplyHealthRange(0, attributes.health);
+        BoxCollider.enabled = true;
     }
     protected override void Move()
     {
         transform.Translate((Velocity + LocalHitVelocity + PhysicsHandler.instance.GlobalVelocity) * (baseVelocityFactor * Time.fixedDeltaTime));
-        if(transform.position.x <= -15f)
+        if(transform.position.x <= -5f)
         {
             SpawnHandler.instance.EnqueueEnemy(gameObject);
         }
@@ -49,18 +50,27 @@ public class Enemy : Character
 
     protected override void OnElimination()
     {
+        Animator.SetTrigger("die");
         UIHandler.instance.EliminationScoreIncrease(enemyAttributes.scoreYield);
-        SpawnHandler.instance.EnqueueEnemy(gameObject);
+        Velocity = - Greenie.instance.Attributes.baseVelocity;
+        LocalHitVelocity = Vector3.zero;
+        BoxCollider.enabled = false;
+        if(enemyAttributes.deathSounds.Length > 0)
+        {
+            SoundHandler.instance.PlaySoundEffect(GetComponent<AudioSource>(), enemyAttributes.deathSounds[Random.Range(0, enemyAttributes.deathSounds.Length)]);
+            GetComponent<AudioSource>().Play();
+        }
     }
 
     internal override void OnPush()
     {
         recovery = new Vector3(Attributes.resistance, 0, 0);
-        Animator.enabled = false;
+        Animator.SetTrigger("gotHit");
+        Animator.SetBool("isPushed", true);
     }
 
     internal override void OnRecover()
     {
-        Animator.enabled = true;
+        Animator.SetBool("isPushed", false);
     }
 }
