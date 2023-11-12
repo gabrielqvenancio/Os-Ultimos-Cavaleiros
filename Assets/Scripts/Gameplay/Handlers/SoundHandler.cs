@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SoundHandler : MonoBehaviour
 {
     internal static SoundHandler instance;
-    internal float soundEffectsVolume, musicVolume;
+    internal int SoundEffectsVolume { get; set; }
+    internal int MusicVolume { get; set; }
     [SerializeField] internal AudioSource[] skillSources;
     [SerializeField] internal AudioSource musicSource;
     [SerializeField] internal AudioSource hitSource;
@@ -15,14 +17,20 @@ public class SoundHandler : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        soundEffectsVolume = 0.5f;
-        musicVolume = 0.5f;
+    }
+
+    private void Start()
+    {
+        int[] volumes = IOHandler.LoadSoundVolume();
+
+        ChangeSoundEffectsVolume(volumes[0]);
+        ChangeMusicVolume(volumes[1]);
     }
 
     internal void ChangeMusic(AudioClip music)
     {
         musicSource.clip = music;
-        musicSource.volume = musicVolume;
+        musicSource.volume = MusicVolume / 7f;
         musicSource.Play();
     }
 
@@ -55,7 +63,7 @@ public class SoundHandler : MonoBehaviour
         if(!hitSource.isPlaying)
         {
             hitSource.clip = hitSounds[Random.Range(0, hitSounds.Length)];
-            hitSource.volume = soundEffectsVolume;
+            hitSource.volume = SoundEffectsVolume / 7f;
             hitSource.Play();
         }
     }
@@ -63,24 +71,24 @@ public class SoundHandler : MonoBehaviour
     internal void PlaySoundEffect(AudioSource source, AudioClip clip)
     {
         source.clip = clip;
-        source.volume = soundEffectsVolume;
+        source.volume = SoundEffectsVolume / 7f;
         source.Play();
     }
 
     internal void PlayCursor()
     {
-        cursorSource.volume = soundEffectsVolume;
+        cursorSource.volume = SoundEffectsVolume / 7f;
         cursorSource.Play();
     }
 
-    internal void ChangeMusicVolume(float volume)
+    internal void ChangeMusicVolume(int volume)
     {
-        musicVolume = volume / 7f;
-        musicSource.volume = musicVolume;
+        MusicVolume = volume;
+        musicSource.volume = MusicVolume / 7f;
     }
 
-    internal void ChangeSoundEffectsVolume(float volume)
+    internal void ChangeSoundEffectsVolume(int volume)
     {
-        soundEffectsVolume = volume / 7f;
+        SoundEffectsVolume = volume;
     }
 }

@@ -19,7 +19,8 @@ public enum GameState
     options,
     menu,
     tutorial,
-    loading,
+    credits,
+    loading
 }
 
 public class SceneHandler : MonoBehaviour
@@ -36,7 +37,7 @@ public class SceneHandler : MonoBehaviour
     public void GameOver()
     {
         IOHandler.SaveHighScore();
-        ChangeScene(Scenes.menu, Scenes.gameplay, GameState.menu, true, FadeScreenOptions.FadeIn, 1f);
+        ChangeSceneFade(Scenes.menu, Scenes.gameplay, GameState.menu, 0.5f);
     }
 
     internal AsyncOperation LoadScene(Scenes sceneToLoad)
@@ -50,79 +51,25 @@ public class SceneHandler : MonoBehaviour
         AsyncOperation asyncOperation = SceneManager.UnloadSceneAsync((int)sceneToUnload);
         return asyncOperation;
     }
-
-    internal void ChangeScene(Scenes sceneToLoad, Scenes sceneToUnload, GameState stateAfterLoad, bool loadingScreen)
+    internal void ChangeScene(Scenes sceneToLoad, Scenes sceneToUnload, GameState stateAfterLoad)
     {
-        if (loadingScreen)
-        {
-            StartCoroutine(LoadingScreen.instance.CallLoadingScreen(sceneToLoad, sceneToUnload, stateAfterLoad));
-        }
+        State = GameState.loading;
+        StartCoroutine(LoadingScreen.instance.CallLoadingScreen(sceneToLoad, sceneToUnload, stateAfterLoad));
     }
 
-    internal void ChangeScene(Scenes sceneToLoad, GameState stateAfterLoad, bool loadingScreen)
+    internal void ChangeSceneFade(Scenes sceneToLoad, Scenes sceneToUnload, GameState stateAfterLoad, float duration, OnFinishFade onFinishFade = null)
     {
-        if (loadingScreen)
-        {
-            StartCoroutine(LoadingScreen.instance.CallLoadingScreen(sceneToLoad, stateAfterLoad));
-        }
+        State = GameState.loading;
+        StartCoroutine(LoadingScreen.instance.CallLoadingScreen(sceneToLoad, sceneToUnload, stateAfterLoad, duration));
     }
-
-    internal void ChangeScene(Scenes sceneToLoad, Scenes sceneToUnload, GameState stateAfterLoad, bool loadingScreen, FadeScreenOptions fadeScreenOptions, float duration, OnFinishFade onFinishFade = null)
+    
+    internal void ChangeSceneFade(Scenes sceneToLoad, GameState stateAfterLoad, float duration, OnFinishFade onFinishFade = null)
     {
-        if (loadingScreen)
-        {
-            StartCoroutine(LoadingScreen.instance.CallLoadingScreen(sceneToLoad, sceneToUnload, stateAfterLoad, fadeScreenOptions, duration));
-        }
-        else
-        {
-            AsyncOperation loadingSceneOperation = LoadScene(sceneToLoad);
-            AsyncOperation unloadingSceneOperation = UnloadScene(sceneToUnload);
-            loadingSceneOperation.allowSceneActivation = true;
-            Scene = sceneToLoad;
-            State = stateAfterLoad;
+        AsyncOperation loadingSceneOperation = LoadScene(sceneToLoad);
+        loadingSceneOperation.allowSceneActivation = true;
+        Scene = sceneToLoad;
+        State = stateAfterLoad;
 
-            switch (fadeScreenOptions)
-            {
-                case FadeScreenOptions.FadeIn:
-                {
-                    StartCoroutine(FadeScreen.instance.FadeIn(duration, onFinishFade, new AsyncOperation[] { loadingSceneOperation, unloadingSceneOperation }));
-                    break;
-                }
-                case FadeScreenOptions.FadeOut:
-                {
-                    StartCoroutine(FadeScreen.instance.FadeOut(duration, onFinishFade, new AsyncOperation[] { loadingSceneOperation, unloadingSceneOperation }));
-                    break;
-                }
-            }
-        }
-    }
-
-    internal void ChangeScene(Scenes sceneToLoad, GameState stateAfterLoad, bool loadingScreen, FadeScreenOptions fadeScreenOptions, float duration, OnFinishFade onFinishFade = null)
-    {
-        if (loadingScreen)
-        {
-            StartCoroutine(LoadingScreen.instance.CallLoadingScreen(sceneToLoad, stateAfterLoad, fadeScreenOptions, duration));
-        }
-        else
-        {
-            AsyncOperation loadingSceneOperation = LoadScene(sceneToLoad);
-            loadingSceneOperation.allowSceneActivation = true;
-            Scene = sceneToLoad;
-            State = stateAfterLoad;
-
-            switch (fadeScreenOptions)
-            {
-                case FadeScreenOptions.FadeIn:
-                {
-                    StartCoroutine(FadeScreen.instance.FadeIn(duration, onFinishFade, new AsyncOperation[] { loadingSceneOperation }));
-                    break;
-                }
-                case FadeScreenOptions.FadeOut:
-                {
-                    StartCoroutine(FadeScreen.instance.FadeOut(duration, onFinishFade, new AsyncOperation[] { loadingSceneOperation }));
-                    break;
-                }
-            }
-        }
+        StartCoroutine(FadeScreen.instance.FadeIn(duration, onFinishFade, new AsyncOperation[] { loadingSceneOperation }));
     }
 }

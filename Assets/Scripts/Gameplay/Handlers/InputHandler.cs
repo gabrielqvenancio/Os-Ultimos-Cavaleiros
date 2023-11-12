@@ -12,7 +12,7 @@ public class InputHandler : MonoBehaviour
     internal static InputHandler instance;
 
     [SerializeField] internal PlayerInput playerInput;
-    [SerializeField] private GameObject pause, pauseBase, pauseOptions;
+    [SerializeField] internal GameObject pause, pauseBase, pauseOptions;
 
     internal bool firstSelected;
 
@@ -30,13 +30,13 @@ public class InputHandler : MonoBehaviour
 
     public void ChangeMusicVolume(Single volume)
     {
-        SoundHandler.instance.ChangeMusicVolume(volume);
+        SoundHandler.instance.ChangeMusicVolume((int)volume);
         SoundHandler.instance.PlayCursor();
     }
 
     public void ChangeSoundEffectsVolume(Single volume)
     {
-        SoundHandler.instance.ChangeSoundEffectsVolume(volume);
+        SoundHandler.instance.ChangeSoundEffectsVolume((int)volume);
         SoundHandler.instance.PlayCursor();
     }
 
@@ -65,11 +65,14 @@ public class InputHandler : MonoBehaviour
     {
         Time.timeScale = 1;
         pause.SetActive(false);
-        SceneHandler.instance.ChangeScene(Scenes.menu, Scenes.gameplay, GameState.menu, true, FadeScreenOptions.FadeIn, 1f);
+        SceneHandler.instance.ChangeSceneFade(Scenes.menu, Scenes.gameplay, GameState.menu, 0.5f);
     }
 
     public void Options()
     {
+        pauseOptions.transform.Find("Sound Effects").Find("Slider").GetComponent<Slider>().value = SoundHandler.instance.SoundEffectsVolume;
+        pauseOptions.transform.Find("Music").Find("Slider").GetComponent<Slider>().value = SoundHandler.instance.MusicVolume;
+
         if (SceneHandler.instance.State == GameState.menu)
         {
             Menu.instance.menuButtonsParent.SetActive(false);
@@ -113,11 +116,17 @@ public class InputHandler : MonoBehaviour
                 TutorialScript.instance.CloseTutorial();
                 break;
             }
+            case GameState.credits:
+            {
+                CreditsScript.instance.CloseCredits();
+                break;
+            }
         }
     }
 
     public void CloseOptions()
     {
+        IOHandler.SaveSoundVolume();
         switch (SceneHandler.instance.Scene)
         {
             case Scenes.gameplay:
@@ -167,7 +176,7 @@ public class InputHandler : MonoBehaviour
             case GameState.init:
             {
                 Destroy(GameObject.Find("Pre Menu"));
-                SceneHandler.instance.ChangeScene(Scenes.menu, GameState.menu, false, FadeScreenOptions.FadeIn, 2f);
+                SceneHandler.instance.ChangeSceneFade(Scenes.menu, GameState.menu, 1.5f);
                 break;
             }
         }

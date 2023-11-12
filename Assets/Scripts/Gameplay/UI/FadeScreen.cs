@@ -5,12 +5,6 @@ using UnityEngine.UI;
 
 public delegate void OnFinishFade();
 
-public enum FadeScreenOptions
-{
-    FadeIn,
-    FadeOut
-}
-
 public class FadeScreen : MonoBehaviour
 {
     internal static FadeScreen instance;
@@ -32,9 +26,6 @@ public class FadeScreen : MonoBehaviour
                 yield return null;
             }
         }
-        
-        sprite.color = Color.black;
-        sprite.gameObject.SetActive(true);
 
         while (sprite.color.a > 0f)
         {
@@ -60,7 +51,6 @@ public class FadeScreen : MonoBehaviour
 
         Color32 color = Color.black;
         color.a = 0;
-        sprite.color = color;
         sprite.gameObject.SetActive(true);
 
         while(sprite.color.a < 1f)
@@ -72,6 +62,5 @@ public class FadeScreen : MonoBehaviour
         }
 
         onFinishFade?.Invoke();
-        sprite.gameObject.SetActive(false);
     }
 }

@@ -13,7 +13,7 @@ public class Block : ScriptableSkill
         Greenie.instance.Animator.SetBool("isBlocking", true);
         Greenie.instance.AdditionalForce += additionalForce;
         Greenie.instance.ReducedDamagePercentage += 100;
-        Greenie.instance.Pushable = false;
+        Greenie.instance.Pushable += 1;
     }
 
     public override void EndEffect()
@@ -22,6 +22,6 @@ public class Block : ScriptableSkill
         Greenie.instance.Animator.SetBool("isBlocking", false);
         Greenie.instance.AdditionalForce -= additionalForce;
         Greenie.instance.ReducedDamagePercentage -= 100;
-        Greenie.instance.Pushable = true;
+        Greenie.instance.Pushable -= 1;
     }
 }

@@ -19,7 +19,8 @@ public class Attack : ScriptableSkill
 
         Greenie.instance.Animator.SetTrigger("startAttack");
         Greenie.instance.Animator.SetBool("isAttacking", true);
-        Greenie.instance.Pushable = false;
+        Greenie.instance.transform.Find("Attack Effect").GetComponent<Animator>().SetTrigger("Attack");
+        Greenie.instance.Pushable += 1;
         Greenie.instance.AdditionalDamage += additionalDamage;
         Greenie.instance.AdditionalForce += additionalForce;
         
@@ -29,7 +30,7 @@ public class Attack : ScriptableSkill
     {
         Greenie.instance.Animator.SetTrigger("endAttack");
         Greenie.instance.Animator.SetBool("isAttacking", false);
-        Greenie.instance.Pushable = true;
+        Greenie.instance.Pushable -= 1;
         Greenie.instance.AdditionalDamage -= additionalDamage;
         Greenie.instance.AdditionalForce -= additionalForce;
     }

@@ -19,10 +19,11 @@ public class TutorialScript : MonoBehaviour
 
     internal void OpenTutorial()
     {
+        SceneHandler.instance.State = GameState.tutorial;
         currentSpriteIndex = 0;
         tutorialParent.transform.Find("Image").GetComponent<Image>().sprite = tutorialSprites[currentSpriteIndex];
-        SceneHandler.instance.State = GameState.tutorial;
         tutorialParent.SetActive(true);
+        tutorialParent.transform.Find("Next").GetComponent<Button>().Select();
     }
 
     internal void CloseTutorial()

@@ -15,7 +15,7 @@ public class Greenie : Character
         get { return Mathf.Clamp(reducedDamagePercentage, 0, 100); }
         set { reducedDamagePercentage = value; }
     }
-    internal bool Pushable { private get; set; }
+    internal int Pushable { get; set; }
     internal int AdditionalDamage { get; set; }
     internal Vector3 AdditionalForce { get; set; }
 
@@ -23,7 +23,7 @@ public class Greenie : Character
     {
         instance = this;
 
-        Pushable = true;
+        Pushable = 0;
         AdditionalDamage = 0;
         AdditionalForce = Vector3.zero;
         reducedDamagePercentage = 0;
@@ -73,7 +73,7 @@ public class Greenie : Character
         if(enemyHit.CurrentHealth > 0)
         {
             PhysicsHandler.instance.PushCharacter(Attributes.pushForce + AdditionalForce, enemyHit);
-            if(Pushable)
+            if(Pushable == 0)
             {
                 SoundHandler.instance.PlaySoundEffect(GetComponent<AudioSource>(), hurtSounds[Random.Range(0, hurtSounds.Length)]);
                 PhysicsHandler.instance.PushCharacter(enemyHit.Attributes.pushForce, this);

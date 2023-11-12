@@ -21,7 +21,7 @@ MonoBehaviour:
   mapPrefab: {fileID: 5742407308644400446, guid: 7074fb782a0a7fe409a9433dd6ed6570, type: 3}
   randomLayers:
   - {fileID: 2037419843499671721, guid: 21532d9ff5a8d2b45bf80b9017fa8c8b, type: 3}
-  groundReturnPoint: 8.96
+  groundReturnPoint: 8.9599
   groundLimitPoint: 17.92
-  othersReturnPoint: 3.84
+  othersReturnPoint: 3.8399
   othersLimitPoint: 7.68

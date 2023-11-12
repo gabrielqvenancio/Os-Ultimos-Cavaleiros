@@ -26,22 +26,47 @@ public class Menu : MonoBehaviour
 
     public void Play()
     {
+        if(SceneHandler.instance.State != GameState.menu)
+        {
+            return;
+        }
         SceneHandler.instance.State = GameState.gameplay;
-        SceneHandler.instance.ChangeScene(Scenes.gameplay, Scenes.menu, GameState.gameplay, true);
+        SceneHandler.instance.ChangeSceneFade(Scenes.gameplay, Scenes.menu, GameState.gameplay, 0.5f);
     }
 
     public void Tutorial()
     {
+        if (SceneHandler.instance.State != GameState.menu)
+        {
+            return;
+        }
         TutorialScript.instance.OpenTutorial();
+    }
+
+    public void Credits()
+    {
+        if (SceneHandler.instance.State != GameState.menu)
+        {
+            return;
+        }
+        CreditsScript.instance.OpenCredits();
     }
 
     public void Options()
     {
+        if (SceneHandler.instance.State != GameState.menu)
+        {
+            return;
+        }
         InputHandler.instance.Options();
     }
 
     public void Exit()
     {
+        if (SceneHandler.instance.State != GameState.menu)
+        {
+            return;
+        }
         Application.Quit();
     }
 }
