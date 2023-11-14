@@ -32,13 +32,13 @@ public class LoadingScreen : MonoBehaviour
         backGroundImage.sprite = sprites[spriteNumber];
         while (true)
         {
-            yield return new WaitForSeconds(6f);
+            yield return new WaitForSecondsRealtime(6f);
             while (backGroundImage.color.a > 0)
             {
                 Color32 color = backGroundImage.color;
                 color.a -= 1;
                 backGroundImage.color = color;
-                yield return new WaitForSeconds(FadeScreen.baseWaitTime * fadeDuration);
+                yield return new WaitForSecondsRealtime(FadeScreen.baseWaitTime * fadeDuration);
             }
 
             spriteNumber++;
@@ -47,14 +47,14 @@ public class LoadingScreen : MonoBehaviour
                 spriteNumber = 0;
             }
             backGroundImage.sprite = sprites[spriteNumber];
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSecondsRealtime(1f);
 
             while (backGroundImage.color.a < 1)
             {
                 Color32 color = backGroundImage.color;
                 color.a += 1;
                 backGroundImage.color = color;
-                yield return new WaitForSeconds(FadeScreen.baseWaitTime * fadeDuration);
+                yield return new WaitForSecondsRealtime(FadeScreen.baseWaitTime * fadeDuration);
             }
         }
     }
@@ -111,7 +111,7 @@ public class LoadingScreen : MonoBehaviour
 
     internal IEnumerator CallLoadingScreen(Scenes sceneToLoad, Scenes sceneToUnload, GameState stateAfterLoad, float duration, OnFinishFade onFinishFade = null)
     {
-        yield return StartCoroutine(FadeScreen.instance.FadeOut(duration, onFinishFade, new AsyncOperation[0]));
+        yield return FadeScreen.instance.CurrentFade = StartCoroutine(FadeScreen.instance.FadeOut(duration, onFinishFade, new AsyncOperation[0]));
         Coroutine backGroundAnimation = StartCoroutine(ChangeBackgroundSprite(2f));
 
         SoundHandler.instance.PauseMusic();
@@ -119,7 +119,7 @@ public class LoadingScreen : MonoBehaviour
         transform.Find("Loading Screen").gameObject.SetActive(true);
         progressText.text = "0%";
 
-        yield return StartCoroutine(FadeScreen.instance.FadeIn(duration, onFinishFade, new AsyncOperation[0]));
+        yield return FadeScreen.instance.CurrentFade = StartCoroutine(FadeScreen.instance.FadeIn(duration, onFinishFade, new AsyncOperation[0]));
 
         AsyncOperation operation = SceneHandler.instance.UnloadScene(sceneToUnload);
 
@@ -146,7 +146,7 @@ public class LoadingScreen : MonoBehaviour
             yield return null;
         }
 
-        yield return StartCoroutine(FadeScreen.instance.FadeOut(duration, onFinishFade, new AsyncOperation[0]));
+        yield return FadeScreen.instance.CurrentFade = StartCoroutine(FadeScreen.instance.FadeOut(duration, onFinishFade, new AsyncOperation[0]));
 
         closeLoadingScreen = false;
         Ready = false;
@@ -163,6 +163,6 @@ public class LoadingScreen : MonoBehaviour
         SceneHandler.instance.State = stateAfterLoad;
         SceneHandler.instance.Scene = sceneToLoad;
 
-        StartCoroutine(FadeScreen.instance.FadeIn(duration, onFinishFade, new AsyncOperation[0]));
+        FadeScreen.instance.CurrentFade = StartCoroutine(FadeScreen.instance.FadeIn(duration, onFinishFade, new AsyncOperation[0]));
     }
 }

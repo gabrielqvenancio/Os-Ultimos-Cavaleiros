@@ -107,6 +107,11 @@ public class Greenie : Character
 
     public void ClickOnSkill(int id)
     {
+        if(SceneHandler.instance.State != GameState.gameplay)
+        {
+            return;
+        }
+
         foreach(Skill skill in skills)
         {
             if(skill.Id == id && skill.State == SkillState.ready)

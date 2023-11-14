@@ -18,15 +18,19 @@ public class Cursor : MonoBehaviour, IPointerEnterHandler, ISelectHandler, IDese
     public void OnDeselect(BaseEventData evt)
     {
         selected = false;
+        if(cursor) cursor.gameObject.SetActive(false);
     }
 
     public void OnSelect(BaseEventData evt)
     {
-        if (cursor) cursor.SetParent(transform.Find("Cursor Position"), false);
-
-        if (InputHandler.instance.firstSelected)
+        if (cursor)
         {
-            InputHandler.instance.firstSelected = false;
+            cursor.SetParent(transform.Find("Cursor Position"), false);
+            cursor.gameObject.SetActive(true);
+        }
+        if (InputHandler.instance.FirstSelected)
+        {
+            InputHandler.instance.FirstSelected = false;
             return;
         }
 

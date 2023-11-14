@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CreditsScript : MonoBehaviour
 {
     internal static CreditsScript instance;
-    [SerializeField] private GameObject creditsParent;
+    [SerializeField] internal GameObject creditsParent;
     [SerializeField] private Sprite[] creditsSprites;
     private int currentSpriteIndex;
 
@@ -29,6 +29,9 @@ public class CreditsScript : MonoBehaviour
     {
         SceneHandler.instance.State = GameState.menu;
         creditsParent.SetActive(false);
+
+        InputHandler.instance.FirstSelected = true;
+        Menu.instance.menuButtonsParent.transform.Find("Play").gameObject.GetComponent<Button>().Select();
     }
 
     public void Next()

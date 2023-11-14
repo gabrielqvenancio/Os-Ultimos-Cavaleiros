@@ -12,6 +12,7 @@ public class UIHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText, highScoreText;
     [SerializeField] private float scoreIncreaseTimeGap;
     [SerializeField] private GameObject skillSlidersParent;
+    [SerializeField] private Button pauseButton;
     private bool highScoreReached;
     internal int Score { get; private set; }
     internal int HighScore { get; private set; }
@@ -40,6 +41,11 @@ public class UIHandler : MonoBehaviour
         }
     }
 
+    public void PauseButton()
+    {
+        InputHandler.instance.Pause();
+    }
+
     private void Update()
     {
         UpdateScoreText(scoreText, Score);
@@ -58,7 +64,7 @@ public class UIHandler : MonoBehaviour
 
     private void UpdateScoreText(TextMeshProUGUI text, int score)
     {
-        const int amountOfDigits = 7;
+        const int amountOfDigits = 9;
         text.text = "";
 
         int significantDigits = 0;
@@ -95,7 +101,7 @@ public class UIHandler : MonoBehaviour
             Color32 color = highScoreText.color;
             color.a -= 1;
             highScoreText.color = color;
-            yield return new WaitForSeconds(FadeScreen.baseWaitTime * duration);
+            yield return new WaitForSecondsRealtime(FadeScreen.baseWaitTime * duration);
         }
     }
 }

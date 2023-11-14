@@ -18,7 +18,7 @@ public class Menu : MonoBehaviour
 
     private void Start()
     {
-        InputHandler.instance.firstSelected = true;
+        InputHandler.instance.FirstSelected = true;
         menuButtonsParent.transform.Find("Play").GetComponent<Button>().Select();
         SoundHandler.instance.ChangeMusic(menuMusic);
         SoundHandler.instance.PlayMusic();
@@ -26,7 +26,7 @@ public class Menu : MonoBehaviour
 
     public void Play()
     {
-        if(SceneHandler.instance.State != GameState.menu)
+        if(SceneHandler.instance.State != GameState.menu || FadeScreen.instance.CurrentFade != null)
         {
             return;
         }

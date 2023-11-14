@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class TutorialScript : MonoBehaviour
 {
     internal static TutorialScript instance;
-    [SerializeField] private GameObject tutorialParent;
+    [SerializeField] internal GameObject tutorialParent;
     [SerializeField] private Sprite[] tutorialSprites;
     private int currentSpriteIndex;
 
@@ -30,6 +30,9 @@ public class TutorialScript : MonoBehaviour
     {
         SceneHandler.instance.State = GameState.menu;
         tutorialParent.SetActive(false);
+
+        InputHandler.instance.FirstSelected = true;
+        Menu.instance.menuButtonsParent.transform.Find("Play").gameObject.GetComponent<Button>().Select();
     }
 
     public void Next()

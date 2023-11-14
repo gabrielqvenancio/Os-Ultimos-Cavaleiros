@@ -13,13 +13,13 @@ public class InputHandler : MonoBehaviour
 
     [SerializeField] internal PlayerInput playerInput;
     [SerializeField] internal GameObject pause, pauseBase, pauseOptions;
-
-    internal bool firstSelected;
+    [SerializeField] internal Selectable currentSelection;
+    internal bool FirstSelected { get; set; }
 
     private void Awake()
     {
         instance = this;
-        firstSelected = true;
+        FirstSelected = true;
     }
 
     private void Start()
@@ -42,10 +42,14 @@ public class InputHandler : MonoBehaviour
 
     public void Pause()
     {
-        SceneHandler.instance.State = GameState.paused;
-        firstSelected = true;
-        Time.timeScale = 0;
+        if(SceneHandler.instance.State != GameState.gameplay)
+        {
+            return;
+        }
 
+        SceneHandler.instance.State = GameState.paused;
+        Time.timeScale = 0;
+        FirstSelected = true;
         pause.SetActive(true);
         SoundHandler.instance.PauseMusic();
 
@@ -54,6 +58,11 @@ public class InputHandler : MonoBehaviour
 
     public void Continue()
     {
+        if (SceneHandler.instance.State != GameState.paused)
+        {
+            return;
+        }
+
         SceneHandler.instance.State = GameState.gameplay;
         Time.timeScale = 1;
 
@@ -63,6 +72,11 @@ public class InputHandler : MonoBehaviour
 
     public void Quit()
     {
+        if (SceneHandler.instance.State != GameState.paused || FadeScreen.instance.CurrentFade != null)
+        {
+            return;
+        }
+
         Time.timeScale = 1;
         pause.SetActive(false);
         SceneHandler.instance.ChangeSceneFade(Scenes.menu, Scenes.gameplay, GameState.menu, 0.5f);
@@ -79,7 +93,7 @@ public class InputHandler : MonoBehaviour
         }
 
         SceneHandler.instance.State = GameState.options;
-        firstSelected = true;
+        FirstSelected = true;
         
         pause.SetActive(true);
         pauseBase.SetActive(false);
@@ -132,7 +146,7 @@ public class InputHandler : MonoBehaviour
             case Scenes.gameplay:
             {
                 SceneHandler.instance.State = GameState.paused;
-                firstSelected = true;
+                FirstSelected = true;
 
                 pauseBase.SetActive(true);
                 pauseOptions.SetActive(false);
@@ -143,7 +157,7 @@ public class InputHandler : MonoBehaviour
             case Scenes.menu:
             {
                 SceneHandler.instance.State = GameState.menu;
-                firstSelected = true;
+                FirstSelected = true;
 
                 pause.SetActive(false);
                 pauseBase.SetActive(true);

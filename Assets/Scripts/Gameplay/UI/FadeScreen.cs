@@ -11,6 +11,7 @@ public class FadeScreen : MonoBehaviour
     [SerializeField] private Image sprite;
     internal Image Sprite { get; set; }
     internal const float baseWaitTime = 0.00392f;
+    internal Coroutine CurrentFade { get; set; }
 
     private void Awake()
     {
@@ -32,11 +33,12 @@ public class FadeScreen : MonoBehaviour
             Color32 color = sprite.color;
             color.a -= 1;
             sprite.color = color;
-            yield return new WaitForSeconds(baseWaitTime * duration);
+            yield return new WaitForSecondsRealtime(baseWaitTime * duration);
         }
 
         onFinishFade?.Invoke();
         sprite.gameObject.SetActive(false);
+        CurrentFade = null;
     }
 
     internal IEnumerator FadeOut(float duration, OnFinishFade onFinishFade, AsyncOperation[] loadingOperations)
@@ -58,9 +60,10 @@ public class FadeScreen : MonoBehaviour
             color = sprite.color;
             color.a += 1;
             sprite.color = color;
-            yield return new WaitForSeconds(baseWaitTime * duration);
+            yield return new WaitForSecondsRealtime(baseWaitTime * duration);
         }
 
         onFinishFade?.Invoke();
+        CurrentFade = null;
     }
 }

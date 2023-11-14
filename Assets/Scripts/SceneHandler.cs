@@ -70,6 +70,6 @@ public class SceneHandler : MonoBehaviour
         Scene = sceneToLoad;
         State = stateAfterLoad;
 
-        StartCoroutine(FadeScreen.instance.FadeIn(duration, onFinishFade, new AsyncOperation[] { loadingSceneOperation }));
+        FadeScreen.instance.CurrentFade = StartCoroutine(FadeScreen.instance.FadeIn(duration, onFinishFade, new AsyncOperation[] { loadingSceneOperation }));
     }
 }

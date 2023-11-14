@@ -1239,6 +1239,7 @@ MonoBehaviour:
   pause: {fileID: 7721675804279323362}
   pauseBase: {fileID: 1380418202769132211}
   pauseOptions: {fileID: 132760921354363610}
+  currentSelection: {fileID: 0}
 --- !u!114 &474444326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1466,7 +1467,19 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 474444325}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
+        m_MethodName: NavigateCheckSelection
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
     m_ActionId: 72d1d573-a0de-4f2c-94b5-bde5e9fa7c7e
     m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
@@ -1651,7 +1664,7 @@ MonoBehaviour:
   m_ScrollWheelAction: {fileID: 7068407802640835465, guid: b45aa7e41f2735e4881782ef9cf29f83, type: 3}
   m_TrackedDevicePositionAction: {fileID: 5270831887298648605, guid: b45aa7e41f2735e4881782ef9cf29f83, type: 3}
   m_TrackedDeviceOrientationAction: {fileID: 5991844914354196845, guid: b45aa7e41f2735e4881782ef9cf29f83, type: 3}
-  m_DeselectOnBackgroundClick: 1
+  m_DeselectOnBackgroundClick: 0
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
 --- !u!1 &538311472
@@ -1742,10 +1755,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 2
+    m_Mode: 4
     m_WrapAround: 1
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 3359774730582759512}
+    m_SelectOnDown: {fileID: 1086899568}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 2
@@ -2759,10 +2772,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 2
+    m_Mode: 4
     m_WrapAround: 1
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 577677936}
+    m_SelectOnDown: {fileID: 3359774730582759512}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 2
@@ -3627,8 +3640,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 116, y: 10}
+  m_AnchoredPosition: {x: 1, y: 1}
+  m_SizeDelta: {x: 108, y: 7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2048304201
 MonoBehaviour:
@@ -4026,10 +4039,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 8201317592502538958}
+    m_SelectOnDown: {fileID: 8771169976582809686}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 2
@@ -4485,10 +4498,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 2
+    m_Mode: 4
     m_WrapAround: 1
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 1086899568}
+    m_SelectOnDown: {fileID: 577677936}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 2
@@ -4916,10 +4929,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 8771169976582809686}
+    m_SelectOnDown: {fileID: 624373515589524052}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 2
@@ -5124,10 +5137,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 624373515589524052}
+    m_SelectOnDown: {fileID: 8201317592502538958}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 2
