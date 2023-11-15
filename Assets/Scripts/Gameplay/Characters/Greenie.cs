@@ -67,8 +67,12 @@ public class Greenie : Character
     {
         Enemy enemyHit = collision.gameObject.GetComponent<Enemy>();
 
-        enemyHit.TakeDamage(Attributes.damage + AdditionalDamage);
         TakeDamage((int)((100f - reducedDamagePercentage) / 100f) * enemyHit.Attributes.damage);
+        if(CurrentHealth <= 0)
+        {
+            return;
+        }
+        enemyHit.TakeDamage(Attributes.damage + AdditionalDamage);
 
         if(enemyHit.CurrentHealth > 0)
         {
@@ -90,7 +94,8 @@ public class Greenie : Character
 
     protected override void OnElimination()
     {
-        SceneHandler.instance.GameOver();
+        IOHandler.SaveHighScore();
+        StartCoroutine(GameoverScript.instance.GameOver());
     }
 
     internal override void OnPush()

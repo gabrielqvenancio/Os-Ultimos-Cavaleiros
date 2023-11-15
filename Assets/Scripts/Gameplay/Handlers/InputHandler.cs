@@ -187,6 +187,14 @@ public class InputHandler : MonoBehaviour
                 }
                 break;
             }
+            case GameState.gameover:
+            {
+                if(GameoverScript.instance.WaitingForInput)
+                {
+                    GameoverScript.instance.WaitingForInput = false;
+                }
+                break;
+            }
             case GameState.init:
             {
                 Destroy(GameObject.Find("Pre Menu"));

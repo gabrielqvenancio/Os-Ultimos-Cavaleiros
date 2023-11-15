@@ -35,10 +35,10 @@ public class LoadingScreen : MonoBehaviour
             yield return new WaitForSecondsRealtime(6f);
             while (backGroundImage.color.a > 0)
             {
-                Color32 color = backGroundImage.color;
-                color.a -= 1;
+                Color color = backGroundImage.color;
+                color.a -= Time.deltaTime / fadeDuration;
                 backGroundImage.color = color;
-                yield return new WaitForSecondsRealtime(FadeScreen.baseWaitTime * fadeDuration);
+                yield return null;
             }
 
             spriteNumber++;
@@ -51,10 +51,10 @@ public class LoadingScreen : MonoBehaviour
 
             while (backGroundImage.color.a < 1)
             {
-                Color32 color = backGroundImage.color;
-                color.a += 1;
+                Color color = backGroundImage.color;
+                color.a += Time.deltaTime / fadeDuration;
                 backGroundImage.color = color;
-                yield return new WaitForSecondsRealtime(FadeScreen.baseWaitTime * fadeDuration);
+                yield return null;
             }
         }
     }

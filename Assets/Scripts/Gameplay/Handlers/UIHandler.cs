@@ -98,10 +98,10 @@ public class UIHandler : MonoBehaviour
     {
         while(highScoreText.color.a > 0)
         {
-            Color32 color = highScoreText.color;
-            color.a -= 1;
+            Color color = highScoreText.color;
+            color.a -= Time.deltaTime / duration;
             highScoreText.color = color;
-            yield return new WaitForSecondsRealtime(FadeScreen.baseWaitTime * duration);
+            yield return null;
         }
     }
 }

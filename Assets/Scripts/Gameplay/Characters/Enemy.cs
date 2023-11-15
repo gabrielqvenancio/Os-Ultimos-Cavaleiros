@@ -41,7 +41,7 @@ public class Enemy : Character
     }
     protected override void Move()
     {
-        transform.Translate((Velocity + LocalHitVelocity + PhysicsHandler.instance.GlobalVelocity) * (baseVelocityFactor * Time.fixedDeltaTime));
+        transform.Translate((Velocity + LocalHitVelocity + PhysicsHandler.instance.GlobalVelocity) * (baseVelocityFactor * Time.fixedDeltaTime * GameoverScript.instance.GameOverFactor));
         if(transform.position.x <= -5f)
         {
             SpawnHandler.instance.EnqueueEnemy(gameObject);

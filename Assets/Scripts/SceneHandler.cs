@@ -20,7 +20,8 @@ public enum GameState
     menu,
     tutorial,
     credits,
-    loading
+    loading,
+    gameover
 }
 
 public class SceneHandler : MonoBehaviour
@@ -32,12 +33,6 @@ public class SceneHandler : MonoBehaviour
     private void Awake()
     {
         instance = this;
-    }
-
-    public void GameOver()
-    {
-        IOHandler.SaveHighScore();
-        ChangeSceneFade(Scenes.menu, Scenes.gameplay, GameState.menu, 0.5f);
     }
 
     internal AsyncOperation LoadScene(Scenes sceneToLoad)

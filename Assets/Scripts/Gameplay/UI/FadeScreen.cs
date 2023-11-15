@@ -10,7 +10,6 @@ public class FadeScreen : MonoBehaviour
     internal static FadeScreen instance;
     [SerializeField] private Image sprite;
     internal Image Sprite { get; set; }
-    internal const float baseWaitTime = 0.00392f;
     internal Coroutine CurrentFade { get; set; }
 
     private void Awake()
@@ -30,10 +29,11 @@ public class FadeScreen : MonoBehaviour
 
         while (sprite.color.a > 0f)
         {
-            Color32 color = sprite.color;
-            color.a -= 1;
+            Color color = sprite.color;
+
+            color.a -= Time.deltaTime / duration;
             sprite.color = color;
-            yield return new WaitForSecondsRealtime(baseWaitTime * duration);
+            yield return null;
         }
 
         onFinishFade?.Invoke();
@@ -51,16 +51,16 @@ public class FadeScreen : MonoBehaviour
             }
         }
 
-        Color32 color = Color.black;
+        Color color = Color.black;
         color.a = 0;
         sprite.gameObject.SetActive(true);
 
         while(sprite.color.a < 1f)
         {
             color = sprite.color;
-            color.a += 1;
+            color.a += Time.deltaTime / duration;
             sprite.color = color;
-            yield return new WaitForSecondsRealtime(baseWaitTime * duration);
+            yield return null;
         }
 
         onFinishFade?.Invoke();
