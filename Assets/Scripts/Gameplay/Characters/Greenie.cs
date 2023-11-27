@@ -1,12 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+internal delegate void GreenieHit();
 
 public class Greenie : Character
 {
     internal static Greenie instance;
 
-    [SerializeField] private Skill[] skills;
     [SerializeField] private AudioClip[] hurtSounds;
 
     private float reducedDamagePercentage;
@@ -15,6 +17,7 @@ public class Greenie : Character
         get { return Mathf.Clamp(reducedDamagePercentage, 0, 100); }
         set { reducedDamagePercentage = value; }
     }
+    internal event GreenieHit GreenieHitEvent;
     internal int Pushable { get; set; }
     internal int AdditionalDamage { get; set; }
     internal Vector3 AdditionalForce { get; set; }
@@ -34,13 +37,6 @@ public class Greenie : Character
     private void Start()
     {
         healthBar.ApplyHealthRange(0, Attributes.health);
-
-        for(int i = 0; i < skills.Length; i++)
-        {
-            skills[i].Id = i;
-            skills[i].Source = SoundHandler.instance.skillSources[i];
-            skills[i].Source.clip = skills[i].Attributes.sound;
-        }
     }
 
     private void FixedUpdate()
@@ -52,15 +48,6 @@ public class Greenie : Character
     private void LateUpdate()
     {
         healthBar.UpdateHealth(CurrentHealth);
-
-        foreach(Skill skill in skills)
-        {
-            if (skill.Timer > 0)
-            {
-                skill.Timer -= Time.deltaTime;
-            }
-            skill.CheckState();
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -79,11 +66,12 @@ public class Greenie : Character
             PhysicsHandler.instance.PushCharacter(Attributes.pushForce + AdditionalForce, enemyHit);
             if(Pushable == 0)
             {
-                SoundHandler.instance.PlaySoundEffect(GetComponent<AudioSource>(), hurtSounds[Random.Range(0, hurtSounds.Length)]);
+                SoundHandler.instance.PlaySoundEffect(GetComponent<AudioSource>(), hurtSounds[UnityEngine.Random.Range(0, hurtSounds.Length)]);
                 PhysicsHandler.instance.PushCharacter(enemyHit.Attributes.pushForce, this);
             }
         }
 
+        OnGreenieHit();
         SoundHandler.instance.PlayHitSound();
     }
 
@@ -95,6 +83,7 @@ public class Greenie : Character
     protected override void OnElimination()
     {
         IOHandler.SaveHighScore();
+        IOHandler.SaveMoney();
         StartCoroutine(GameoverScript.instance.GameOver());
     }
 
@@ -110,19 +99,8 @@ public class Greenie : Character
         Animator.SetBool("isPushed", false);
     }
 
-    public void ClickOnSkill(int id)
+    private void OnGreenieHit()
     {
-        if(SceneHandler.instance.State != GameState.gameplay)
-        {
-            return;
-        }
-
-        foreach(Skill skill in skills)
-        {
-            if(skill.Id == id && skill.State == SkillState.ready)
-            {
-                skill.Use();
-            }
-        }
+        GreenieHitEvent?.Invoke();
     }
 }

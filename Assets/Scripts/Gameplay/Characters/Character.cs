@@ -14,12 +14,10 @@ public abstract class Character : MonoBehaviour
         get { return currentHealth; }
         set { currentHealth = Mathf.Clamp(value, 0, Attributes.health); }
     }
-    internal int CurrentArmor { get; private protected set; }
     internal Vector3 Velocity { get; private protected set; }
     internal BoxCollider2D BoxCollider { get; private protected set; }
     internal Animator Animator { get; set; }
     internal Vector3 LocalHitVelocity { get; set; }
-
     protected Vector3 recovery;
 
     internal const float basePushForceFactor = 4f, baseRecoveryFactor = 9f, baseVelocityFactor = 0.3f;
@@ -30,22 +28,11 @@ public abstract class Character : MonoBehaviour
         Animator = GetComponent<Animator>();
         Velocity = Attributes.baseVelocity;
         CurrentHealth = attributes.health;
-        CurrentArmor = attributes.armor;
         recovery = Vector3.zero;
     }
 
     internal void TakeDamage(int dealtDamage)
     {
-        if (CurrentArmor > 0)
-        {
-            CurrentArmor -= dealtDamage;
-            if (CurrentArmor < 0)
-            {
-                dealtDamage -= CurrentArmor;
-                CurrentArmor = 0;
-            }
-        }
-
         CurrentHealth -= dealtDamage;
         if (CurrentHealth <= 0)
         {

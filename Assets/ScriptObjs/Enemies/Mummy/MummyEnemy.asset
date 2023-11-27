@@ -17,3 +17,4 @@ MonoBehaviour:
   scoreYield: 300
   deathSounds: []
   spawnPoint: {x: 2.2, y: -0.6402, z: 0}
+  moneyDrop: 1

@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84b3cfbeafcd290449473459951a50be, type: 3}
+  m_Script: {fileID: 11500000, guid: ee9c96595bfad294f9b975ebc70043bd, type: 3}
   m_Name: Block
   m_EditorClassIdentifier: 
+  type: 1
+  basePrice: 200
   cooldown: 5
-  duration: 5
-  skillName: Block
+  duration: 1.5
   sound: {fileID: 8300000, guid: 91d0ef4272f8405449a16b0b10edeb12, type: 3}
-  icon: {fileID: 0}
-  additionalForce: {x: 3, y: 0, z: 0}
+  icon: {fileID: 21300000, guid: 260ad1c79d39f1b49ae5cb4a025127d6, type: 3}

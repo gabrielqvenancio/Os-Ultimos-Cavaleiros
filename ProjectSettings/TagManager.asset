@@ -7,6 +7,9 @@ TagManager:
   - Canvas
   - Ground
   - Random Layer
+  - Character
+  - Other
+  - Money
   layers:
   - Default
   - TransparentFX

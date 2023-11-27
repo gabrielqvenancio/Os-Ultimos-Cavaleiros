@@ -34,7 +34,6 @@ public class Enemy : Character
         float velocityOffset = attributes.baseVelocity.x * 0.66f;
         Velocity = - (attributes.baseVelocity + Greenie.instance.Attributes.baseVelocity + new Vector3(Random.Range(-velocityOffset, velocityOffset), 0, 0));
         CurrentHealth = attributes.health;
-        CurrentArmor = attributes.armor;
         Animator.enabled = true;
         healthBar.ApplyHealthRange(0, attributes.health);
         BoxCollider.enabled = true;
@@ -50,6 +49,9 @@ public class Enemy : Character
 
     protected override void OnElimination()
     {
+        Inventory.instance.Money += enemyAttributes.moneyDrop;
+        Money.instance.MoneyToApply += enemyAttributes.moneyDrop;
+
         Animator.SetTrigger("die");
         UIHandler.instance.EliminationScoreIncrease(enemyAttributes.scoreYield);
         Velocity = - Greenie.instance.Attributes.baseVelocity;

@@ -9,19 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d359f6d4769bb26448f2905285c58756, type: 3}
+  m_Script: {fileID: 11500000, guid: ee9c96595bfad294f9b975ebc70043bd, type: 3}
   m_Name: Attack
   m_EditorClassIdentifier: 
+  type: 0
+  basePrice: 100
   cooldown: 6
   duration: 2
-  skillName: Attack
   sound: {fileID: 8300000, guid: 54e84d76225f0c44197c7ce08ad59606, type: 3}
-  icon: {fileID: 0}
-  additionalDamage: 4
-  additionalVelocity: {x: 15, y: 0, z: 0}
-  additionalForce: {x: 2, y: 0, z: 0}
-  greenieVoices:
-  - {fileID: 8300000, guid: f45ec1d87f98f644c8eb0f45d5784cd5, type: 3}
-  - {fileID: 8300000, guid: cbac2e83afbb95445bcb28ac31c151e7, type: 3}
-  - {fileID: 8300000, guid: 7bfe8d7703e142b479e09558520cc752, type: 3}
-  - {fileID: 8300000, guid: bcb77768e8f43fa49aa7a187a7b884b4, type: 3}
+  icon: {fileID: 21300000, guid: 66f6aef256f11654f8c0ac91f7c36a28, type: 3}

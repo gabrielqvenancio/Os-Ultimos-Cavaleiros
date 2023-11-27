@@ -133,7 +133,7 @@ PlayerSettings:
   vulkanEnableLateAcquireNextImage: 0
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
-  bundleVersion: 1.4.2-beta
+  bundleVersion: 1.5.0-beta
   preloadedAssets:
   - {fileID: 11400000, guid: 23f6eff50c914ec4ea7af421fb49a57d, type: 2}
   metroInputSource: 0
@@ -155,6 +155,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
+    Android: com.OsltimosDevs.OsltimosCavaleiros
     Standalone: com.Os---ltimos-Devs.Os---ltimos-Cavaleiros
   buildNumber:
     Standalone: 0
@@ -676,7 +677,7 @@ PlayerSettings:
   suppressCommonWarnings: 1
   allowUnsafeCode: 0
   useDeterministicCompilation: 1
-  selectedPlatform: 3
+  selectedPlatform: 0
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
   gcIncremental: 1

@@ -8,4 +8,5 @@ public class ScriptableEnemy : ScriptableObject
     public int rarity, mapId, scoreYield;
     public AudioClip[] deathSounds;
     public Vector3 spawnPoint;
+    public int moneyDrop;
 }
