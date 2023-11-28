@@ -9,6 +9,7 @@ public class Money : MonoBehaviour
     internal static Money instance;
 
     internal int MoneyToApply { get; set; }
+    internal int TotalMoney { get { return MoneyToApply + moneyApplied; } }
     internal TextMeshProUGUI moneyText;
     private int moneyApplied;
     private Coroutine moneyCoroutine;

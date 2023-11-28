@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rarity: 80
   mapId: 0
-  scoreYield: 200
+  scoreYield: 100
   deathSounds: []
   spawnPoint: {x: 2.2, y: -0.6202, z: 0}
   moneyDrop: 1
+  extraDamagePerCycle: 1
+  extraHealthPerCycle: 1

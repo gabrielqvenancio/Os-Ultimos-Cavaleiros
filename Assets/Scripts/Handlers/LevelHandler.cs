@@ -19,7 +19,7 @@ public class LevelHandler : MonoBehaviour
 
     private void Start()
     {
-        ChangeLevel();
+        OnChangeLevel(allLevels[0]);
         SpawnHandler.instance.OnChangeLevel(CurrentLevel);
         InvokeRepeating(nameof(RandomLayer), 5f, 5f);
     }
@@ -34,7 +34,7 @@ public class LevelHandler : MonoBehaviour
             }
             else
             {
-                if(!environmentObject.GetComponent<SpriteRenderer>())
+                if (!environmentObject.gameObject.activeSelf || !environmentObject.GetComponent<SpriteRenderer>())
                 {
                     return;
                 }
@@ -51,11 +51,18 @@ public class LevelHandler : MonoBehaviour
                     {
                         parallaxProportion = 1f / Mathf.Pow(CurrentLevel.amountOfLayers - sortingOrderPosition, 2f);
                     }
-                    environmentObject.Translate((- Greenie.instance.Velocity + PhysicsHandler.instance.GlobalVelocity) * (Character.baseVelocityFactor * parallaxProportion * Time.fixedDeltaTime * GameoverScript.instance.GameOverFactor));
+                    environmentObject.Translate((-Greenie.instance.Velocity + PhysicsHandler.instance.GlobalVelocity) * (Character.baseVelocityFactor * parallaxProportion * Time.fixedDeltaTime * (PhysicsHandler.instance.ContinueMovement ? 1 : 0)));
 
                     if (environmentObject.CompareTag("Ground"))
                     {
                         CheckMapLimit(environmentObject, CurrentLevel.groundLimitPoint, CurrentLevel.groundReturnPoint);
+                    }
+                    else if(environmentObject.CompareTag("Sign"))
+                    {
+                        if(environmentObject.transform.position.x <= 1.4f)
+                        {
+                            TransitionHandler.instance.SignReachedLimitPoint();
+                        }
                     }
                     else
                     {
@@ -96,14 +103,13 @@ public class LevelHandler : MonoBehaviour
         }
     }
 
-    private void ChangeLevel()
+    internal void OnChangeLevel(ScriptableLevel level)
     {
         for(int i = 0; i < EnvironmentObjectsParent.transform.childCount; i++)
         {
             Destroy(EnvironmentObjectsParent.transform.GetChild(i).gameObject);
         }
 
-        ScriptableLevel level = allLevels[Random.Range(0, allLevels.Length)];
         Instantiate(level.mapPrefab, EnvironmentObjectsParent.transform);
         CurrentLevel = level;
 

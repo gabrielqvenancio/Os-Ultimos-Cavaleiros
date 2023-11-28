@@ -17,28 +17,25 @@ public class SpawnHandler : MonoBehaviour
     {
         instance = this;
 
-        levelStartTime = Time.time;
         enemiesQueue = new List<Queue<GameObject>>();
-        spawnPopulationModifier = 0;
     }
 
     private IEnumerator SpawnEnemy()
     {
         while (true)
         {
-            int spawnEnemyHelper = 100;
+            int spawnEnemyAux = 100;
             int drawnNumber = Random.Range(1, 101);
 
             foreach (GameObject enemy in LevelHandler.instance.CurrentLevel.enemiesToSpawn)
             {
-                if (ChooseEnemy(enemy, ref spawnEnemyHelper, drawnNumber))
+                if (ChooseEnemy(enemy, ref spawnEnemyAux, drawnNumber))
                 {
                     break;
                 }
             }
 
             spawnPopulationModifier += 2;
-
             float modifiers = spawnPopulationModifier - ((Time.time - levelStartTime) / 10f);
 
             yield return new WaitForSeconds(Mathf.Clamp(spawnWaitTime + modifiers, spawnMinWaitTime, spawnMaxWaitTime));
@@ -82,6 +79,8 @@ public class SpawnHandler : MonoBehaviour
 
     internal void OnChangeLevel(ScriptableLevel levelToLoad)
     {
+        levelStartTime = Time.time;
+        spawnPopulationModifier = 0;
         enemiesQueue.Clear();
 
         for (int i = 0; i < levelToLoad.enemiesToSpawn.Length; i++)
@@ -90,5 +89,27 @@ public class SpawnHandler : MonoBehaviour
         }
 
         StartCoroutine(SpawnEnemy());
+    }
+
+    internal void StopEnemySpawning()
+    {
+        StopAllCoroutines();
+    }
+
+    internal void EliminateAllEnemies()
+    {
+        for(int i = 0; i < enemiesParent.transform.childCount; i++)
+        {
+            Enemy enemy = enemiesParent.transform.GetChild(i).GetComponent<Enemy>();
+            enemy.ForceElimination();
+        }
+    }
+
+    internal void DeleteAllEnemyGameObjects()
+    {
+        for (int i = 0; i < enemiesParent.transform.childCount; i++)
+        { 
+            Destroy(enemiesParent.transform.GetChild(i).gameObject);
+        }
     }
 }

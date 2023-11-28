@@ -9,6 +9,8 @@ public class PhysicsHandler : MonoBehaviour
 
     internal Vector3 GlobalVelocity { get; private set; }
     private List<Vector3> allGlobalVelocities, allGlobalRecoveries;
+    internal bool CameraIsMoving { get; set; }
+    internal bool ContinueMovement { get; set; }
 
     private void Awake()
     {
@@ -16,6 +18,8 @@ public class PhysicsHandler : MonoBehaviour
         GlobalVelocity = Vector3.zero;
         allGlobalVelocities = new List<Vector3>();
         allGlobalRecoveries = new List<Vector3>();
+        CameraIsMoving = false;
+        ContinueMovement = false;
     }
 
     private void FixedUpdate()
@@ -25,7 +29,16 @@ public class PhysicsHandler : MonoBehaviour
 
     private void CheckGlobalVelocity()
     {
-        GlobalVelocity = Greenie.instance.LocalHitVelocity;
+        if (!CameraIsMoving)
+        {
+            GlobalVelocity = Vector3.zero;
+            return;
+        }
+        else
+        {
+            GlobalVelocity = Greenie.instance.LocalHitVelocity;
+        }
+
         for (int i = 0; i < allGlobalVelocities.Count; i++)
         {
             int signalFactor = allGlobalVelocities[i].x > 0 ? 1 : -1;

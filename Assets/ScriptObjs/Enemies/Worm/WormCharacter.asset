@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: WormCharacter
   m_EditorClassIdentifier: 
   characterName: Worm
-  damage: 4
-  health: 20
+  damage: 6
+  health: 22
   armor: 0
   resistance: 0.5
   baseVelocity: {x: 2.4, y: 0, z: 0}

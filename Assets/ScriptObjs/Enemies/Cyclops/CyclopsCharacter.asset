@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: CyclopsCharacter
   m_EditorClassIdentifier: 
   characterName: Cyclops
-  damage: 3
-  health: 12
+  damage: 6
+  health: 20
   armor: 0
   resistance: 1
   baseVelocity: {x: 2.5, y: 0, z: 0}

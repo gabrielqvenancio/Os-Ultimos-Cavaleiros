@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: MummyCharacter
   m_EditorClassIdentifier: 
   characterName: Mummy
-  damage: 3
-  health: 10
+  damage: 5
+  health: 15
   armor: 0
   resistance: 2
   baseVelocity: {x: 0.6, y: 0, z: 0}

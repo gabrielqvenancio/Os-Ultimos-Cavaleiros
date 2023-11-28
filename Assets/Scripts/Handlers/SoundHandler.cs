@@ -91,4 +91,18 @@ public class SoundHandler : MonoBehaviour
     {
         SoundEffectsVolume = volume;
     }
+
+    internal void MusicFadeOut()
+    {
+        StartCoroutine(MusicFadeOutCoroutine());
+    }
+
+    private IEnumerator MusicFadeOutCoroutine()
+    {
+        while(musicSource.volume > 0)
+        {
+            musicSource.volume -= 0.001f;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
 }

@@ -10,6 +10,9 @@ TagManager:
   - Character
   - Other
   - Money
+  - Sign
+  - Enemy
+  - Next Map
   layers:
   - Default
   - TransparentFX
@@ -52,6 +55,9 @@ TagManager:
     locked: 0
   - name: Before Character
     uniqueID: 195073703
+    locked: 0
+  - name: Sign
+    uniqueID: 251065875
     locked: 0
   - name: Character
     uniqueID: 2456494479

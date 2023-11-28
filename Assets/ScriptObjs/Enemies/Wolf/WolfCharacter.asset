@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Wolf
   damage: 6
-  health: 8
+  health: 15
   armor: 0
   resistance: 0.9
   baseVelocity: {x: 3.5, y: 0, z: 0}

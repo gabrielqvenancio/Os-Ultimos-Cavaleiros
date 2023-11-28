@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IceGolemCharacter
   m_EditorClassIdentifier: 
   characterName: Ice Golem
-  damage: 2
+  damage: 4
   health: 25
   armor: 0
   resistance: 4

@@ -1278,7 +1278,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 000000008f216b92ddc0a974efa7af31a796a00b
+  m_ApplyToSortingLayers: 000000008f216b92ddc0a974efa7af31a796a00b13f6f60e
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -1711,6 +1711,14 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1460157449}
+    - target: {fileID: 1712688210150375045, guid: 5547408b9dc4eb9429b0a5097df7167b, type: 3}
+      propertyPath: initialPosition.x
+      value: -2.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712688210150375045, guid: 5547408b9dc4eb9429b0a5097df7167b, type: 3}
+      propertyPath: initialPosition.y
+      value: -0.66
+      objectReference: {fileID: 0}
     - target: {fileID: 3335349481490011237, guid: 5547408b9dc4eb9429b0a5097df7167b, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -1765,7 +1773,7 @@ PrefabInstance:
       objectReference: {fileID: 1460157449}
     - target: {fileID: 8878710983485488238, guid: 5547408b9dc4eb9429b0a5097df7167b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.25
+      value: -2.25
       objectReference: {fileID: 0}
     - target: {fileID: 8878710983485488238, guid: 5547408b9dc4eb9429b0a5097df7167b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1825,6 +1833,83 @@ Transform:
   - {fileID: 10636977}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1170541545
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1170541547}
+  - component: {fileID: 1170541546}
+  m_Layer: 0
+  m_Name: Next Map
+  m_TagString: Next Map
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!61 &1170541546
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1170541545}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 2.6, y: -0.58}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 1}
+  m_EdgeRadius: 0
+--- !u!4 &1170541547
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1170541545}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1212826848
 GameObject:
@@ -2523,9 +2608,9 @@ GameObject:
   - component: {fileID: 1599509945}
   - component: {fileID: 1599509944}
   - component: {fileID: 1599509943}
-  - component: {fileID: 1599509942}
   - component: {fileID: 1599509946}
   - component: {fileID: 1599509947}
+  - component: {fileID: 1599509948}
   m_Layer: 0
   m_Name: Handlers
   m_TagString: Untagged
@@ -2566,22 +2651,6 @@ MonoBehaviour:
   scoreIncreaseTimeGap: 0.2
   skillSlidersParent: {fileID: 160193208}
   pauseButton: {fileID: 436896332}
---- !u!114 &1599509942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1599509936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49f148a0c592a55459c5715d8bc39a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dayDuration: 0
-  sunLight: {fileID: 0}
-  timeOfDayObjects:
-  - {fileID: 0}
 --- !u!114 &1599509943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2624,10 +2693,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allLevels:
   - {fileID: 11400000, guid: 5548350034bd8844da89dda91f1b2972, type: 2}
-  - {fileID: 11400000, guid: eca11d36dab2e584a8e2fcd809ecf5dc, type: 2}
-  - {fileID: 11400000, guid: 3803c184c7f0d36478a2db8297b7809f, type: 2}
-  - {fileID: 11400000, guid: 2a9f03c4d087157459042d651f483c19, type: 2}
   - {fileID: 11400000, guid: d254289bc71ef514283339e29d71521b, type: 2}
+  - {fileID: 11400000, guid: 2a9f03c4d087157459042d651f483c19, type: 2}
+  - {fileID: 11400000, guid: 3803c184c7f0d36478a2db8297b7809f, type: 2}
+  - {fileID: 11400000, guid: eca11d36dab2e584a8e2fcd809ecf5dc, type: 2}
   environmentObjectsParent: {fileID: 2028075076}
 --- !u!114 &1599509946
 MonoBehaviour:
@@ -2655,6 +2724,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45332425b751ea34ca6103baaa11b054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1599509948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1599509936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed5fd5dd5c07bb24d8ad4caa928a2450, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseScoreLimit: 3000
 --- !u!1 &1703034674
 GameObject:
   m_ObjectHideFlags: 0

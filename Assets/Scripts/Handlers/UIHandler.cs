@@ -28,8 +28,8 @@ public class UIHandler : MonoBehaviour
 
     private void Start()
     {
-        InvokeRepeating(nameof(PassiveScoreIncrease), scoreIncreaseTimeGap, scoreIncreaseTimeGap);
-        if(HighScore == 0)
+        InitializePassiveScore();
+        if (HighScore == 0)
         {
             Color color = highScoreText.color;
             color.a = 0;
@@ -39,6 +39,11 @@ public class UIHandler : MonoBehaviour
         {
             UpdateScoreText(highScoreText, HighScore);
         }
+    }
+
+    internal void InitializePassiveScore()
+    {
+        InvokeRepeating(nameof(PassiveScoreIncrease), scoreIncreaseTimeGap, scoreIncreaseTimeGap);
     }
 
     public void PauseButton()

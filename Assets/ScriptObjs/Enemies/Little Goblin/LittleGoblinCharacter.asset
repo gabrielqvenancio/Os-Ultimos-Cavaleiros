@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: LittleGoblinCharacter
   m_EditorClassIdentifier: 
   characterName: Little Goblin
-  damage: 8
-  health: 6
+  damage: 7
+  health: 8
   armor: 0
   resistance: 0.8
   baseVelocity: {x: 3, y: 0, z: 0}

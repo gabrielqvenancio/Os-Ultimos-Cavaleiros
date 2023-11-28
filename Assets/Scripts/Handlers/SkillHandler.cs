@@ -47,4 +47,12 @@ public class SkillHandler : MonoBehaviour
             }
         }
     }
+
+    internal void ResetSkillsCooldown()
+    {
+        for(int i = 0; i < numberOfActiveSkills; i++)
+        {
+            activeSkills[i].Reset();
+        }
+    }
 }

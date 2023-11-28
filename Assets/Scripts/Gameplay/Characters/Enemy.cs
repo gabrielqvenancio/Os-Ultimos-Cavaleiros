@@ -33,35 +33,44 @@ public class Enemy : Character
         LocalHitVelocity = Vector3.zero;
         float velocityOffset = attributes.baseVelocity.x * 0.66f;
         Velocity = - (attributes.baseVelocity + Greenie.instance.Attributes.baseVelocity + new Vector3(Random.Range(-velocityOffset, velocityOffset), 0, 0));
-        CurrentHealth = attributes.health;
+        CurrentHealth = attributes.health + TransitionHandler.instance.CurrentGameCycle * enemyAttributes.extraHealthPerCycle;
         Animator.enabled = true;
         healthBar.ApplyHealthRange(0, attributes.health);
         BoxCollider.enabled = true;
     }
     protected override void Move()
     {
-        transform.Translate((Velocity + LocalHitVelocity + PhysicsHandler.instance.GlobalVelocity) * (baseVelocityFactor * Time.fixedDeltaTime * GameoverScript.instance.GameOverFactor));
+        transform.Translate((Velocity + LocalHitVelocity + PhysicsHandler.instance.GlobalVelocity) * (baseVelocityFactor * Time.fixedDeltaTime * (PhysicsHandler.instance.ContinueMovement ? 1 : 0)));
         if(transform.position.x <= -5f)
         {
             SpawnHandler.instance.EnqueueEnemy(gameObject);
         }
     }
 
-    protected override void OnElimination()
+    private void HandleEnemyComponentsOnElimination()
     {
-        Inventory.instance.Money += enemyAttributes.moneyDrop;
-        Money.instance.MoneyToApply += enemyAttributes.moneyDrop;
-
         Animator.SetTrigger("die");
-        UIHandler.instance.EliminationScoreIncrease(enemyAttributes.scoreYield);
-        Velocity = - Greenie.instance.Attributes.baseVelocity;
+        Velocity = -Greenie.instance.Attributes.baseVelocity;
         LocalHitVelocity = Vector3.zero;
         BoxCollider.enabled = false;
-        if(enemyAttributes.deathSounds.Length > 0)
+        if (enemyAttributes.deathSounds.Length > 0)
         {
             SoundHandler.instance.PlaySoundEffect(GetComponent<AudioSource>(), enemyAttributes.deathSounds[Random.Range(0, enemyAttributes.deathSounds.Length)]);
             GetComponent<AudioSource>().Play();
         }
+    }
+
+    protected override void OnElimination()
+    {
+        Money.instance.MoneyToApply += enemyAttributes.moneyDrop;
+        UIHandler.instance.EliminationScoreIncrease(enemyAttributes.scoreYield);
+        HandleEnemyComponentsOnElimination();
+    }
+
+    internal void ForceElimination()
+    {
+        CurrentHealth = 0;
+        HandleEnemyComponentsOnElimination();
     }
 
     internal override void OnPush()

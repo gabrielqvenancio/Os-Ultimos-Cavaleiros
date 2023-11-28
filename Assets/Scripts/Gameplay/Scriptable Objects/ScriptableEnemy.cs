@@ -9,4 +9,5 @@ public class ScriptableEnemy : ScriptableObject
     public AudioClip[] deathSounds;
     public Vector3 spawnPoint;
     public int moneyDrop;
+    public int extraDamagePerCycle, extraHealthPerCycle;
 }

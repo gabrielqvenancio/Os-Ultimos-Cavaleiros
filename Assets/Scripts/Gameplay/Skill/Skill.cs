@@ -113,4 +113,16 @@ public class Skill
         State = SkillState.active;
         Timer = Duration;
     }
+
+    internal void Reset()
+    {
+        if(State == SkillState.active)
+        {
+            endEffect();
+        }
+
+        State = SkillState.ready;
+        Timer = 0;
+        UIHandler.instance.ReduceSkillCooldownUI(ButtonId + 1, 0);
+    }
 }

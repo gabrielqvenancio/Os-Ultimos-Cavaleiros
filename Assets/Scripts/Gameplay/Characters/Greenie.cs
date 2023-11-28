@@ -10,6 +10,7 @@ public class Greenie : Character
     internal static Greenie instance;
 
     [SerializeField] private AudioClip[] hurtSounds;
+    [SerializeField] internal Vector3 initialPosition;
 
     private float reducedDamagePercentage;
     internal float ReducedDamagePercentage
@@ -52,27 +53,34 @@ public class Greenie : Character
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Enemy enemyHit = collision.gameObject.GetComponent<Enemy>();
-
-        TakeDamage((int)((100f - reducedDamagePercentage) / 100f) * enemyHit.Attributes.damage);
-        if(CurrentHealth <= 0)
+        if(collision.CompareTag("Enemy"))
         {
-            return;
-        }
-        enemyHit.TakeDamage(Attributes.damage + AdditionalDamage);
-
-        if(enemyHit.CurrentHealth > 0)
-        {
-            PhysicsHandler.instance.PushCharacter(Attributes.pushForce + AdditionalForce, enemyHit);
-            if(Pushable == 0)
+            Enemy enemyHit = collision.gameObject.GetComponent<Enemy>();
+            Debug.Log(enemyHit.Attributes.damage + TransitionHandler.instance.CurrentGameCycle * enemyHit.EnemyAttributes.extraDamagePerCycle);
+            TakeDamage((int)((100f - reducedDamagePercentage) / 100f) * (enemyHit.Attributes.damage + TransitionHandler.instance.CurrentGameCycle * enemyHit.EnemyAttributes.extraDamagePerCycle));
+            if (CurrentHealth <= 0)
             {
-                SoundHandler.instance.PlaySoundEffect(GetComponent<AudioSource>(), hurtSounds[UnityEngine.Random.Range(0, hurtSounds.Length)]);
-                PhysicsHandler.instance.PushCharacter(enemyHit.Attributes.pushForce, this);
+                return;
             }
-        }
+            enemyHit.TakeDamage(Attributes.damage + AdditionalDamage);
 
-        OnGreenieHit();
-        SoundHandler.instance.PlayHitSound();
+            if (enemyHit.CurrentHealth > 0)
+            {
+                PhysicsHandler.instance.PushCharacter(Attributes.pushForce + AdditionalForce, enemyHit);
+                if (Pushable == 0)
+                {
+                    SoundHandler.instance.PlaySoundEffect(GetComponent<AudioSource>(), hurtSounds[UnityEngine.Random.Range(0, hurtSounds.Length)]);
+                    PhysicsHandler.instance.PushCharacter(enemyHit.Attributes.pushForce, this);
+                }
+            }
+
+            OnGreenieHit();
+            SoundHandler.instance.PlayHitSound();
+        }
+        else if(collision.CompareTag("Next Map"))
+        {
+            TransitionHandler.instance.ChangeLevel();
+        }
     }
 
     protected override void Move()

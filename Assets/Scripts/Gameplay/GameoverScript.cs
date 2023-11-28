@@ -9,18 +9,18 @@ public class GameoverScript : MonoBehaviour
     [SerializeField] private GameObject gameoverObject;
     [SerializeField] private GameObject enemiesParent;
     internal bool WaitingForInput { get; set; }
-    internal float GameOverFactor { get; set; }
-    
 
     private void Start()
     {
         instance = this;
         WaitingForInput = false;
-        GameOverFactor = 1f;
     }
 
     internal IEnumerator GameOver()
     {
+        Inventory.instance.Money = Money.instance.TotalMoney;
+        IOHandler.SaveMoney();
+        UIHandler.instance.CancelInvoke();
         SoundHandler.instance.StopMusic();
 
         for(int i = 0; i < enemiesParent.transform.childCount; i++)
@@ -35,7 +35,7 @@ public class GameoverScript : MonoBehaviour
         gameoverObject.SetActive(true);
         Greenie.instance.GetComponent<SpriteRenderer>().enabled = false;
         Greenie.instance.BoxCollider.enabled = false;
-        GameOverFactor = 0f;
+        PhysicsHandler.instance.ContinueMovement = false;
 
         gameoverObject.transform.Find("You Lost").gameObject.SetActive(true);
         gameoverObject.transform.Find("Slash").gameObject.SetActive(true);

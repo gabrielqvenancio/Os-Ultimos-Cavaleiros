@@ -24,3 +24,4 @@ MonoBehaviour:
   groundLimitPoint: 17.92
   othersReturnPoint: 5.999
   othersLimitPoint: 12
+  nextLevel: {fileID: 11400000, guid: d254289bc71ef514283339e29d71521b, type: 2}
