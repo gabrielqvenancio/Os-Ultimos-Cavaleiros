@@ -240,8 +240,7 @@ public class InputHandler : MonoBehaviour
             }
             case GameState.init:
             {
-                Destroy(GameObject.Find("Pre Menu"));
-                SceneHandler.instance.ChangeSceneFade(Scenes.menu, GameState.menu, false, 1.5f);
+                PreMenu.instance.SkipScreen();
                 break;
             }
         }

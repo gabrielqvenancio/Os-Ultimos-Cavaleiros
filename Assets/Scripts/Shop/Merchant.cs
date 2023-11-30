@@ -9,16 +9,20 @@ public class Merchant : MonoBehaviour
     [SerializeField] private SkillType[] merchantSkillsId;
     [SerializeField] private Canvas shopMenuCanvas;
     [SerializeField] private GameObject onRangeFeedback;
+    [SerializeField] private int numberOfDialogues;
     internal bool MenuToggled { get; private set; }
     internal bool OnRange{ get; private set; }
     private int activeSkillIndex;
 
-    private void Start()
+    private void Awake()
     {
         activeSkillIndex = 0;
         MenuToggled = false;
         OnRange = false;
+    }
 
+    private void Start()
+    {
         ChangeShopMenuSkill();
     }
     
@@ -36,6 +40,9 @@ public class Merchant : MonoBehaviour
     public void ToggleShopMenu(bool active)
     {
         onRangeFeedback.SetActive(!active && OnRange);
+
+        int dialogueTrigger = active ? 0 : Random.Range(1, numberOfDialogues + 1);
+        transform.Find("Dialogue").GetComponent<Animator>().SetTrigger("" + dialogueTrigger);
 
         MenuToggled = active;
         for (int i = 0; i < shopMenuCanvas.transform.childCount; i++)

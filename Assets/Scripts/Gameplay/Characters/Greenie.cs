@@ -56,7 +56,6 @@ public class Greenie : Character
         if(collision.CompareTag("Enemy"))
         {
             Enemy enemyHit = collision.gameObject.GetComponent<Enemy>();
-            Debug.Log(enemyHit.Attributes.damage + TransitionHandler.instance.CurrentGameCycle * enemyHit.EnemyAttributes.extraDamagePerCycle);
             TakeDamage((int)((100f - reducedDamagePercentage) / 100f) * (enemyHit.Attributes.damage + TransitionHandler.instance.CurrentGameCycle * enemyHit.EnemyAttributes.extraDamagePerCycle));
             if (CurrentHealth <= 0)
             {

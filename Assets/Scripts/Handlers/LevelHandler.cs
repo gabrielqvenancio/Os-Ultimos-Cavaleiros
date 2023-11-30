@@ -34,39 +34,37 @@ public class LevelHandler : MonoBehaviour
             }
             else
             {
-                if (!environmentObject.gameObject.activeSelf || !environmentObject.GetComponent<SpriteRenderer>())
+                if (environmentObject.gameObject.activeSelf && environmentObject.GetComponent<SpriteRenderer>())
                 {
-                    return;
-                }
-
-                int sortingOrderPosition = environmentObject.GetComponent<SpriteRenderer>().sortingOrder;
-                if (sortingOrderPosition >= 0)
-                {
-                    float parallaxProportion;
-                    if (sortingOrderPosition >= CurrentLevel.amountOfLayers)
+                    int sortingOrderPosition = environmentObject.GetComponent<SpriteRenderer>().sortingOrder;
+                    if (sortingOrderPosition >= 0)
                     {
-                        parallaxProportion = 1f / Mathf.Pow((float)CurrentLevel.amountOfLayers / (sortingOrderPosition + 2), 2f);
-                    }
-                    else
-                    {
-                        parallaxProportion = 1f / Mathf.Pow(CurrentLevel.amountOfLayers - sortingOrderPosition, 2f);
-                    }
-                    environmentObject.Translate((-Greenie.instance.Velocity + PhysicsHandler.instance.GlobalVelocity) * (Character.baseVelocityFactor * parallaxProportion * Time.fixedDeltaTime * (PhysicsHandler.instance.ContinueMovement ? 1 : 0)));
-
-                    if (environmentObject.CompareTag("Ground"))
-                    {
-                        CheckMapLimit(environmentObject, CurrentLevel.groundLimitPoint, CurrentLevel.groundReturnPoint);
-                    }
-                    else if(environmentObject.CompareTag("Sign"))
-                    {
-                        if(environmentObject.transform.position.x <= 1.4f)
+                        float parallaxProportion;
+                        if (sortingOrderPosition >= CurrentLevel.amountOfLayers)
                         {
-                            TransitionHandler.instance.SignReachedLimitPoint();
+                            parallaxProportion = 1f / Mathf.Pow((float)CurrentLevel.amountOfLayers / (sortingOrderPosition + 2), 2f);
                         }
-                    }
-                    else
-                    {
-                        CheckMapLimit(environmentObject, CurrentLevel.othersLimitPoint, CurrentLevel.othersReturnPoint);
+                        else
+                        {
+                            parallaxProportion = 1f / Mathf.Pow(CurrentLevel.amountOfLayers - sortingOrderPosition, 2f);
+                        }
+                        environmentObject.Translate((-Greenie.instance.Velocity + PhysicsHandler.instance.GlobalVelocity) * (Character.baseVelocityFactor * parallaxProportion * Time.fixedDeltaTime * (PhysicsHandler.instance.ContinueMovement ? 1 : 0)));
+
+                        if (environmentObject.CompareTag("Ground"))
+                        {
+                            CheckMapLimit(environmentObject, CurrentLevel.groundLimitPoint, CurrentLevel.groundReturnPoint);
+                        }
+                        else if (environmentObject.CompareTag("Sign"))
+                        {
+                            if (environmentObject.transform.position.x <= 1.4f)
+                            {
+                                TransitionHandler.instance.SignReachedLimitPoint();
+                            }
+                        }
+                        else
+                        {
+                            CheckMapLimit(environmentObject, CurrentLevel.othersLimitPoint, CurrentLevel.othersReturnPoint);
+                        }
                     }
                 }
             }

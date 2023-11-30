@@ -20,8 +20,8 @@ MonoBehaviour:
   music: {fileID: 8300000, guid: 96de23ef43379ac49950d734abde5eaa, type: 3}
   mapPrefab: {fileID: 5742407308644400446, guid: b2c0a7f08bf77b746936e601debc1150, type: 3}
   randomLayers: []
-  groundReturnPoint: 3.8399
+  groundReturnPoint: 3.84
   groundLimitPoint: 7.68
-  othersReturnPoint: 3.8399
+  othersReturnPoint: 3.84
   othersLimitPoint: 7.68
   nextLevel: {fileID: 11400000, guid: 2a9f03c4d087157459042d651f483c19, type: 2}
